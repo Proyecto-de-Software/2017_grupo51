@@ -1,0 +1,65 @@
+@media (max-width: 725px){
+    header{
+        width: 100%;
+    }
+    section{
+        margin: auto;
+        position: static;
+    }
+    .contenido{
+        display: block;
+        margin: auto;
+        width: 100%;
+    }
+    .centro, .derecha, .izquierda{
+        margin: 15%;
+    }
+    ul li input[type=text]{
+        width: 150px;
+        padding: 2px;
+    }
+    ul li input[type=submit], a{
+        padding: 4px 4px;
+    }
+}
+@media (max-width: 425px){
+    section p{
+        width: 100%
+    }
+}
+@media (min-width:725px){
+    footer{
+        bottom: 0;
+    }
+    .derecha{
+        float: right;
+    }
+    .izquierda{
+        float: left;
+    }
+    .centro{
+        display: inline-block;
+    }
+}
+@media (max-width: 375px){
+    h1{
+        font-size: 1.7em;
+    }
+    footer{
+        padding: 1px;
+    }
+    footer p{
+        font-size: 12px;
+    }
+}
+@media (max-width: 320px){
+    footer{
+        padding: 1px;
+    }
+    footer p{
+        font-size: 10px;
+    }
+    h1{
+        font-size: 1.55em;
+    }
+}

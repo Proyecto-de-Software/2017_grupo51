@@ -1,21 +1,32 @@
+.prueba{
+    width: 100%;
+    border: 1px black solid;
+    height: 500px;
+}
+body{
+    margin:0;
+    background-color: whitesmoke;
+}
 header{
     padding: 5px;
-    width: 1100px;
-    background-color: #f02221;
     margin: auto;
     text-align: center;
 }
-.headerConsultorio{
-    width: 100%;
-    height: 150px;
-    
+h3{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-style: italic;
 }
-p{
-    position: absolute;
+h1{
+    font-family: 'din', sans-serif;
+}
+h1, h3{
+    color: white;
+}
+header, nav, footer{
+    width:100%;
 }
 nav{
-    width: 1100px;
-    
     margin: auto;
     display: block;
 }
@@ -38,8 +49,8 @@ ul li input[type=submit], ul li input[type=text], a{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
 }
-a:hover, a:active, ul li input[type=submit]:hover, ul li input[type=submit]:active {
-    background-color: red;
+a:hover, a:active, ul li input[type=submit]:hover, ul li input[type=submit]:active, header, footer {
+    background-color: #f92727;
 }
 ul li input[type=submit]{
     background-color:  #ff9764;
@@ -50,4 +61,33 @@ ul li input[type=text]{
 }
 ul li input[type=submit], a{
     padding: 10px 10px;
+}
+footer{
+    height: 6%;
+    position: absolute;
+    display: block;
+}
+.contenido{
+    width: 1100px;
+    padding: 1px;
+
+    margin: auto;
+    display: block;
+    overflow: auto;
+}
+section{
+    width: 365.5px;
+    text-align: center;
+    display: inline;
+}
+
+section p{
+    width: 340px;
+    text-align: justify;
+}
+footer p{
+    text-align: center;
+}
+section a{
+    float: left;
 }
