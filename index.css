@@ -40,8 +40,8 @@ li{
 a{
     text-decoration: none;
     cursor: default;
-    background-color:  #ff9764;
     color: black;
+    background-color:  #92DEDF;
 }
 a:visited{
     color: black;
@@ -51,10 +51,10 @@ ul li input[type=submit], ul li input[type=text], a{
     font-size: 15px;
 }
 a:hover, a:active, ul li input[type=submit]:hover, ul li input[type=submit]:active, header, footer {
-    background-color: #f92727;
+    background-color: #47B8B9;
 }
 ul li input[type=submit]{
-    background-color:  #ff9764;
+    background-color:  #92DEDF;
     border: none;
 }
 ul li input[type=text]{

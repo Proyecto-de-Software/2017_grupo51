@@ -2,28 +2,38 @@
 <html>
 	<head>
 		<title>Iniciar Sesión.</title>
+		<link rel="stylesheet" type="text/css" href="./IniciarSesion.css" >
+		<link rel="stylesheet" type="text/css" href="./index.css" >
+		<link rel="stylesheet" type="text/css" href="./responsiveIndex.css" >
+            <meta charset="UTF-8">
 	</head>
 	<body>
 		<header>
-			
-
+			<h3>Hospital Dr. Ricardo Gutierrez</h3>
+            <h1>Consultorio del Niño Sano</h1>
 		</header>
-
-			<h3 class="headtype">Email<h3>
-			<form method= "POST">
-				<label>
-					<h1 class="headtype">Iniciar sesión<h1>
-				</label>
-				<label>
-					<h3 class="headtype">Email<h3><pr>
-				</label>
-				<input type="text" name="nombre" placeholder="Email@gmail.com"> 
-				<label>
-					<h3 class="headtype">Contraseña<h3><pr>
-				</label>
-				<input type="text" name="contraseña" placeholder="password">
-				<input type="submit" value="Ingresar">
-			</form>
+		    <nav>
+                <ul>
+                    <li>
+                        <form method="POST">
+                            <input type="text" placeholder="Buscar...">
+                            <input type="submit" value="Buscar">
+                        </form>
+                    </li>
+                    <li><a href="#">Login</a></li>                </ul><hr>
+            </nav>
+            <div class=claseDiv >
+				<form method= "POST">
+					<h5 class="headtype">Inicio sesión</h5>
+						<label><h4 class="headtype">Usuario</h4></label>
+						<input type="text" class=inputInicio name="nombre" placeholder="Usuario">
+						<label><h4 class="headtype">Contraseña</h4></label>
+						<input type="text" class=inputInicio name="contraseña" placeholder="password"><br>
+					<input type="submit" class=sumbitInicio value="Ingresar">
+				</form>
+			</div>
+		<footer>
+            <p>Proyecto de Software 2017 - Hospital Gutierrez</p>
+        </footer>
 	</body>
 </html>
-width="130" height="100"
