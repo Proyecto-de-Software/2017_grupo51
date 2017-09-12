@@ -1,7 +1,7 @@
 .prueba{
     width: 100%;
-    border: 1px black solid;
     height: 500px;
+    border: 1px black solid;
 }
 body{
     margin:0;
@@ -41,6 +41,7 @@ a{
     text-decoration: none;
     cursor: default;
     background-color:  #ff9764;
+    color: black;
 }
 a:visited{
     color: black;
