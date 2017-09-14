@@ -7,14 +7,6 @@ header{
 footer p{
     text-align: center;
 }
-h3{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1em;
-    font-style: italic;
-}
-h1{
-    font-family: 'din', sans-serif;
-}
 h4{
 	font-family: Arial;
 	font-size: 1em;
@@ -22,9 +14,6 @@ h4{
 h5{
 	font-family: Arial;
 	font-size: 2em;
-}
-h1, h3{
-	color: #C0EAE8;
 }
 h4,h5{
     color: #1F7673;
@@ -45,7 +34,7 @@ input[type=submit].sumbitInicio:hover {
 .inputInicio{
 	width: 70%;
 	padding: 10px 20px;
-	margin: 0px 10;
+	margin: 2px 10px;
 	border-radius: 5px;
 	border: 2px solid #47B8B9;
 	background-color: #C0EAE8;	
