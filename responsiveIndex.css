@@ -2,18 +2,6 @@
     header{
         width: 100%;
     }
-    section{
-        margin: auto;
-        position: static;
-    }
-    .contenido{
-        display: block;
-        margin: auto;
-        width: 98%;
-    }
-    .centro, .derecha, .izquierda{
-        margin: 15%;
-    }
     ul li input[type=text]{
         width: 150px;
         padding: 2px;
@@ -22,24 +10,12 @@
         padding: 4px 4px;
     }
 }
-@media screen and (max-width: 768px){
-    section p{
-        width: 100%;
-    }
-}
+
 @media screen and (min-width:769px){
     footer{
         bottom:0;
     }
-    .derecha{
-        float: right;
-    }
-    .izquierda{
-        float: left;
-    }
-    .centro{
-        display: inline-block;
-    }
+    
 }
 @media screen and (max-width: 375px){
     h1{
