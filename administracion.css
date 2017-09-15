@@ -1,3 +1,16 @@
+
+nav ul li ul{
+    display: none;
+}
+nav ul li:hover > ul {
+    display: block;
+}
+
+.pegado{
+    padding: 0px;
+}
+
+
 body{
     margin:0;
     background-color: whitesmoke;
@@ -20,17 +33,6 @@ h1, h3{
 }
 header, nav, footer{
     width:100%;
-}
-nav{
-    margin: auto;
-    display: block;
-}
-.ul-derecha{
-    text-align: right;
-}
-li{
-    display: inline-block;
-    margin: 0px;
 }
 a{
     text-decoration: none;
@@ -61,13 +63,39 @@ ul li input[type=submit], a{
 footer{
     height: 6%;
     position: absolute;
+    bottom:0;
     display: block;
 }
 
 footer p{
     text-align: center;
 }
-ul li a{
+
+
+nav{
+    width:100%;
+    position: relative;
+    display:block;
+}
+
+.ul-inline{
+    display: inline-block;
+}
+.ul-izquierda{
+    width:15%;
+}
+.ul-derecha{
+    float: right;
+    width:30%;
+}
+ul{
+    
+    list-style: none;
+}
+nav>ul>li{
+    display: inline-table;
+}
+a{
     display: block;
 }
 nav{

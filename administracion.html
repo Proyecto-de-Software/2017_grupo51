@@ -2,11 +2,10 @@
 <html>
 	<head>
             <title>Pagina de inicio</title>
-            <link rel="stylesheet" type="text/css" href="./index.css" >
-            <link rel="stylesheet" type="text/css" href="./responsiveIndex.css" >
+            <link rel="stylesheet" type="text/css" href="./administracion.css" >
+            <link rel="stylesheet" type="text/css" href="./administracion.css" >
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" type="text/css" href="./cssContenidoIndex.css" >
 	</head>
 	<body>
             <header>
@@ -14,11 +13,20 @@
                 <h1>Consultorio del Niño Sano</h1>
             </header>
             <nav>
-                <ul>
-					<div class="izquierda">
-					<li ><a href="./IniciarSesion.html">Inicio</a></li>
-					<li ><a href="">Administración</a></li>
-					</div>
+                <ul class="ul-izquierda ul-inline">
+                    <li><a href="./index.html">Inicio</a></li>
+                    <li>
+                        <a href="#">Administración</a>
+                        <ul class="pegado">
+                            <li><a href="#">Usuarios</a></li>
+                            <li><a href="#">Roles</a></li>
+                            <li><a href="#">Permisos</a></li>
+                            <li><hr></li>
+                            <li><a href="#">Configuración</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="ul-derecha ul-inline">
                     <li>
                         <form method="POST">
                             <input type="text" placeholder="Buscar...">
@@ -26,9 +34,9 @@
                         </form>
                     </li>
                     <li>Lucio Ringuelet</li>
-                </ul><hr>
+                </ul>
             </nav>
-            
+            <div class="contenido"></div>
             <footer>
                 <p>Proyecto de Software 2017 - Hospital Gutierrez</p>
             </footer>
