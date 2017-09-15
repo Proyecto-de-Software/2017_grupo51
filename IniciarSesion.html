@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Iniciar Sesión.</title>
+		<title>Iniciar Sesión</title>
 		<link rel="stylesheet" type="text/css" href="./IniciarSesion.css" >
 		<link rel="stylesheet" type="text/css" href="./index.css" >
+                <link rel="stylesheet" type="text/css" href="./cssComun.css" >
 		<link rel="stylesheet" type="text/css" href="./responsiveIndex.css" >
+		<link rel="stylesheet" type="text/css" href="./ResponsiveIS.css" >
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta charset="UTF-8">
 	</head>
 	<body>
@@ -26,10 +29,10 @@
             <div class=claseDiv >
 				<form method= "POST" action="./administracion.html">
 					<h5 class="headtype">Inicio sesión</h5>
-						<label><h4 class="headtype">Usuario</h4></label>
-						<input type="text" class=inputInicio name="nombre" placeholder="Usuario">
-						<label><h4 class="headtype">Contraseña</h4></label>
-						<input type="text" class=inputInicio name="contraseña" placeholder="password"><br>
+						<h4><label>Usuario</label></h4>
+						<input type="text" class=inputInicio name="nombre" placeholder="Usuario" required>
+						<h4><label>Contraseña</label></h4>
+						<input type="password" class=inputInicio name="contraseña" placeholder="password" required><br>
 					<input type="submit" class=sumbitInicio value="Ingresar">
 				</form>
 			</div>

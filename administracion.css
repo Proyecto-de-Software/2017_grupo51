@@ -1,77 +1,12 @@
-
 nav ul li ul{
     display: none;
 }
 nav ul li:hover > ul {
     display: block;
 }
-
 .pegado{
     padding: 0px;
 }
-
-
-body{
-    margin:0;
-    background-color: whitesmoke;
-}
-header{
-    padding: 5px;
-    margin: auto;
-    text-align: center;
-}
-h3{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1em;
-    font-style: italic;
-}
-h1{
-    font-family: 'din', sans-serif;
-}
-h1, h3{
-    color: white;
-}
-header, nav, footer{
-    width:100%;
-}
-a{
-    text-decoration: none;
-    cursor: default;
-    color: black;
-    background-color:  #92DEDF;
-}
-a:visited{
-    color: black;
-}
-ul li input[type=submit], ul li input[type=text], a{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-}
-a:hover, a:active, ul li input[type=submit]:hover, ul li input[type=submit]:active, header, footer {
-    background-color: #47B8B9;
-}
-ul li input[type=submit]{
-    background-color:  #92DEDF;
-    border: none;
-}
-ul li input[type=text]{
-    padding: 8px;
-}
-ul li input[type=submit], a{
-    padding: 10px 10px;
-}
-footer{
-    height: 6%;
-    position: absolute;
-    bottom:0;
-    display: block;
-}
-
-footer p{
-    text-align: center;
-}
-
-
 nav{
     width:100%;
     position: relative;
@@ -100,4 +35,7 @@ a{
 }
 nav{
     border-bottom: 2px #92DEDF solid;
+}
+footer{
+    bottom:0;
 }
