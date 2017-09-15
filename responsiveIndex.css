@@ -10,33 +10,3 @@
         padding: 4px 4px;
     }
 }
-
-@media screen and (min-width:769px){
-    footer{
-        bottom:0;
-    }
-    
-}
-@media screen and (max-width: 375px){
-    h1{
-        font-size: 1.7em;
-    }
-    footer{
-        padding: 1px;
-    }
-    footer p{
-        font-size: 12px;
-    }
-}
-@media screen and (max-width: 320px){
-    footer{
-        padding: 1px;
-    }
-    footer p{
-        font-size: 10px;
-    }
-    h1{
-        font-size: 1.55em;
-    }
-}
-
