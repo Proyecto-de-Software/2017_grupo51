@@ -1,64 +1,84 @@
 <!DOCTYPE html>
 <html>
-	<head>
-            <title>Pagina de inicio</title>
-            <link rel="stylesheet" type="text/css" href="./index.css" >
-            <link rel="stylesheet" type="text/css" href="./cssComun.css" >
-            <link rel="stylesheet" type="text/css" href="./responsiveIndex.css" >
-            <link rel="stylesheet" type="text/css" href="./responsiveComun.css" >
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" type="text/css" href="./cssContenidoIndex.css" >
-	</head>
-	<body>
-            <header>
-                <h3>Hospital Dr. Ricardo Gutierrez</h3>
-                <h1>Consultorio del Niño Sano</h1>
-            </header>
-            <nav>
-                <ul>
-                    <li>
-                        <form method="POST">
-                            <input type="text" placeholder="Buscar...">
-                            <input type="submit" value="Buscar">
-                        </form>
-                    </li>
-                    <li><a href="./IniciarSesion.html">Login</a></li>
-                </ul>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" >
+        <link rel="stylesheet" type="text/css" href="./css/estilos.css" >
+        <link rel="stylesheet" type="text/css" href="./css/contenidoInicio.css" >
+	<script src="./js/jquery.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<title>Prueba bootstrap</title>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar back-color">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand">Hospital Dr. Ricardo Gutierrez</a>
+                    </div>
+                    <div>
+                        <ul class="nav navbar-nav navbar-right navbar-header">
+                            <li><a href="./IniciarSesion.html" class="btn"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
+                        </ul>
+                    </div>
+                </div>
             </nav>
-            <div class="contenido">
-                <section class="izquierda">
-                    <h2>El hospital</h2>
-                    <p>Este centro de salud tiene un programa de residencias
-                    de primer nivel en el país. Se ofrecen oportunidades de práctica
-                    intensiva y supervisada en ámbitos profesionales y por la misma
-                    -por supuesto- se recibe un salario mensual, acorde a lo que la
-                    regulación médica profesional lo indica en cada momento.</p>
-                    <a href="#">Más info</a>
-                </section>
-                <section class="centro">
-                    <h2>Guardia</h2>
-                    <p>Hospital Dr. Ricardo Gutierrez de La Plata dispone de un
-                    sofisticado servicio de guardias médicas las 24 horas para la
-                    atención de distintas urgencias. La administración de la institución
-                    hace viable una eficiente separación de los pacientes según el nivel
-                    de seriedad y tipo de patología.</p>
-                    <a href="#">Más info</a>
-                </section>
-                <section class="derecha">
-                    <h2>Especialidades</h2>
-                    <p>Acorde a una respetable trayectoria en materia de medicina y
-                    salud, en Hospital Dr. Ricardo Gutierrez de La Plata podemos encontrar
-                    profesionales de las principales especialidades de salud.
-                    Del mismo modo, se brinda atencion programada y de urgencias, se realizan
-                    estudios médicos y se brinda soporte en muchas de las ramas comunes
-                    de la medicina moderna.</p>
-                    <a href="#">Más info</a>
-                </section>
+        </header>
+        <div class="container">
+            <section class="col-md-4">
+                <h2 class="text-center">El hospital</h2>
+                <img class="img-responsive" src="./Hospital images/image1.jpg" alt="hospital_gutierrez">
+                <!-- Imagen hospital -->
+                <blockquote>
+                <p class="text-info">Este centro de salud tiene un programa de residencias
+                de primer nivel en el país. Se ofrecen oportunidades de práctica
+                intensiva y supervisada en ámbitos profesionales y por la misma
+                -por supuesto- se recibe un salario mensual, acorde a lo que la
+                regulación médica profesional lo indica en cada momento.</p>
+                </blockquote>
+            </section>
+            <section class="col-md-4">
+                <h2 class="text-center">Guardia</h2>
+                <img class="img-responsive" src="./Hospital images/image2.jpg" alt="hospital_gutierrez">
+                <!-- Imagen guardia -->
+                <blockquote>
+                <p class="text-info">Hospital Dr. Ricardo Gutierrez de La Plata dispone de un
+                sofisticado servicio de guardias médicas las 24 horas para la
+                atención de distintas urgencias. La administración de la institución
+                hace viable una eficiente separación de los pacientes según el nivel
+                de seriedad y tipo de patología.</p>
+                </blockquote>
+            </section>
+            <section class="col-md-4">
+                <h2 class="text-center">Especialidades</h2>
+                <img class="img-responsive" src="./Hospital images/image3.jpg" alt="hospital_gutierrez">
+                <!-- Imagen especialidades -->
+                <blockquote>
+                <p class="text-info">Acorde a una respetable trayectoria en materia de medicina y
+                salud, en Hospital Dr. Ricardo Gutierrez de La Plata podemos encontrar
+                profesionales de las principales especialidades de salud.
+                Del mismo modo, se brinda atencion programada y de urgencias, se realizan
+                estudios médicos y se brinda soporte en muchas de las ramas comunes
+                de la medicina moderna.</p>
+                </blockquote>
+            </section>
+        </div>
+        <footer>
+            <div class="container">
+                <div class="row centro-vertical">
+                    <div class="col-md-6 col-sm-6 col-xs-12 text-center">
+                        <p>Proyecto de Software 2017<br>Consultorio del Niño Sano - Hospital Dr. Ricardo Gutierrez</p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 text-center">
+                        <h3 class="title">Información de contacto</h3>
+                        <p><i class="glyphicon glyphicon-map-marker"></i> 1900 La Plata, Provincia de Buenos Aires</p>
+                        <p><i class="glyphicon glyphicon-globe"></i> hospitalricardogutierrez.blogspot.com.ar</p>
+                        <p><i class="glyphicon glyphicon-earphone"></i> 0221 483-0171</p>
+                        <p><i class="glyphicon glyphicon-time"></i> Abierto las 24 hs</p>
+                    </div>
+                </div>
             </div>
-            
-            <footer>
-                <p>Proyecto de Software 2017 - Hospital Gutierrez</p>
-            </footer>
-	</body>
+        </footer>
+    </body>
 </html>
