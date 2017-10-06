@@ -3,11 +3,14 @@ ini_set('display_startup_errors',1);
 ini_set('display_errors',1);
 error_reporting(-1);
 
-require_once('controllers/iniciarSesion.php');
 require_once('controllers/IndexController.php');
+require_once('models/PDORepository.php');
+require_once('models/ConfigurationModule.php');
+require_once('models/Configuration.php');
 require_once('views/TwigView.php');
 require_once('views/Home.php');
 require_once('controllers/FormPaciente.php');
+require_once('controllers/IniciarSesion.php');
 
     
 if(!isset($_GET['action'])){
@@ -16,6 +19,6 @@ if(!isset($_GET['action'])){
     InicioSesion::getInstance()->inicio();
 }elseif ($_GET['action']=='iniciarSesion'){
 	IniciarSesion::getInstance()->iniciarS();
-}elseif ($_GET['action']=='formPaciente');{
+}elseif ($_GET['action']=='formPaciente'){
 	FormPaciente::getInstance()->forPac();
 }

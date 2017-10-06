@@ -1,4 +1,7 @@
 {% extends "layout.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="templates/css/sitioInhabilitado.css" >
+{% endblock %}
 {% block navlist %}
     <div>
         <ul class="nav navbar-nav navbar-right navbar-header">
@@ -7,6 +10,15 @@
     </div>
 {% endblock %}
 {% block content %}
+    {% if sitioInhabilitado is defined %}
+        <div class="container">
+            <div class="row">
+                <div class="text-center mensaje">
+                    <p><h1><strong>{{ sitioInhabilitado }}</strong></h1></p>
+                </div>
+            </div>    
+        </div>
+    {% else %}
         <div class="container">
             <section class="col-md-4">
                 <h2 class="text-center">El hospital</h2>
@@ -46,4 +58,5 @@
                 </blockquote>
             </section>
         </div>
+        {% endif %}
 {% endblock %}        
