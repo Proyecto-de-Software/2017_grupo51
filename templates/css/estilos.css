@@ -1,0 +1,26 @@
+body{
+    background-color: whitesmoke;
+}
+.back-color{
+    background-color: #2196f3;
+}
+a{
+    color:white;
+}
+li a{
+    color: black;
+}
+footer{
+    background-color: #2196f3;
+}
+@media (max-width:425px){
+    footer div div div{
+        border-bottom:1px white solid;
+    }
+}
+@media (min-width:426px){
+    .centro-vertical{
+        display:flex;
+        align-items:center;
+    }
+}
