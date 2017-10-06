@@ -1,0 +1,6 @@
+section a{
+    background-color: #2196f3;
+}
+section a, section a:visited{
+    text-decoration: none;
+}
