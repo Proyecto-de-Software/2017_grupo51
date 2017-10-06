@@ -14,3 +14,4 @@ class FormPaciente{
         $view = new Home();
         $view->show('FormPaciente.html.twig');
     }
+}
