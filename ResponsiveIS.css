@@ -1,9 +1,0 @@
-@media (max-width: 800px){
-	.claseDiv {
-        width: 75%;
-    	margin: auto;
-    	padding: 30px;
-    	max-width: 790px;
-    	border: 2px solid #47B8B9;
-	} 
-}
