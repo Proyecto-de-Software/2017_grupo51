@@ -11,6 +11,7 @@ require_once('views/TwigView.php');
 require_once('views/Home.php');
 require_once('controllers/FormPaciente.php');
 require_once('controllers/IniciarSesion.php');
+require_once('controllers/CreateUsuario.php');
 
     
 if(!isset($_GET['action'])){
@@ -21,4 +22,6 @@ if(!isset($_GET['action'])){
 	IniciarSesion::getInstance()->iniciarS();
 }elseif ($_GET['action']=='formPaciente'){
 	FormPaciente::getInstance()->forPac();
+}elseif ($_GET['action']=='createUsr'){
+	CreateUsuario::getInstance()->creaUsr();
 }

@@ -1,6 +1,6 @@
 <?php
 
-class FormPaciente{
+class CreateUsuario{
     private static $instance;
     
     public static function getInstance() {
@@ -10,7 +10,8 @@ class FormPaciente{
         }
         return self::$instance;
     }
-    public function forPac(){
+    public function creaUsr(){
         $view = new Home();
-        $view->show('FormPaciente.html.twig');
+        $view->show('crearUsr.html.twig',[]);
     }
+}
