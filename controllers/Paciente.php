@@ -1,6 +1,6 @@
 <?php
 
-class FormPaciente{
+class Paciente{
     private static $instance;
     
     public static function getInstance() {
@@ -11,7 +11,8 @@ class FormPaciente{
         return self::$instance;
     }
     public function forPac(){
+        $layout = IndexController::getInstance()->layout();
         $view = new Home();
-        $view->show('FormPaciente.html.twig');
+        $view->show('formPacientes.html.twig',$layout);
     }
 }
