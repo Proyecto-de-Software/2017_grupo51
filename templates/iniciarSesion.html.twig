@@ -1,21 +1,31 @@
 {% extends "layout.html.twig" %}
+{% block javascript %}
+    <script src="templates/js/validarIniciarSesion.js"></script>
+{% endblock %}
 {% block content %}
-            <div class="container">
-            	<div class="row">
-                <div class="col-sm-4 col-sm-offset-4 text-center well">
-				          <form method= "POST" action="#">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4 text-center well">
+                <form method= "POST" action="./?action=nuevaSesion">
                     <h1><label> Iniciar Sesion</label></h1><br>
-					          <div class="form-group">
-    					       <h3><label>Usuario</label></h3>
-    					       <input type="text" class="form-control" id="usr" aria-describedby="emailHelp" placeholder="Ingresa tu usuario" required>
-  					      </div>
-  					       <div class="form-group">
-    					      <h3><label>Password</label></h3>
-    					      <input type="password" class="form-control" id="contraseña" placeholder="password" required>
-  					     </div>
-      				  <button type="submit" class="btn btn-primary">Ingresar</button>
-				      </form>
+                    <div class="form-group">
+                        <h3><label>Usuario</label></h3>
+                        <input type="email" class="form-control" id="usr" name="usr" data-validation="email" placeholder="Ingrese mail" required>
+                        <div id="xmail" class="hide"><h6 class="text-danger">Ingresa un email valido</h6></div>
+  		    </div>
+                    <div class="form-group">
+    			<h3><label>Password</label></h3>
+    			<input type="password" class="form-control" id="contraseña" name="contraseña" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ingresar</button>
+		</form>
               </div>
-				    </div>
-			     </div>
+	</div>
+    </div>
+    <script>
+        // cuando pierde el foco, este valida si lo que esta en el campo de texto si es un correo o no y muestra una respuesta
+        $('form').find('#usr').blur(function(){
+            caracteresCorreoValido($(this).val(), '#xmail');
+        });
+    </script>
 {% endblock %}

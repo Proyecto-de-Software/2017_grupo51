@@ -13,7 +13,11 @@ class IniciarSesion {
     	return self::$instance;
     }
     public function iniciarS() {
+        $layout = IndexController::getInstance()->layout();
+        if (isset($layout['pagina_activa'])){
+            $layout['pagina_activa'] = 1;
+        };
     	$view= new Home();
-    	$view->show("iniciarSesion.html.twig",[]);
+    	$view->show("iniciarSesion.html.twig",$layout);
     }
 }

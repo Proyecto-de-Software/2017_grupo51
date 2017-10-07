@@ -1,5 +1,5 @@
 <?php
-
+require_once('controllers/AppController.php');
 class UserController{
     private static $instance;
     
@@ -11,5 +11,8 @@ class UserController{
         return self::$instance;
     }
     
+    public function iniciarSesion(){
+        
+    }
     
 }
