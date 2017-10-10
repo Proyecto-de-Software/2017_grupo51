@@ -1,5 +1,5 @@
 //funcion para validar el Formulario de creacion de pacientes
-function validarFormPac ();{
+function validarFormPac (){
 	//fijarme que onda el traer el id de los campos del form, pasar parametros o ir a buscarlo directo con la ruta
 	var apellido = document.getElementById("ApellidoP").value;
 	var nombre = document.getElementById("NombreP").value;
@@ -11,10 +11,10 @@ function validarFormPac ();{
 	var telefono = document.getElementById("TelefonoP").value;
 
 	// el === es igualdad estricta
-	if (apellido === "" || nombre === "" || fec === "" || genero === "" || tipoDoc === "" || numeroDoc === "" || domicP === "" ) {
+	if (apellido === "" || nombre === "" || fec === "" || genero === "" || tipoDoc === "" || varnumeroDoc === "" || domicP === "" ) {
 		alert("Los campos indicados con (*) son obligatorios");
 		return false;
-	} else if( isNaN(telefono) || isNaN(numeroDoc)){
+	} else if( isNaN(telefono) || isNaN(varnumeroDoc)){
 		alert("El telefono (y/o) Nro de documento ingresado NO es un numero");
 		return false;
 	} else if (apellido.lenght>30 || nombre.lenght>30) {

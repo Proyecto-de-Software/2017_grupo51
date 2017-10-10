@@ -13,11 +13,11 @@ function validarCrearUsuario (){
 	if (email === "" || nombreUsuario === "" || password === "" || nombrereal === "" || apellido === "" ) {
 		alert("Los campos indicados con (*) son obligatorios");
 		return false;
-	}else if (emailUs.lenght > 255 || nombreUs.lenght > 255 || contraUs.lenght > 255 || nombreRealUs.lenght > 255 || apellidoUs.lenght > 255  ){
-		alert("excedio el limite de caracteres en algun(os) campo(s)")
-	return false;
+	}else if (email.lenght > 255 || nombreUsuario.lenght > 255 || password.lenght > 255 || nombrereal.lenght > 255 || apellido.lenght > 255  ){
+		alert("Excedio el limite de caracteres en algun(os) campo(s)");
+                return false;
 	}else if(charPalMail.test(email) == false){
-		alert(el Email ingresado no es valido);
+		alert("El email ingresado no es valido");
 		return false;
 	}
 }

@@ -3,47 +3,47 @@
     <script src="templates/js/validarCrearUsr.js"></script>
 {% endblock %}
 {% block content %}
-			<div class="container">
-            	<div class="row">
-            	   	<div class="col-md-6 col-md-offset-3 well">
-            	   		<form method= "POST" action="pag a mandar" onsubmit="return validarCrearUsuario();">
-            	   			<h1 class="text-center"><label>Ingrese datos del Usuario</label></h1><br>
-            	   			<div class="form-group">
-     	 						<label>Email (*):</label>
-     							<input type="email" class="form-control" id="emailUs" placeholder="SoyUnEjemplo@Gmail.com" required>
-    						</div>
-    						<div class="form-group">
-     	 						<label>UserName (*):</label>
-     							<input type="text" class="form-control" maxlength="255" id="nombreUs" placeholder="nombre de USUARIO" required>
-    						</div>
-    						<div class="form-group">
-     	 						<label>UserPassword (*):</label>
-     							<input type="text" class="form-control" maxlength="255" id="contraUs" placeholder="Contraseña del USUARIO" required>
-    						</div>
-    						<div class="form-group">
-     	 						<label>Nombre usuario (*):</label>
-     							<input type="text" class="form-control" maxlength="255" id="nombreRealUs" placeholder="nombre real del USUARIO" required>
-    						</div>
-    						<div class="form-group">
-     	 						<label>Apellido usuario (*):</label>
-     							<input type="text" class="form-control" maxlength="30" id="apellidoUs" placeholder="Apellido del USUARIO" required>
-    						</div>
-    						<div>
-  								<h2>Seleccion el/los roles para este usuario (*)</h2>
-    							<label class="checkbox-inline">
-    								<input type="checkbox" value="">Pediatra
-    							</label>
-    							<label class="checkbox-inline">
-      								<input type="checkbox" value="">Recepcionista
-    							</label>
-    							<label class="checkbox-inline">
-      								<input type="checkbox" value="">Administrador
-    							</label>
-    						</div>
-    						<br><br>
-    						<button type="submit" class="btn btn-primary center-block">Confirmar</button>
-            	   		</form>
-            	    </div>
-				</div>
-			</div>
+    <div class="container">
+    	<div class="row">
+            <div class="col-md-6 col-md-offset-3 well">
+            	<form method= "POST" action="pag a mandar" onsubmit="return validarCrearUsuario();">
+            	    <h1 class="text-center"><label>Ingrese datos del Usuario</label></h1><br>
+            	    	<div class="form-group">
+                            <label>Email (*):</label>
+                            <input type="email" class="form-control" id="emailUs" placeholder="SoyUnEjemplo@Gmail.com" required>
+    			</div>
+    			<div class="form-group">
+     	 		    <label>UserName (*):</label>
+                            <input type="text" class="form-control" maxlength="255" id="nombreUs" placeholder="nombre de USUARIO" required>
+    			</div>
+    			<div class="form-group">
+                            <label>UserPassword (*):</label>
+                            <input type="text" class="form-control" maxlength="255" id="contraUs" placeholder="Contraseña del USUARIO" required>
+    			</div>
+    			<div class="form-group">
+                            <label>Nombre usuario (*):</label>
+                            <input type="text" class="form-control" maxlength="255" id="nombreRealUs" placeholder="nombre real del USUARIO" required>
+    			</div>
+    			<div class="form-group">
+                            <label>Apellido usuario (*):</label>
+                            <input type="text" class="form-control" maxlength="30" id="apellidoUs" placeholder="Apellido del USUARIO" required>
+    			</div>
+    			<div>
+                            <h2>Seleccion el/los roles para este usuario (*)</h2>
+                            <label class="checkbox-inline">
+                            <input type="checkbox" value="">Pediatra
+                            </label>
+                            <label class="checkbox-inline">
+                            <input type="checkbox" value="">Recepcionista
+                            </label>
+                            <label class="checkbox-inline">
+                            <input type="checkbox" value="">Administrador
+                            </label>
+    			</div>
+    			<br><br>
+    			<button type="submit" class="btn btn-primary center-block">Confirmar</button>
+            	</form>
+            </div>
+	</div>
+    </div>
 {% endblock %}
