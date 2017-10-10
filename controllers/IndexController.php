@@ -25,8 +25,7 @@ class IndexController{
         
     public function index(){
         $layout = self::layout();
-        $view = new Home();
-        $view->show('index.html.twig',$layout);
+        Home::getInstance()->show('index.html.twig',$layout);
     }
     
     

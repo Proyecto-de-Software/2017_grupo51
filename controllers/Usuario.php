@@ -12,7 +12,6 @@ class Usuario{
     }
     public function creaUsr(){
         $layout = IndexController::getInstance()->layout();
-        $view = new Home();
-        $view->show('crearUsr.html.twig',$layout);
+        Home::getInstance()->show('crearUsr.html.twig',$layout);
     }
 }

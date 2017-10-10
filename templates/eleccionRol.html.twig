@@ -1,0 +1,22 @@
+{% extends "layout.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="templates/css/sitioInhabilitado.css" >
+{% endblock %}
+{% block javascript %}
+    <script src="templates/js/bloqueoBotonAtras.js"></script>
+{% endblock %}
+{% block atributosBody %}onload="nobackbutton();"{%endblock%}
+{% block content %}
+    <div class="container"> 
+    <div class="row well align-middle">
+        <h3 class="text-center"><strong>Selecciona el rol para ingresar.</strong></h3>
+        {% set pos = roles['roles'] | length - 1%}
+        {% for i in 0..pos %}
+            <div class="col-md-12">
+                <a href="./?action=ingresoAlSitio&idrol={{roles['roles'][i]['id']}}&nombrerol={{roles['roles'][i]['nombre']}}&idusuario={{ roles.id }}"><button class="center-block btn btn-primary">Ingresar como {{roles['roles'][i]['nombre']}}</button></a>
+            </div><br><br>                
+        {% endfor %}
+    </div>
+    </div>
+{% endblock %}
+{% block atributosFooter %}class="posicionFooter"{% endblock %}

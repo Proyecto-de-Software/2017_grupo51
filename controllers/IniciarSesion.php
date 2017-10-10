@@ -12,12 +12,16 @@ class IniciarSesion {
     	}
     	return self::$instance;
     }
-    public function iniciarS() {
+    
+    public function iniciarS($mensaje) {
         $layout = IndexController::getInstance()->layout();
         if (isset($layout['pagina_activa'])){
             $layout['pagina_activa'] = 1;
-        };
-    	$view= new Home();
-    	$view->show("iniciarSesion.html.twig",$layout);
+        }
+        if ($mensaje != ''){
+            $layout['mensaje'] = $mensaje;
+        }
+        Home::getInstance()->show("iniciarSesion.html.twig",$layout);
     }
+    
 }

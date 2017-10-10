@@ -2,24 +2,28 @@
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="templates/css/sitioInhabilitado.css" >
 {% endblock %}
+{% block javascript %}
+    <script src="templates/js/validacionPermisos.js"></script>
+{% endblock %}    
 {% block navlist %}
     <div>
         <ul class="nav navbar-nav navbar-right navbar-header">
-            <li><a href="./?action=iniciarSesion" class="btn"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
+            <li class="dropdown"><a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Menú <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Usuarios</a></li>
+                    <li><a href="#">Pacientes</a></li>
+                    <li><a href="#">Roles</a></li>
+                    <li><a href="#" class="divider"></a></li>
+                    <li><a href="#" onclick="permisoConfiguracion({{ rol }});">Configuración del sistema</a></li>
+                </ul>
+            </li>
+            <li><a href="./?action=cerrarSesion" class="btn"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
         </ul>
     </div>
-{% endblock %}
+{% endblock %}    
 {% block content %}
-    {% if sitioInhabilitado is defined %}
-        <div class="container">
-            <div class="row">
-                <div class="text-center">
-                    <p><h1><strong>{{ sitioInhabilitado }}</strong></h1></p>
-                </div>
-            </div>    
-        </div>
-    {% else %}
-        <div class="container">
+    <p></p>
+    <div class="container">
             <section class="col-md-4">
                 <h3 class="text-center">El hospital</h3>
                 <img class="img-responsive" src="./templates/Hospital_images/image1.jpg" alt="hospital_gutierrez">
@@ -58,6 +62,5 @@
                 </blockquote>
             </section>
         </div>
-        {% endif %}
-{% endblock %} 
+{% endblock %}
 {% block atributosFooter %}class="posicionFooter"{% endblock %}
