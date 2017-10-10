@@ -1,0 +1,25 @@
+{% extends "layout.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="templates/css/sitioInhabilitado.css" >
+{% endblock %}
+{% block javascript %}
+    <script src="templates/js/bloqueoBotonAtras.js"></script>
+{% endblock %}
+{% block atributosBody %}onload="nobackbutton();"{%endblock%}
+{% block navlist %}
+    <div>
+        <ul class="nav navbar-nav navbar-right navbar-header">
+            <li><a href="./" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Inicio</a></li>
+        </ul>
+    </div>
+{% endblock %} 
+{% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="text-center">
+                    <p><h1><strong>{{ mensajeInactivo }}</strong></h1></p>
+                </div>
+            </div>    
+        </div>
+{% endblock %}
+{% block atributosFooter %}class="posicionFooter"{% endblock %}

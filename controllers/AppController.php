@@ -3,7 +3,6 @@
 class AppController{
     private static $instance;
     private static $user;
-    private static $num = 0;
 
 
     public static function getInstance(){
@@ -18,25 +17,38 @@ class AppController{
     }
     
     public static function getUser(){
-        if (!isset(self::$user)){
-            // Aca se crea al usuario
-        }
         return self::$user;
     }
     
-    public function validarInicioSesion(){
-        //if(AppController::getInstance()->comprobarPaginaActiva()){
-        $datos['nombre_usuario'] = $_POST['usr'];
-        $datos['contraseña_usuario'] = $_POST['contraseña'];
-        $existeUsuario = UserValidation::getInstance()->existeUsuario($datos['nombre_usuario'],$datos['contraseña_usuario']);
-        
-        if (!$existeUsuario){
-            //pop up
-        }elseif (4==4) {
-            //
-        }
+    public function checkPermission($permission){
+        //Se busca si el usuario con sesion iniciada tiene el permiso pasado por parametro permitido.
     }
     
+    public function validarInicioSesion(){
+        if(isset($_POST['usr'])){
+            $datos['nombre_usuario'] = $_POST['usr'];
+            $datos['contraseña_usuario'] = $_POST['contraseña'];
+            $usuario = UserValidation::getInstance()->existeUsuario($datos['nombre_usuario'],$datos['contraseña_usuario']);
+            if (count($usuario) == 0){
+                IniciarSesion::getInstance()->iniciarS('no_existe');
+            }elseif (!UserValidation::getInstance()->estaActivo($usuario[0]['id'])) {
+                IniciarSesion::getInstance()->iniciarS('no_activo');
+            }else{
+                if(!AppController::getInstance()->comprobarPaginaActiva()){
+                    if(UserValidation::getInstance()->chequearRol($usuario[0]['id'],'Administrador')){
+                        UserController::getInstance()->nuevaSesion($usuario);
+                    }else{
+                        IndexController::getInstance()->index();
+                    }
+                }else{
+                    UserController::getInstance()->nuevaSesion($usuario);
+                }
+        }}else{
+            IndexController::getInstance()->index();
+        }
+    }
+
+
     public function comprobarPaginaActiva(){
         $configuracion = ConfigurationModule::getInstance()->indexPageInfo();
         return $configuracion->getActive();

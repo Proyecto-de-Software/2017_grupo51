@@ -12,7 +12,7 @@ class Paciente{
     }
     public function forPac(){
         $layout = IndexController::getInstance()->layout();
-        $view = new Home();
-        $view->show('formPacientes.html.twig',$layout);
+        
+        Home::getInstance()->show('formPacientes.html.twig',$layout);
     }
 }

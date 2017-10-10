@@ -8,11 +8,15 @@ function caracteresCorreoValido(email, div){
         $(div).hide().removeClass('hide').slideDown('fast');
         return false;
     }else{
-        $(div).hide().addClass('hide').slideDown('slow');
+        $(div).hide().addClass('hide').slideDown('fast');
         return true;
     }
-}
+};
 
-function algo(){
-    alert('No podes entrar');
+function validar(){
+    // cuando pierde el foco, este valida si lo que esta en el campo de texto si es un correo o no y muestra una respuesta  
+        $('form').find('#usr').blur(function(){
+            caracteresCorreoValido($(this).val(), '#xmail');
+        });
 }
+    

@@ -12,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 	<title>Inicio</title>
     </head>
-    <body>
+    <body {% block atributosBody %}{%endblock%}>
         <header>
             <nav class="navbar back-color">
                 <div class="container-fluid">
@@ -24,7 +24,7 @@
             </nav>
         </header>
         {% block content %} {% endblock %}
-        <footer>
+        <footer {% block atributosFooter %}{% endblock %}>
             <div class="container">
                 <div class="row centro-vertical">
                     <div class="col-md-6 col-sm-6 col-xs-12 text-center">
@@ -32,10 +32,7 @@
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12 text-center">
                         <h3 class="title">Información de contacto</h3>
-                        <p><i class="glyphicon glyphicon-map-marker"></i> 1900 La Plata, Provincia de Buenos Aires</p>
                         <p><i class="glyphicon glyphicon-globe"></i> {{ mail_contacto }}</p>
-                        <p><i class="glyphicon glyphicon-earphone"></i> 0221 483-0171</p>
-                        <p><i class="glyphicon glyphicon-time"></i> Abierto las 24 hs</p>
                     </div>
                 </div>
             </div>
