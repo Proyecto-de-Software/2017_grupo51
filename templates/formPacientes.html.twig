@@ -1,32 +1,35 @@
 {% extends "layout.html.twig" %}
+{% block javascript %}
+    <script src="templates/js/validarFormPacientes.js"></script>
+{% endblock %}
 {% block content %}
 	        <div class="container">
             	<div class="row">
             	   	<div class="col-sm-5">
-            	   		<form method= "POST" action="pag a mandar">
+            	   		<form method= "post" action="pag a mandar" onsubmit="return validarFormPac()">
             	   			<div class="container well">
             		   			<h1 class="text-center"><label>Ingrese los datos del paciente</label></h1><br>
             		   			<div class="form-group">
-     	 							<label>Apellido:</label>
+     	 							<label>Apellido (*):</label>
      								<input type="text" class="form-control" id="ApellidoP" placeholder="Apellido del paciente" required>
     							</div>
     							<div class="form-group">
-      								<label>Nombre:</label>
+      								<label>Nombre (*):</label>
      								<input type="text" class="form-control" id="NombreP" placeholder="Nombre del paciente" required>
     							</div>
     							<div class="form-group">
-      								<label>fecha nacimiento:</label>
+      								<label>fecha nacimiento (*):</label>
      								<input type="date" class="form-control" id="FecNacP" placeholder="Fecha de Nacimiento del paciente	" required>
     							</div>
     							<div class="form-group">
-	      							<label>Genero:</label>
+	      							<label>Genero (*):</label>
      									<select class="form-control" id="GeneroP" required>
         									<option>Masculino</option>
         									<option>Femenino</option>
         								</select>
     							</div>
     							<div class="form-group">
-    	  							<label>Tipo de Documento:</label>
+    	  							<label>Tipo de Documento (*):</label>
 	     							<select class="form-control" id="TipoDocP" required>
      								<option>Documento nacional de inentidad (DNI)</option>
      									<option>Libreta Enrolamiento (l.e)</option>
@@ -36,20 +39,20 @@
      								</select>
     							</div>
     							<div class="form-group">
-      								<label>Numero de Documento:</label>
+      								<label>Numero de Documento (*):</label>
   		   							<input type="number" class="form-control" id="NroDocP" placeholder="Nro Documento del paciente" 	required>
 	    						</div>
     							<div class="form-group">
-      								<label>Domicilio:</label>
+      								<label>Domicilio (*):</label>
      								<input type="text" class="form-control" id="DomicP" placeholder="Domicilio del paciente" required>
     							</div>
     							<div class="form-group">
       								<label>Tel/Celular:</label>
-    	 							<input type="number" class="form-control" id="TelP" placeholder="Telefono del paciente">
+    	 							<input type="number" class="form-control" id="TelefonoP" placeholder="Telefono del paciente">
 	    						</div>
     							<div class="form-group">
       								<label>Obra social:</label>
-     								<select class="form-control" id="ObraP">
+     								<select class="form-control" id="ObraSocP">
      									<option>OSDE</option>
      									<option>IOMA</option>
     	 								<option>Swiss Medical</option>
@@ -58,15 +61,7 @@
      								</select>
     							</div>
     						</div>
-    						<!-- DIVISION DE LOS BLOQUES DEL FOMULARIO
-    						asdasdasdasddasdasdasddassdasdasaasdasdasda
-    						asdasd
-    						as
-    						da
-    						sdasdas
-    						asd
-    						-->
-    						<div class="container well">
+                <div class="container well">
     							<h1 class="text-center"><label>Datos demograficos del paciente</label></h1><br>
     							<div class="radio">
     								<label>¿¿ Tiene Heladera ??</label><br>
