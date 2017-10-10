@@ -16,6 +16,15 @@ class Configuracion {
     }
     
     public function permisoConfiguracion(){
-        return 'false';
+        $rol = $_GET['rol'];
+        if(ConfigurationModule::getInstance()->tienePermiso($rol)){
+            return 'true';
+        }else{
+            return 'false';
+        }
+    }
+    
+    public function ejecutar(){
+        echo 'En configuracion!!!!!!!!!';
     }
 }

@@ -8,7 +8,7 @@ require_once('controllers/AppController.php');
 require_once('controllers/Configuracion.php');
 require_once('controllers/Paciente.php');
 require_once('controllers/IniciarSesion.php');
-require_once('controllers/Usuario.php');
+require_once('controllers/RolesController.php');
 require_once('controllers/UserController.php');
 require_once('models/PDORepository.php');
 require_once('models/User.php');
@@ -31,13 +31,17 @@ if(!isset($_GET['action'])){
 }elseif($_GET['action']=='nuevaSesion'){
     AppController::getInstance()->validarInicioSesion();
 }elseif ($_GET['action']=='createUsr'){
-    Usuario::getInstance()->creaUsr();
+    UserController::getInstance()->creaUsr();
 }elseif ($_GET['action']=='ingresoAlSitio'){
-    if(isset($_GET['idrol'])){
-        UserController::getInstance()->iniciarSesionComoRol($_GET['nombrerol'],$_GET['idrol'],$_GET['idusuario']);
+    if((isset($_GET['idrol']))&&(isset($_GET['nombrerol']))&&(isset($_GET['idusuario']))){
+        UserController::getInstance()->iniciarSesionComoRol($_GET['nombrerol'],$_GET['idrol'],$_GET['idusuario'],true);
     }else{
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action']=='permisoConfiguracion'){
     echo Configuracion::getInstance()->permisoConfiguracion();
+}elseif($_GET['action'] == 'accesoConfiguracion'){
+    Configuracion::getInstance()->ejecutar();
+}elseif($_GET['action'] == 'cerrarSesion'){
+    UserController::getInstance()->cerrarSesion();
 }
