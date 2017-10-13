@@ -1,7 +1,6 @@
 //funcion para validar el Formulario de creacion de pacientes
 function validarFormPac (){
 
-
 	var apellido = document.getElementById("ApellidoP").value;
 	var nombre = document.getElementById("NombreP").value;
 	var fec = document.getElementById("FecNacP").value;
@@ -11,6 +10,8 @@ function validarFormPac (){
 	var domicP = document.getElementById("DomicP").value;
 	var telefono = document.getElementById("TelefonoP").value;
 	var letras=/^[A-Za-z\_\-\.\s\xF1\xD1]+$/;
+
+	
 
 	if ( (apellido == "") || (nombre == "") || (fec == "" ) || (genero == "") || (tipoDoc == "") || (numeroDoc == "") || (domicP == "") ){
 		alert("Los campos indicados con (*) son obligatorios");
@@ -24,5 +25,42 @@ function validarFormPac (){
 	}else if ( (! letras.test(nombre)) || (! letras.test(apellido)) ){
         alert("El nombre debe tener solo letras");
         return false;
+    }else if(!document.formu_pacientes.heladera[0].checked && !document.formu_pacientes.heladera[1].checked){
+    	alert("Seleccione una opcion en campo Heladera");
+    	return false;
+    }else if(!document.formu_pacientes.Electricidad[0].checked && !document.formu_pacientes.Electricidad[1].checked){
+    	alert("Seleccione una opcion en campo Electricidad");
+    	return false;
+    }else if(!document.formu_pacientes.mascotas[0].checked && !document.formu_pacientes.mascotas[1].checked){
+    	alert("Seleccione una opcion en campo Mascotas");
+    	return false;
     }
+}
+
+function existe_Pac(){
+
+	var nroDoc = document.getElementById("NroDocP").value;
+	var retorno = validarDoc(nroDoc);
+
+	if (!retorno){
+		alert("ya existe este paciente con ese numero de documento");
+	}
+	return retorno;
+}
+
+function validarDoc (nroDoc){
+	var aux = false;
+	$.ajax({
+		url: "./index.php", 
+		data: { action: "existePaciente", numero_doc: nroDoc},
+		async: false,
+		success: function (result){
+			if (result){
+				aux = true;
+			}
+		}
+	});
+
+	return aux;
+
 }

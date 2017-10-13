@@ -17,6 +17,7 @@ require_once('models/UserValidation.php');
 require_once('models/Configuration.php');
 require_once('views/TwigView.php');
 require_once('views/Home.php');
+require_once('models/PacienteValidation.php');
 
 
 
@@ -44,4 +45,11 @@ if(!isset($_GET['action'])){
     Configuracion::getInstance()->ejecutar();
 }elseif($_GET['action'] == 'cerrarSesion'){
     UserController::getInstance()->cerrarSesion();
+}elseif($_GET['action']== 'existePaciente'){
+    if(isset($_GET ["numero_doc"])){
+        echo Paciente::getInstance()-> ya_existe_paciente($_GET ["numero_doc"]);
+    }else{
+        IndexController::getInstance()->index();
+    }
+
 }

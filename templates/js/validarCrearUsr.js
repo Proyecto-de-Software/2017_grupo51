@@ -20,9 +20,11 @@ function validarCrearUsuario (){
 	}else if(charPalMail.test(email) == false){
 		alert("El email ingresado no es valido");
 		return false;
-	}else if ( (! letras.test(nombre)) || (! letras.test(apellido)) ){
+	}else if ( (! letras.test(nombrereal)) || (! letras.test(apellido)) ){
         alert("El nombre debe tener solo letras");
         return false;
+    }else if(!document.getElementById('check1').checked && !document.getElementById('check2').checked && !document.getElementById('check3').checked ){
+    	alert("Selecciona al menos un Rol");
+    	return false;
     }
-	//hasta aca anda
 }

@@ -15,4 +15,13 @@ class Paciente{
         
         Home::getInstance()->show('formPacientes.html.twig',$layout);
     }
+
+    function ya_existe_paciente($numero_doc){
+        $aux = PacienteValidation:: getInstance()->existePaciente($numero_doc);
+        if (count($aux) == 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }
