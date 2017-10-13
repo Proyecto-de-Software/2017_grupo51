@@ -25,6 +25,7 @@ class AppController{
     }
     
     public function validarInicioSesion(){
+        //Validacion del formulario para iniciar sesion
         if(isset($_POST['usr'])){
             $datos['nombre_usuario'] = $_POST['usr'];
             $datos['contraseña_usuario'] = $_POST['contraseña'];

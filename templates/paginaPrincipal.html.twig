@@ -10,11 +10,11 @@
         <ul class="nav navbar-nav navbar-right navbar-header">
             <li class="dropdown"><a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Menú <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Usuarios</a></li>
-                    <li><a href="#">Pacientes</a></li>
-                    <li><a href="#">Roles</a></li>
+                    <li><a href="#">Usuarios</a></li>//Falta validacion y acceso
+                    <li><a href="#">Pacientes</a></li>//Falta validacion y acceso
+                    <li><a href="#">Roles</a></li>//Falta validacion y acceso
                     <li><a href="#" class="divider"></a></li>
-                    <li><a href="#" onclick="permisoConfiguracion({{ rol }});">Configuración del sistema</a></li>
+                    //Falta acceso correcto<li><a href="./?action=accesoConfiguracion" onclick="if(!permisoConfiguracion('permisoConfiguracion',{{ rol_id }},'{{rol_nombre}}')) return false;">Configuración del sistema</a></li>
                 </ul>
             </li>
             <li><a href="./?action=cerrarSesion" class="btn"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>

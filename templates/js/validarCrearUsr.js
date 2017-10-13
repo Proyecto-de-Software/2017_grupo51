@@ -1,23 +1,28 @@
 // validad los formularios para creacion de un nuevo usuario
 function validarCrearUsuario (){
-	//mismo caso que en el validador de formulario pacientes, no se si traer por parametro o ir a buscarlo derecho con ruta.
-	//solucione de la forma de aca abajo, pero no me andan las pruebas, nunca me devuelve el false. 
-	//Se siguen enviando los datos del form porq no devuelve el false.
+
 	var email = document.getElementById("emailUs").value;
 	var nombreUsuario = document.getElementById("nombreUs").value;
 	var password = document.getElementById("contraUs").value;
 	var nombrereal = document.getElementById("nombreRealUs").value;
 	var apellido = document.getElementById("apellidoUs").value;
+	
 	var charPalMail = new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
+	var letras=/^[A-Za-z\_\-\.\s\xF1\xD1]+$/;
 
-	if (email === "" || nombreUsuario === "" || password === "" || nombrereal === "" || apellido === "" ) {
+
+	if ((email == "") || (nombreUsuario == "") || (password == "") || (nombrereal == "") || (apellido == "")) {
 		alert("Los campos indicados con (*) son obligatorios");
 		return false;
 	}else if (email.lenght > 255 || nombreUsuario.lenght > 255 || password.lenght > 255 || nombrereal.lenght > 255 || apellido.lenght > 255  ){
-		alert("excedio el limite de caracteres en algun(os) campo(s)")
-	return false;
+		alert("Excedio el limite de caracteres en algun(os) campo(s)");
+                return false;
 	}else if(charPalMail.test(email) == false){
-		alert(el Email ingresado no es valido);
+		alert("El email ingresado no es valido");
 		return false;
-	}
+	}else if ( (! letras.test(nombre)) || (! letras.test(apellido)) ){
+        alert("El nombre debe tener solo letras");
+        return false;
+    }
+	//hasta aca anda
 }

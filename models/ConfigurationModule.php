@@ -19,4 +19,13 @@ class ConfigurationModule extends PDORepository{
         return $final_answer;
     }
     
+    public function tienePermiso($rol){
+        //Busca en la bd si el rol pasado por parametros tiene permisos de configuracion
+        $answer = $this->queryList("SELECT * FROM `rol_tiene_permiso` rp INNER JOIN `permiso` p ON(rp.permiso_id=p.id) WHERE p.nombre='configuracion' AND rp.rol_id=:rolId", ['rolId'=>$rol]);
+        if(count($answer)>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
