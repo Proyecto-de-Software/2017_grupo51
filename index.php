@@ -17,6 +17,10 @@ require_once('models/PacienteModel.php');
 require_once('models/Configuration.php');
 require_once('views/TwigView.php');
 require_once('views/Home.php');
+require_once('models/PacienteValidation.php');
+require_once('models/CreateUsrValidation.php');
+
+
 
 
 
@@ -171,4 +175,21 @@ if(!isset($_GET['action'])){
     }else{
         IndexController::getInstance()->index();
     }
+}elseif($_GET['action']== 'existePaciente'){
+    if(isset($_GET["numero_doc"])){
+        echo Paciente::getInstance()-> ya_existe_paciente($_GET ["numero_doc"]);
+    }else{
+        IndexController::getInstance()->index();
+    }
+
+}elseif($_GET['action']== 'existe_Usuario'){
+    if(!isset($_GET["email_usuario"]) || !isset($_GET["nombre_deUsuario"])){
+        IndexController::getInstance()->index();
+    }else {
+        echo UserController::getInstance()-> ya_existe_usuario($_GET["email_usuario"], $_GET["nombre_deUsuario"]);
+    }
+}elseif($_GET['action']=='CrearUsuario'){
+    UserController::getInstance()->crearTabla();
+}elseif($_GET['action']=='CrearPaciente'){
+    Paciente::getInstance()->crearTablaPaciente();
 }

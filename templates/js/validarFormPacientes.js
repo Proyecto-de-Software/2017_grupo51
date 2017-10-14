@@ -1,26 +1,66 @@
 //funcion para validar el Formulario de creacion de pacientes
 function validarFormPac (){
-	//fijarme que onda el traer el id de los campos del form, pasar parametros o ir a buscarlo directo con la ruta
+
 	var apellido = document.getElementById("ApellidoP").value;
 	var nombre = document.getElementById("NombreP").value;
 	var fec = document.getElementById("FecNacP").value;
 	var genero = document.getElementById("GeneroP").value;
 	var tipoDoc = document.getElementById("TipoDocP").value;
-	var varnumeroDoc = document.getElementById("NumDocP").value;
-	var domicP = document.getElementById("DomicoP").value;
+	var numeroDoc = document.getElementById("NroDocP").value;
+	var domicP = document.getElementById("DomicP").value;
 	var telefono = document.getElementById("TelefonoP").value;
+	var letras=/^[A-Za-z\_\-\.\s\xF1\xD1]+$/;
 
-	// el === es igualdad estricta
-	if (apellido === "" || nombre === "" || fec === "" || genero === "" || tipoDoc === "" || varnumeroDoc === "" || domicP === "" ) {
+	
+
+	if ( (apellido == "") || (nombre == "") || (fec == "" ) || (genero == "") || (tipoDoc == "") || (numeroDoc == "") || (domicP == "") ){
 		alert("Los campos indicados con (*) son obligatorios");
 		return false;
-	} else if( isNaN(telefono) || isNaN(varnumeroDoc)){
+	} else if( isNaN(telefono) || isNaN(numeroDoc)){
 		alert("El telefono (y/o) Nro de documento ingresado NO es un numero");
 		return false;
 	} else if (apellido.lenght>30 || nombre.lenght>30) {
-		//la validacion de mayor a 30 nola pide pero es para probar si se envia el form
 		alert("El nombre (y/o) apellido ingresados exceden el maximo de caracteres");
 		return false;
+	}else if ( (! letras.test(nombre)) || (! letras.test(apellido)) ){
+        alert("El nombre debe tener solo letras");
+        return false;
+    }else if(!document.formu_pacientes.heladera[0].checked && !document.formu_pacientes.heladera[1].checked){
+    	alert("Seleccione una opcion en campo Heladera");
+    	return false;
+    }else if(!document.formu_pacientes.Electricidad[0].checked && !document.formu_pacientes.Electricidad[1].checked){
+    	alert("Seleccione una opcion en campo Electricidad");
+    	return false;
+    }else if(!document.formu_pacientes.mascotas[0].checked && !document.formu_pacientes.mascotas[1].checked){
+    	alert("Seleccione una opcion en campo Mascotas");
+    	return false;
+    }
+}
+
+function existe_Pac(){
+
+	var nroDoc = document.getElementById("NroDocP").value;
+	var retorno = validarDoc(nroDoc);
+
+	if (!retorno){
+		alert("ya existe este paciente con ese numero de documento");
 	}
+	return retorno;
+}
+
+function validarDoc (nroDoc){
+	var aux = false;
+	$.ajax({
+		url: "./index.php", 
+		data: { action: "existePaciente", numero_doc: nroDoc},
+		async: false,
+		success: function (result){
+			if (result){
+				aux = true;
+			}
+		}
+	});
+
+	return aux;
 
 }

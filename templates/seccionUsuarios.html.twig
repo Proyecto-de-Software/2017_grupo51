@@ -13,7 +13,7 @@
         <ul class="nav navbar-nav navbar-right navbar-header">
             <li class="dropdown"><a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Menú <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#" onclick="if (!permisoConfiguracion('permisoCrearUsuario', '{{rol_nombre}}'))return false;">Crear usuario</a></li>
+                    <li><a href="./?action=createUsr" onclick="if (!permisoConfiguracion('permisoCrearUsuario', '{{rol_nombre}}'))return false;">Crear usuario</a></li>
                     <li><a href="./?action=listadoCompletoUsuarios" onclick="if (!permisoConfiguracion('permisoListadoUsuario', '{{rol_nombre}}'))return false;">Listar usuarios</a></li>
                     <li><a href="./?action=verMiUsuario" onclick="if (!permisoConfiguracion('permisoVerUsuario', '{{rol_nombre}}'))return false;">Ver mi usuario</a></li>
                 </ul>

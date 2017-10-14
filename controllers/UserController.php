@@ -213,4 +213,19 @@ class UserController{
             $this->accesoAPaginaUsuarios($arreglo);
         }
     }
+
+    public function ya_existe_usuario($mail,$nameUsr){
+        //valida contra base de datos
+        $aux = CreateUsrValidation::getInstance()->usuario_existente($mail, $nameUsr);
+        if (count($aux) == 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public function crearTabla(){
+        $arreglo = array("0"=> $_POST["emailUs"], "1"=> $_POST["nombreUs"],"2"=> $_POST["contraUs"],"3"=> $_POST["nombreRealUs"] ,"4"=> $_POST["ApellidoUs"]);
+        UserModel::getInstance()->insertarUsuario($arreglo);
+    }  
 }
