@@ -28,3 +28,32 @@ function validarCrearUsuario (){
     	return false;
     }
 }
+
+function existe_Usr(){
+	var email = document.getElementById("emailUs").value;
+	var nameUsr = document.getElementById("nombreUs").value;
+	var retorno = validarEmail_nombre(email, nameUsr);
+
+	if (!retorno){
+		alert("ya existe un usuario con ese Email (y/o) Nombre de Uuario");
+	}
+	return retorno;
+}
+
+function validarEmail_nombre (email, nombreUs){
+	
+	var aux = false;
+	$.ajax({
+		url: "./index.php", 
+		data: { action: "existe_Usuario", email_usuario: email, nombre_deUsuario: nombreUs},
+		async: false,
+		success: function (result){
+			if (result){
+				aux = true;
+			}
+		}
+	});
+
+	return aux;
+
+}

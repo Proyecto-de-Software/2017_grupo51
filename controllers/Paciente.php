@@ -24,4 +24,9 @@ class Paciente{
             return false;
         }
     }
+
+    function crearTablaPaciente(){
+        $arregloPac = array("0"=> $_POST["ApellidoP"], "1"=> $_POST["NombreP"],"2"=> $_POST["FecNacP"],"3"=> $_POST["GeneroP"] ,"4"=> $_POST["TipoDocP"], "5"=> $_POST["NroDocP"], "6"=> $_POST["DomicP"], "7"=> $_POST["TelefonoP"], "8"=> $_POST["ObraSocP"] );
+        UserValidation::getInstance()->insertarPaciente($arregloPac);
+    }
 }

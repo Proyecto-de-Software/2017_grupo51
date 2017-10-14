@@ -6,31 +6,31 @@
 	        <div class="container">
             	<div class="row">
             	   	<div class="col-sm-5">
-            	   		<form method= "POST" name="formu_pacientes" action="#" onsubmit="return existe_Pac();">
+            	   		<form method= "POST" name="form_pacientes" action="./?action=CrearPaciente" onsubmit="return existe_Pac();">
             	   			<div class="container well">
             		   			<h1 class="text-center"><label>Ingrese los datos del paciente</label></h1><br>
             		   			<div class="form-group">
      	 							<label>Apellido (*):</label>
-     								<input type="text" class="form-control" id="ApellidoP" placeholder="Apellido del paciente" required>
+     								<input type="text" class="form-control" name="ApellidoP" id="ApellidoP" placeholder="Apellido del paciente" required>
     							</div>
     							<div class="form-group">
       								<label>Nombre (*):</label>
-     								<input type="text" class="form-control" id="NombreP" placeholder="Nombre del paciente" required>
+     								<input type="text" class="form-control" name="NombreP" id="NombreP" placeholder="Nombre del paciente" required>
     							</div>
     							<div class="form-group">
       								<label>fecha nacimiento (*):</label>
-     								<input type="date" class="form-control" id="FecNacP" placeholder="Fecha de Nacimiento del paciente	" required>
+     								<input type="date" class="form-control" name="FecNacP" id="FecNacP" placeholder="Fecha de Nacimiento del paciente	" required>
     							</div>
     							<div class="form-group">
 	      							<label>Genero (*):</label>
-     									<select class="form-control" id="GeneroP" required>
+     									<select class="form-control" name="GeneroP" id="GeneroP" required>
         									<option>Masculino</option>
         									<option>Femenino</option>
         								</select>
     							</div>
     							<div class="form-group">
     	  							<label>Tipo de Documento (*):</label>
-	     							<select class="form-control" id="TipoDocP" required>
+	     							<select class="form-control" name="TipoDocP" id="TipoDocP" required>
      								<option>Documento nacional de inentidad (DNI)</option>
      									<option>Libreta Enrolamiento (l.e)</option>
      									<option>Pasaporte</option>
@@ -40,19 +40,19 @@
     							</div>
     							<div class="form-group">
       								<label>Numero de Documento (*):</label>
-  		   							<input type="number" class="form-control" id="NroDocP" placeholder="Nro Documento del paciente" 	required>
+  		   							<input type="number" class="form-control" name="NroDocP" id="NroDocP" placeholder="Nro Documento del paciente" 	required>
 	    						</div>
     							<div class="form-group">
       								<label>Domicilio (*):</label>
-     								<input type="text" class="form-control" id="DomicP" placeholder="Domicilio del paciente" required>
+     								<input type="text" class="form-control" name="DomicP" id="DomicP" placeholder="Domicilio del paciente" required>
     							</div>
     							<div class="form-group">
       								<label>Tel/Celular:</label>
-    	 							<input type="number" class="form-control" id="TelefonoP" placeholder="Telefono del paciente">
+    	 							<input type="number" class="form-control" name="TelefonoP" id="TelefonoP" placeholder="Telefono del paciente">
 	    						</div>
     							<div class="form-group">
       								<label>Obra social:</label>
-     								<select class="form-control" id="ObraSocP">
+     								<select class="form-control" name="ObraSocP" id="ObraSocP">
      									<option>OSDE</option>
      									<option>IOMA</option>
     	 								<option>Swiss Medical</option>
