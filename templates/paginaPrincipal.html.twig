@@ -4,17 +4,19 @@
 {% endblock %}
 {% block javascript %}
     <script src="templates/js/validacionPermisos.js"></script>
-{% endblock %}    
+    <script src="templates/js/bloqueoBotonAtras.js"></script>
+{% endblock %}
+{% block atributosBody %}onload="nobackbutton();"{%endblock%}
 {% block navlist %}
     <div>
         <ul class="nav navbar-nav navbar-right navbar-header">
             <li class="dropdown"><a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Menú <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Usuarios</a></li>//Falta validacion y acceso
-                    <li><a href="#">Pacientes</a></li>//Falta validacion y acceso
-                    <li><a href="#">Roles</a></li>//Falta validacion y acceso
+                    <li><a href="./?action=usuarios">Usuarios</a></li>//Falta modificacion y creacion
+                    <li><a href="./?action=pacientes">Pacientes</a></li>//Falta validacion y acceso
+                    <li><a href="./?action=roles">Roles</a></li>
                     <li><a href="#" class="divider"></a></li>
-                    //Falta acceso correcto<li><a href="./?action=accesoConfiguracion" onclick="if(!permisoConfiguracion('permisoConfiguracion',{{ rol_id }},'{{rol_nombre}}')) return false;">Configuración del sistema</a></li>
+                    //Falta acceso correcto<li><a href="./?action=accesoConfiguracion" onclick="if(!permisoConfiguracion('permisoConfiguracion','{{rol_nombre}}')) return false;">Configuración del sistema</a></li>
                 </ul>
             </li>
             <li><a href="./?action=cerrarSesion" class="btn"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>

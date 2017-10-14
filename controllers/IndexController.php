@@ -13,6 +13,7 @@ class IndexController{
         return self::$instance;
     }
     public function layout(){
+        //Funcion que construye el layout de la pagina, igual para todas.
         $indexConfiguration = ConfigurationModule::getInstance()->indexPageInfo();
         $parameters['titulo_pagina'] = $indexConfiguration->getTitle();
         $parameters['mail_contacto'] = $indexConfiguration->getMail();
@@ -24,6 +25,7 @@ class IndexController{
     }
         
     public function index(){
+        //Accede al index del sitio.
         $layout = self::layout();
         Home::getInstance()->show('index.html.twig',$layout);
     }

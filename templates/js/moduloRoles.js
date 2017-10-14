@@ -1,0 +1,25 @@
+function poseeMasDeUnRol(id){
+    //Chequea que el usuario posea mas de un rol para poder cambiar.
+    var puedeCambiarRol = chequeoCantRoles(id);
+    if(puedeCambiarRol){
+        return true;
+    }else{
+        alert('Posees un unico rol asignado, no puedes cambiar.');
+        return false;
+    }
+}
+
+function chequeoCantRoles(id){
+    //Consulta la cantidad de roles de un usuario.
+    var retorno = false;
+    $.ajax({
+        url: './index.php',
+        data: { action : 'cantidadRoles', idUsuario: id },
+        async: false,
+        success: function(res){
+            if(res){
+                retorno = true;
+            }
+        }});
+    return retorno;
+}

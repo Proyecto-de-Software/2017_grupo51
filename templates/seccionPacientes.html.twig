@@ -1,0 +1,164 @@
+{% extends "layout.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="templates/css/sitioInhabilitado.css" >
+{% endblock %}
+{% block javascript %}
+    <script src="templates/js/validacionPermisos.js"></script>
+    <script src="templates/js/moduloUsuario.js"></script>
+    <script src="templates/js/moduloPacientes.js"></script>
+{% endblock %}
+{% block navlist %}
+    <div>
+        <ul class="nav navbar-nav navbar-right navbar-header">
+            <li class="dropdown"><a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Menú <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" onclick="if (!permisoConfiguracion('permisoCrearPaciente', '{{rol_nombre}}'))return false;">Nuevo paciente</a></li>
+                    <li><a href="./?action=listarPacientes" onclick="if (!permisoConfiguracion('permisoListarPaciente', '{{rol_nombre}}'))return false;">Listar pacientes</a></li>
+                </ul>
+            </li>
+            <li><a href="./?action=volverAInicio" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver al inicio</a></li>
+            <li>
+                <form class="navbar-form" action="./?action=buscarPaciente" method="POST" onsubmit="return validarBusqueda();">
+                    <div class="form-group">
+                        <select class="form-control" name="busquedaPaciente" id="seleccion" onchange="visibilidadTipoDocumento(this.value);">
+                            <option value="0">Opciones de busqueda...</option>
+                            <option value="buscarNombrePaciente">Nombre de paciente</option>
+                            <option value="buscarApellidoPaciente">Apellido del paciente</option>
+                            <option value="buscarDocumentoPaciente">Documento</option>
+                        </select>
+                        <select class="form-control hide" name="selectDoc" id="selectDoc">
+                            <option value="0">Selecciona un tipo de documento</option>
+                            <option value="DNI">DNI</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="buscaPaciente" id="buscador" required>
+                    </div>
+                    <button type="submit" class="btn btn-default">Buscar paciente</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+{% endblock %} 
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <h1><strong>{{titulo}}</strong></h1>
+            </div>
+        </div>
+        {% if listaPacientes is defined %}
+        <div class="container table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombre y Apellido</th>
+                        <th>Fecha de nacimiento</th>
+                        <th>Tipo de documento</th>
+                        <th>Numero de documento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set id_tr = 1 %}
+                    {% set cantId = 0 %}
+                    {% for paciente in listaPacientes %}
+                        <tr title="{{ id_tr }}" {% if id_tr != 1 %}class="hide"{% endif %}>
+                            <td>{{ paciente.nombre}} {{ paciente.apellido }}</td>
+                            <td>{{ paciente.fecha_nacimiento }}</td>
+                            <td>{{ paciente.tipo_documento }}</td>
+                            <td>{{ paciente.numero_documento }}</td>
+                            <td><a href="./?action=verDatosCompletosPaciente&id={{ paciente.id }}" onclick="return permisoConfiguracion('permisoVerDatosCompletosPaciente', '{{rol_nombre}}')" class="btn btn-primary">Ver datos completos</a></td>
+                            <td><a href="./?action=eliminarPaciente&id={{ paciente.id }}" onclick="if(confirmacion('¿Esta seguro que desea eliminar el paciente?')) { return permisoConfiguracion('permisoEliminarPaciente', '{{rol_nombre}}');}else{return false;}" class="btn btn-primary">Eliminar paciente</a></td>
+                        </tr>
+                        {% set cantId = cantId + 1 %}
+                        {% if cantId == elemPorPagina %} {% set id_tr = id_tr + 1 %} {% set cantId = 0 %} {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination">
+                    {% set cantPaginas = ((listaPacientes | length)/elemPorPagina) | round(0,'ceil') %}
+                    {% for i in 1..cantPaginas %}    
+                        <li id="selec{{i}}" {% if i == 1 %}class="active"{% endif %}><a href="javascript:mostrarTablas({{i}});">{{i}}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            {% elseif pacienteCompleto is defined %}
+                <div class="container table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td><strong>Nombre y apellido:</strong></td>
+                                <td>{{ pacienteCompleto[0]['nombre'] }} {{ pacienteCompleto[0]['apellido'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fecha de nacimiento:</strong></td>
+                                <td>{{ pacienteCompleto[0]['fecha_nacimiento'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Género:</strong></td>
+                                <td>{{ pacienteCompleto[0]['genero'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tipo de documento:</strong></td>
+                                <td>{{ pacienteCompleto[0]['tipo_documento'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Número de documento:</strong></td>
+                                <td>{{ pacienteCompleto[0]['numero_documento'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Domicilio:</strong></td>
+                                <td>{{ pacienteCompleto[0]['domicilio'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Teléfono:</strong></td>
+                                <td>{% if pacienteCompleto[0]['tel_cel'] is null %}No posee{% else %}{{ pacienteCompleto[0]['tel_cel'] }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Obra social:</strong></td>
+                                <td>{% if pacienteCompleto[0]['obra_social'] is null %}No posee{% else %}{{ pacienteCompleto[0]['obra_social'] }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Heladera:</strong></td>
+                                <td>{% if pacienteCompleto[0]['heladera'] %}Si{% else %}No{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Electricidad:</strong></td>
+                                <td>{% if pacienteCompleto[0]['electricidad'] %}Si{% else %}No{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tipo de vivienda:</strong></td>
+                                <td>{{ pacienteCompleto[0]['tipo_vivienda'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mascota:</strong></td>
+                                <td>{% if pacienteCompleto[0]['mascota'] %}Si{% else %}No{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tipo de calefacción:</strong></td>
+                                <td>{{ pacienteCompleto[0]['tipo_calefaccion'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tipo de agua:</strong></td>
+                                <td>{{ pacienteCompleto[0]['tipo_agua'] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>    
+                    <a href="#" class="btn btn-primary"> Modificar paciente</a>
+                </div>
+            {% endif %}
+    </div>
+    </div>
+{% endblock %} 
+{% block atributosFooter %}
+    {% if listaPacientes is not defined%}
+        {% if titulo != 'Datos del paciente.' %}
+            class="posicionFooter"
+        {% endif %}
+    {% elseif ((listaPacientes | length) < 10) %}
+        class="posicionFooter"
+    {% elseif (elemPorPagina < 10) %}
+        class="posicionFooter"
+    {% endif %}
+{% endblock %}

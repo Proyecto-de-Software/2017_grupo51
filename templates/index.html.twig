@@ -60,4 +60,8 @@
         </div>
         {% endif %}
 {% endblock %} 
-{% block atributosFooter %}class="posicionFooter"{% endblock %}
+{% block atributosFooter %}
+    {% if sitioInhabilitado is defined %}
+        class="posicionFooter"
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends "layout.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="templates/css/sitioInhabilitado.css" >
+{% endblock %}
+{% block javascript %}
+    <script src="templates/js/moduloUsuario.js"></script>
+    <script src="templates/js/validacionPermisos.js"></script>
+    <script src="templates/js/bloqueoBotonAtras.js"></script>
+{% endblock %}
+
+{% block navlist %}
+    <div>
+        <ul class="nav navbar-nav navbar-right navbar-header">
+            <li class="dropdown"><a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Menú <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" onclick="if (!permisoConfiguracion('permisoCrearUsuario', '{{rol_nombre}}'))return false;">Crear usuario</a></li>
+                    <li><a href="./?action=listadoCompletoUsuarios" onclick="if (!permisoConfiguracion('permisoListadoUsuario', '{{rol_nombre}}'))return false;">Listar usuarios</a></li>
+                    <li><a href="./?action=verMiUsuario" onclick="if (!permisoConfiguracion('permisoVerUsuario', '{{rol_nombre}}'))return false;">Ver mi usuario</a></li>
+                </ul>
+            </li>
+            <li><a href="./?action=volverAInicio" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver al inicio</a></li>
+            <li><a href="./?action=cerrarSesion" class="btn"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+            <li>
+                <form class="navbar-form" action="./?action=buscarUsuarios" method="POST" onsubmit="return obtenerDatos();">
+                    <div class="form-group">
+                        <select class="form-control" name="busquedaUsuario" id="seleccion" onchange="visibilidadInput(this.value);">
+                            <option value="0">Opciones de busqueda...</option>
+                            <option value="permisoBuscarNombreUsuario">Nombre de usuario</option>
+                            <option value="permisoBuscarActivos">Activos</option>
+                            <option value="permisoBuscarBloqueados">Bloqueados</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control hide" name="nombreUsuario" id="buscador" placeholder="Ingresa nombre de usuario">
+                    </div>
+                    <button type="submit" class="btn btn-default" onclick="return validarEnvio('{{rol_nombre}}');">Buscar usuarios</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+{% endblock %} 
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <h1><strong>{{titulo}}</strong></h1>
+            </div>
+        </div>
+    </div>
+    {% if listaUsuarios is defined %}
+        <div class="container table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombre de usuario</th>
+                        <th>Nombre y Apellido</th>
+                        <th>Email</th>
+                        <th>Activo</th>
+                        <th>Creado</th>
+                        <th>Actualizado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set id_tr = 1 %}
+                    {% set cantId = 0 %}
+                    {% for usuario in listaUsuarios %}
+                        <tr title="{{ id_tr }}" {% if id_tr != 1 %}class="hide"{% endif %}>
+                            <td>{{ usuario.username }}</td>
+                            <td>{{ usuario.first_name }} {{ usuario.last_name }}</td>
+                            <td>{{ usuario.email }}</td>
+                            <td>{% if usuario.active %}Activo{% else %}Bloqueado{% endif %}</td>
+                            <td>{{ usuario.created_at }}</td>
+                            <td>{{ usuario.updated_at }}</td>
+                            <td><a href="./?action=eliminarUsuario&id={{ usuario.id }}" onclick="return confirmacion('¿Esta seguro que desea eliminar el usuario?');" class="btn btn-primary">Borrar</a></td>
+                            <td><a href="./?action=cambiarEstadoUsuario&id={{ usuario.id }}&estado={{ usuario.active }}" onclick="return confirmacion('¿Esta seguro que desea {%if usuario.active %}bloquear{%else%}desbloquear{%endif%} el usuario?');" class="btn btn-primary">{% if usuario.active %}Bloquear{% else %}Desbloquear{% endif %}</a></td>
+                        </tr>
+                        {% set cantId = cantId + 1 %}
+                        {% if cantId == elemPorPagina %} {% set id_tr = id_tr + 1 %} {% set cantId = 0 %} {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination">
+                    {% set cantPaginas = ((listaUsuarios | length)/elemPorPagina) | round(0,'ceil') %}
+                    {% for i in 1..cantPaginas %}    
+                        <li id="selec{{i}}" {% if i == 1 %}class="active"{% endif %}><a href="javascript:mostrarTablas({{i}});">{{i}}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>    
+        </div>
+    {% elseif tuUsuario is defined%}
+        <div class="container table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td><strong>Nombre de usuario:</strong></td>
+                        <td>{{ tuUsuario['usuario'][0]['username'] }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre y apellido:</strong></td>
+                        <td>{{ tuUsuario['usuario'][0]['first_name'] }} {{ tuUsuario['usuario'][0]['last_name'] }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Email:</strong></td>
+                        <td>{{ tuUsuario['usuario'][0]['email'] }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estado:</strong></td>
+                        <td>{% if tuUsuario['usuario'][0]['active'] %}Activo{% else %}Bloqueado{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Creado:</strong></td>
+                        <td>{{ tuUsuario['usuario'][0]['created_at'] }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Actualizado:</strong></td>
+                        <td>{{ tuUsuario['usuario'][0]['updated_at'] }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rol(es):</strong></td>
+                        <td>{% for rol in tuUsuario['rolesUsuario'] %}{{ rol.nombre }}/{% endfor %}</td>
+                    </tr>
+                </tbody>
+            </table> 
+            <a href="#" class="btn btn-primary"> Modificar usuario </a>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block atributosFooter %}
+    {% if listaUsuarios is not defined%}
+        class="posicionFooter"
+    {% elseif ((listaUsuarios | length) < 10) %}
+        class="posicionFooter"
+    {% elseif (elemPorPagina < 10) %}
+        class="posicionFooter"
+    {% endif %}
+{% endblock %}

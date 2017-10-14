@@ -1,19 +1,31 @@
-function permisoConfiguracion(accion,rolid,rolnombre){
-    var permiso = chequePermisoValido(accion,rolid);
-    if(!permiso){
-        alert('Los usuarios con rol de ' + rolnombre + ' no poseen permisos para acceder a esta funcionalidad.'); 
+//Funcion llamada desde submit de busqueda de usuarios
+function validarEnvio(rol_nombre){
+    var elemento = $("#seleccion").val();
+    
+    if(elemento == 0){
+        alert('Por favor, selecciona una opcion de busqueda');
+        return false;
+    }else{
+        return permisoConfiguracion(elemento,rol_nombre);
     }
-    return permiso;
 }
 
-function chequePermisoValido(accion,rol){
+function permisoConfiguracion(permiso,rolnombre){
+    var tienePermiso = chequePermisoValido(permiso);
+    if(!tienePermiso){
+        alert('Los usuarios con rol de ' + rolnombre + ' no poseen permisos para acceder a esta funcionalidad.'); 
+    }
+    return tienePermiso;
+}
+
+function chequePermisoValido(permiso){
     var retorno = false;
     $.ajax({
         url: './index.php',
-        data: { action : accion, rol : rol },
+        data: { action : permiso },
         async: false,
         success: function(res){
-            if(res === 'true'){
+            if(res){
                 retorno = true;
             }
         }});

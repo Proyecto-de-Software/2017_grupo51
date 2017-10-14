@@ -1,0 +1,31 @@
+{% extends "layout.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="templates/css/sitioInhabilitado.css" >
+{% endblock %}
+{% block javascript %}
+    <script src="templates/js/moduloRoles.js"></script>
+    <script src="templates/js/validacionPermisos.js"></script>
+{% endblock %}
+{% block navlist %}
+    <div>
+        <ul class="nav navbar-nav navbar-right navbar-header">
+            <li class="dropdown"><a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Menú <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="./?action=cambioRoles" onclick="return poseeMasDeUnRol({{id_usuario}})">Cambiar de rol</a></li>
+                </ul>
+            </li>
+            <li><a href="./?action=volverAInicio" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver al inicio</a></li>
+            <li><a href="./?action=cerrarSesion" class="btn"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
+        </ul>
+    </div>
+{% endblock %} 
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <h1><strong>{{titulo}}</strong></h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}            
+{% block atributosFooter %}class="posicionFooter"{% endblock %}

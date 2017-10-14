@@ -16,33 +16,44 @@ class AppController{
         
     }
     
-    public static function getUser(){
-        return self::$user;
-    }
-    
     public function checkPermission($permission){
         //Se busca si el usuario con sesion iniciada tiene el permiso pasado por parametro permitido.
+        //if(!isset($_SESSION)){session_start();}
+        if(!isset($_SESSION)){
+            session_start();
+            $rol = $_SESSION['rolId'];
+            if(ConfigurationModule::getInstance()->tienePermiso($rol,$permission)){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
     
     public function validarInicioSesion(){
         //Validacion del formulario para iniciar sesion
+        //Pregunta por isset($_POST['usr']) por si se accede por url.
         if(isset($_POST['usr'])){
             $datos['nombre_usuario'] = $_POST['usr'];
             $datos['contraseña_usuario'] = $_POST['contraseña'];
-            $usuario = UserValidation::getInstance()->existeUsuario($datos['nombre_usuario'],$datos['contraseña_usuario']);
+            //Cheque que exista un usuario con los datos ingresados.
+            $usuario = UserModel::getInstance()->existeUsuario($datos['nombre_usuario'],$datos['contraseña_usuario']);
             if (count($usuario) == 0){
+                //Aviso que no existe usuario
                 IniciarSesion::getInstance()->iniciarS('no_existe');
-            }elseif (!UserValidation::getInstance()->estaActivo($usuario[0]['id'])) {
+            }elseif (!UserModel::getInstance()->estaActivo($usuario[0]['id'])) {
+                //Aviso que el usuario a sido bloqueado
                 IniciarSesion::getInstance()->iniciarS('no_activo');
             }else{
+                //Si la pagina no esta activa, chequea de que el usuario que quiera ingresar, sea Administrador.
                 if(!AppController::getInstance()->comprobarPaginaActiva()){
-                    if(UserValidation::getInstance()->chequearRol($usuario[0]['id'],'Administrador')){
-                        UserController::getInstance()->nuevaSesion($usuario);
+                    if(UserModel::getInstance()->chequearRol($usuario[0]['id'],'Administrador')){
+                        UserController::getInstance()->nuevaSesion($usuario[0]['id']);
                     }else{
                         IndexController::getInstance()->index();
                     }
                 }else{
-                    UserController::getInstance()->nuevaSesion($usuario);
+                    UserController::getInstance()->nuevaSesion($usuario[0]['id']);
                 }
         }}else{
             IndexController::getInstance()->index();
@@ -51,7 +62,15 @@ class AppController{
 
 
     public function comprobarPaginaActiva(){
+        //Retorna el valor de 'active' de la pagina.
         $configuracion = ConfigurationModule::getInstance()->indexPageInfo();
         return $configuracion->getActive();
+    }
+    
+    public function volverAInicio(){
+        session_start();
+        $layout = IndexController::getInstance()->layout();
+        $layout['rol_nombre'] = $_SESSION['rolNombre'];
+        Home::getInstance()->show('paginaPrincipal.html.twig',$layout);
     }
 }
