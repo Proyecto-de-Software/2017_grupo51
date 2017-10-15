@@ -81,8 +81,11 @@ class UserModel extends PDORepository{
     }
 
     public function insertarPaciente($arregloDatosPac){
+        $resultado = $this->queryList("INSERT INTO paciente (apellido, nombre, fecha_nacimiento, genero, tipo_documento, numero_documento, domicilio, tel_cel, obra_social, heladera, electricidad, tipo_vivienda, mascota, tipo_calefaccion, tipo_agua) VALUES (:apellidoPac, :nombrePac, :fecha_nacimientoPac, :generoPac, :tipo_documentoPac, :numero_documentoPac, :domicilioPac, :tel_celPac, :obra_socialPac, :heladPac, :elecPac, :viviPac, :mascotaPac, :calePac, :aguaPac)",['apellidoPac'=>$arregloDatosPac[0], 'nombrePac'=>$arregloDatosPac[1], 'fecha_nacimientoPac'=>$arregloDatosPac[2], 'generoPac'=>$arregloDatosPac[3], 'tipo_documentoPac'=>$arregloDatosPac[4], 'numero_documentoPac'=>$arregloDatosPac[5], 'domicilioPac'=>$arregloDatosPac[6], 'tel_celPac'=>$arregloDatosPac[7], 'obra_socialPac'=>$arregloDatosPac[8], 'heladPac'=>$arregloDatosPac[9], 'elecPac'=>$arregloDatosPac[10], 'viviPac'=>$arregloDatosPac[12], 'mascotaPac'=>$arregloDatosPac[11], 'calePac'=>$arregloDatosPac[13], 'aguaPac'=>$arregloDatosPac[14] ]);
 
-        $resultado = $this->queryList("INSERT INTO paciente (apellido, nombre, fecha_nacimiento, genero, tipo_documento, numero_documento, domicilo, tel_cel, obra_social) VALUES (:apellidoPac, :nombrePac, :fecha_nacimientoPac, :generoPac, :tipo_documentoPac, :numero_documentoPac, :domiciloPac, :tel_celPac, :obra_socialPac)",['apellidoPac'=>$arregloDatosPac[0], 'nombrePac'=>$arregloDatosPac[1], 'fecha_nacimientoPac'=>$arregloDatosPac[2], 'generoPac'=>$arregloDatosPac[3], 'tipo_documentoPac'=>$arregloDatosPac[4], 'numero_documentoPac'=>$arregloDatosPac[5], 'domiciloPac'=>$arregloDatosPac[6], 'tel_celPac'=>$arregloDatosPac[7], 'obra_socialPac'=>$arregloDatosPac[8] ]);
+    }
 
+    public function insertarRolesUsuario($usr_id, $rol_id){
+        $resultado = $this->queryList ("INSERT INTO usuario_tiene_rol (usuario_id, rol_id) VALUES (:usrid, :rolid)", ['usrid'=>$usr_id, 'rolid'=>$rol_id] );
     }
 }

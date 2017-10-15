@@ -132,7 +132,8 @@ class Paciente{
     }
 
     function crearTablaPaciente(){
-        $arregloPac = array("0"=> $_POST["ApellidoP"], "1"=> $_POST["NombreP"],"2"=> $_POST["FecNacP"],"3"=> $_POST["GeneroP"] ,"4"=> $_POST["TipoDocP"], "5"=> $_POST["NroDocP"], "6"=> $_POST["DomicP"], "7"=> $_POST["TelefonoP"], "8"=> $_POST["ObraSocP"] );
+
+        $arregloPac = array("0"=> $_POST["ApellidoP"], "1"=> $_POST["NombreP"],"2"=> $_POST["FecNacP"],"3"=> $_POST["GeneroP"] ,"4"=> $_POST["TipoDocP"], "5"=> $_POST["NroDocP"], "6"=> $_POST["DomicP"], "7"=> $_POST["TelefonoP"], "8"=> $_POST["ObraSocP"], "9"=> $_POST["heladera"], "10"=> $_POST["electricidad"], "11"=> $_POST["mascota"], "12"=> $_POST["viviendaP"], "13"=> $_POST["calefaP"], "14"=> $_POST["tipoAguaP"] );
         UserModel::getInstance()->insertarPaciente($arregloPac);
     }
 }

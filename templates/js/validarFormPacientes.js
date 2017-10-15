@@ -25,13 +25,13 @@ function validarFormPac (){
 	}else if ( (! letras.test(nombre)) || (! letras.test(apellido)) ){
         alert("El nombre debe tener solo letras");
         return false;
-    }else if(!document.formu_pacientes.heladera[0].checked && !document.formu_pacientes.heladera[1].checked){
+    }else if(!document.form_pacientes.heladera[0].checked && !document.form_pacientes.heladera[1].checked){
     	alert("Seleccione una opcion en campo Heladera");
     	return false;
-    }else if(!document.formu_pacientes.Electricidad[0].checked && !document.formu_pacientes.Electricidad[1].checked){
+    }else if(!document.form_pacientes.Electricidad[0].checked && !document.form_pacientes.Electricidad[1].checked){
     	alert("Seleccione una opcion en campo Electricidad");
     	return false;
-    }else if(!document.formu_pacientes.mascotas[0].checked && !document.formu_pacientes.mascotas[1].checked){
+    }else if(!document.form_pacientes.mascotas[0].checked && !document.form_pacientes.mascotas[1].checked){
     	alert("Seleccione una opcion en campo Mascotas");
     	return false;
     }
