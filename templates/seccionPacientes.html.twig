@@ -12,7 +12,7 @@
         <ul class="nav navbar-nav navbar-right navbar-header">
             <li class="dropdown"><a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Menú <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#" onclick="if (!permisoConfiguracion('permisoCrearPaciente', '{{rol_nombre}}'))return false;">Nuevo paciente</a></li>
+                    <li><a href="./?action=formPaciente" onclick="if (!permisoConfiguracion('permisoCrearPaciente', '{{rol_nombre}}'))return false;">Nuevo paciente</a></li>
                     <li><a href="./?action=listarPacientes" onclick="if (!permisoConfiguracion('permisoListarPaciente', '{{rol_nombre}}'))return false;">Listar pacientes</a></li>
                 </ul>
             </li>
@@ -28,7 +28,11 @@
                         </select>
                         <select class="form-control hide" name="selectDoc" id="selectDoc">
                             <option value="0">Selecciona un tipo de documento</option>
-                            <option value="DNI">DNI</option>
+                            <option value="DNI">Documento nacional de inentidad (DNI)</option>
+                            <option>Libreta Enrolamiento (l.e)</option>
+                            <option>Pasaporte</option>
+                            <option>Carnet extragero</option>
+                            <option>Reg unico de contribuyentes (RUC)</option>
                         </select>
                     </div>
                     <div class="form-group">

@@ -25,12 +25,6 @@ class UserModel extends PDORepository{
         return count($answer);
     }
     
-    public function roles($id){
-        //Retorna los roles asignados al usuario pasado por parametro
-        $answer = $this->queryList("SELECT r.id,r.nombre FROM rol r INNER JOIN usuario_tiene_rol ur ON (r.id=ur.rol_id) INNER JOIN usuario u ON (ur.usuario_id=u.id) WHERE ur.usuario_id=:id", ['id'=>$id]);
-        return $answer;
-    }
-    
     public function estaActivo($id){
         //Retorna el valor 'active' de un usuario
         $answer = $this->queryList("SELECT active FROM usuario WHERE id=:id_usr", ['id_usr'=>$id]);
@@ -67,7 +61,7 @@ class UserModel extends PDORepository{
     
     public function obtenerDatos($id_usuario){
         $answerUsuario = $this->obtenerUsuario($id_usuario);
-        $answerRoles = $this->roles($id_usuario);
+        $answerRoles = RolesModel::getInstance()->roles($id_usuario);
         $finalAnswer = array(
             'usuario' => $answerUsuario,
             'rolesUsuario' => $answerRoles,
@@ -84,5 +78,19 @@ class UserModel extends PDORepository{
 
         $resultado = $this->queryList("INSERT INTO paciente (apellido, nombre, fecha_nacimiento, genero, tipo_documento, numero_documento, domicilo, tel_cel, obra_social) VALUES (:apellidoPac, :nombrePac, :fecha_nacimientoPac, :generoPac, :tipo_documentoPac, :numero_documentoPac, :domiciloPac, :tel_celPac, :obra_socialPac)",['apellidoPac'=>$arregloDatosPac[0], 'nombrePac'=>$arregloDatosPac[1], 'fecha_nacimientoPac'=>$arregloDatosPac[2], 'generoPac'=>$arregloDatosPac[3], 'tipo_documentoPac'=>$arregloDatosPac[4], 'numero_documentoPac'=>$arregloDatosPac[5], 'domiciloPac'=>$arregloDatosPac[6], 'tel_celPac'=>$arregloDatosPac[7], 'obra_socialPac'=>$arregloDatosPac[8] ]);
 
+    }
+    
+    public function usuariosConRoles(){
+        $answer = $this->queryList("SELECT * FROM usuario u INNER JOIN usuario_tiene_rol ur ON(u.id=ur.usuario_id) INNER JOIN rol r ON(r.id=ur.rol_id)", []);
+        return $answer;
+    }
+    
+    
+    public function usuarioPoseeRol($usuarioId,$rolId){
+        $answer = $this->queryList("SELECT * FROM usuario_tiene_rol ur WHERE ur.rol_id=:rolId AND ur.usuario_id=:usuarioId", ['rolId'=>$rolId,'usuarioId'=>$usuarioId]);
+        if(count($answer) == 0){
+            return false;
+        }
+        return true;
     }
 }

@@ -23,3 +23,13 @@ function chequeoCantRoles(id){
         }});
     return retorno;
 }
+
+function puedeDesasignar(idUsuario){
+    var poseeMasDeUnRol = chequeoCantRoles(idUsuario);
+    if(poseeMasDeUnRol){
+        return true;
+    }else{
+        alert('El usuario no puede quedar sin roles asignados.');
+        return false;
+    }
+}

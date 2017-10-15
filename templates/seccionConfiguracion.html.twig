@@ -1,0 +1,83 @@
+{% extends "layout.html.twig" %}
+{% block javascript %}
+    <script src="templates/js/validacionPermisos.js"></script>
+    <script src="templates/js/moduloUsuario.js"></script>
+    <script src="templates/js/moduloConfiguracion.js"></script>
+{% endblock %}
+{% block navlist %}
+    <div>
+        <ul class="nav navbar-nav navbar-right navbar-header">
+            <li class="dropdown"><a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Menú <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="./?action=mostrarConfiguracion" onclick="">Ver configuracion</a></li>
+                    <li><a href="./?action=actualizarConfiguracion" onclick="">Actualizar configuracion</a></li>
+                </ul>
+            </li>
+            <li><a href="./?action=volverAInicio" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver al inicio</a></li>
+        </ul>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <h1><strong>{{titulo}}</strong></h1>
+            </div>
+        </div>
+    </div>
+    {% if titulo == 'Actualización de la configuracion del sitio.' %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 well">
+                    <form action="./?action=enviarConfiguracion" onsubmit="return confirmacion('¿Actualizar la informacion de configuración?');" method= "POST" name="formConfiguracion" >
+                            <div class="form-group">
+                                <label>Título de la página:</label>
+                                <input type="text" class="form-control" name="tituloPagina" id="tituloPagina" placeholder="Ingresa el título" value="{{ titulo_pagina }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Mail de contacto:</label>
+                                <input type="email" class="form-control" name="mailContacto" id="mailContacto" placeholder="Ingresa mail" value="{{ mail_contacto }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Cantidad de elementos por página de listado:</label>
+                                <input type="number" class="form-control" name="elementosPagina" id="elementosPagina" placeholder="Ingresa cantidad" value="{{ elementos_pagina }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Estado del sitio:</label>
+                                <label><input type="radio" value="true" name="estadoSitio" id="sitioActivo" required {% if pagina_activa %}checked{% endif %}>Activo</label>
+      				<label><input type="radio" value="false" name="estadoSitio" id="sitioBloqueado" required {% if not pagina_activa %}checked{% endif %}>Bloqueado</label>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary center-block" onclick="return validarInformacion()">Actualizar información</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% elseif titulo == 'Tabla de configuracion.' %}
+        <div class="container table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td><strong>Título de la pagina:</strong></td>
+                        <td>{{ titulo_pagina }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mail de contacto:</strong></td>
+                        <td>{{ mail_contacto }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cantidad de elementos por pagina de listado:</strong></td>
+                        <td>{{ elementos_pagina }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estado del sitio:</strong></td>
+                        <td>{% if pagina_activa %}Activo{% else %}Bloqueado{% endif %}</td>
+                    </tr>
+                </tbody>
+            </table>    
+        </div>
+    {% endif %}
+{% endblock %}
+{% block atributosFooter %}
+    class="posicionFooter"
+{% endblock %}

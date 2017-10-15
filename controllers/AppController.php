@@ -19,16 +19,19 @@ class AppController{
     public function checkPermission($permission){
         //Se busca si el usuario con sesion iniciada tiene el permiso pasado por parametro permitido.
         //if(!isset($_SESSION)){session_start();}
-        if(!isset($_SESSION)){
-            session_start();
-            $rol = $_SESSION['rolId'];
-            if(ConfigurationModule::getInstance()->tienePermiso($rol,$permission)){
-                return true;
+        if(!isset($_SESSION)){session_start();}
+            if(isset($_SESSION['rolId'])){
+                $rol = $_SESSION['rolId'];
+                if(ConfigurationModule::getInstance()->tienePermiso($rol,$permission)){
+                    return true;
+                }else{
+                    return false;
+                }
             }else{
                 return false;
             }
-        }
     }
+    
     
     public function validarInicioSesion(){
         //Validacion del formulario para iniciar sesion

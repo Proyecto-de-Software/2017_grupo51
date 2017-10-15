@@ -18,7 +18,7 @@ class Paciente{
     
     public function accesoPagPacientes(){
         //Accede a la seccion de pacientes.
-        if(UserController::getInstance()->sePuedeAccederASeccion()){
+        if(UserController::getInstance()->sePuedeAccederASeccion('paciente_seccion')){
             $layout = IndexController::getInstance()->layout();
             $layout['titulo'] = 'Bienvenido a la seccion de pacientes.';
             $layout['id_usuario'] = $_SESSION['id_usuario'];
@@ -28,7 +28,7 @@ class Paciente{
     }
     
     public function listadoCompletoPacientes(){
-        if(UserController::getInstance()->sePuedeAccederASeccion()){
+        if(UserController::getInstance()->sePuedeAccederASeccion('paciente_index')){
             $pacientes = PacienteModel::getInstance()->obtenerPacientes();
             if(count($pacientes) == 0){
                     $parametros['mensaje'] = 'No hay pacientes registrados.';
@@ -56,7 +56,7 @@ class Paciente{
     }
     
     public function verDatosCompletosPaciente($idPaciente){
-        if(UserController::getInstance()->sePuedeAccederASeccion()){
+        if(UserController::getInstance()->sePuedeAccederASeccion('paciente_show')){
             $paciente = PacienteModel::getInstance()->obtenerDatosCompletos($idPaciente);
             $arreglo = array(
                 'mensaje' => 'Datos del paciente.',
@@ -71,7 +71,7 @@ class Paciente{
     
     public function eliminarPaciente($idPaciente){
         //Elimina el paciente pasado por parametro
-        if(UserController::getInstance()->sePuedeAccederASeccion()){
+        if(UserController::getInstance()->sePuedeAccederASeccion('paciente_destroy')){
             PacienteModel::getInstance()->eliminarPaciente($idPaciente);
             $this->listadoCompletoPacientes();
         }else{
@@ -82,7 +82,7 @@ class Paciente{
     
     public function buscarPorNombre($nombrePaciente){
         //Busca pacientes por su nombre
-        if(UserController::getInstance()->sePuedeAccederASeccion()){
+        if(UserController::getInstance()->sePuedeAccederASeccion('paciente_index')){
             $pacientes = PacienteModel::getInstance()->buscarNombrePaciente($nombrePaciente);
             if(count($pacientes) > 0){
                 $parametros['mensaje'] = 'Pacientes con nombre que contenga: '.$nombrePaciente;
@@ -96,7 +96,7 @@ class Paciente{
     
     public function buscarPorApellido($apellidoPaciente){
         //Busca pacientes por su apellido
-        if(UserController::getInstance()->sePuedeAccederASeccion()){
+        if(UserController::getInstance()->sePuedeAccederASeccion('paciente_index')){
             $pacientes = PacienteModel::getInstance()->buscarApellidoPaciente($apellidoPaciente);
             if(count($pacientes) > 0){
                 $parametros['mensaje'] = 'Pacientes con apellido que contengan: '.$apellidoPaciente;
@@ -110,7 +110,7 @@ class Paciente{
     
     public function buscarPorDocumento($numero,$doc){
         // Busca pacientes por tipo y numero de documento
-        if(UserController::getInstance()->sePuedeAccederASeccion()){
+        if(UserController::getInstance()->sePuedeAccederASeccion('paciente_index')){
             $pacientes = PacienteModel::getInstance()->buscarDocumentoPaciente($numero,$doc);
             if(count($pacientes) > 0){
                 $parametros['mensaje'] = 'Pacientes con tipo de documento '.$doc. ' que contengan el número: '.$numero;

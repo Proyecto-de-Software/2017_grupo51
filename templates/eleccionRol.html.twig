@@ -4,6 +4,7 @@
 {% endblock %}
 {% block javascript %}
     <script src="templates/js/bloqueoBotonAtras.js"></script>
+    <script src="templates/js/moduloUsuario.js"></script>
 {% endblock %}
 {% block atributosBody %}onload="nobackbutton();"{%endblock%}
 {% block content %}
@@ -13,7 +14,7 @@
         {% set pos = roles['roles'] | length - 1%}
         {% for i in 0..pos %}
             <div class="col-md-12">
-                <a href="./?action=ingresoAlSitio&idrol={{roles['roles'][i]['id']}}&nombrerol={{roles['roles'][i]['nombre']}}&idusuario={{ roles.id }}"><button class="center-block btn btn-primary">Ingresar como {{roles['roles'][i]['nombre']}}</button></a>
+                <a href="./?action=ingresoAlSitio&idrol={{roles['roles'][i]['id']}}&nombrerol={{roles['roles'][i]['nombre']}}&idusuario={{ roles.id }}" class="center-block btn btn-primary" onclick="return confirmacion('¿Esta seguro que desea ingresar como {{roles['roles'][i]['nombre']}}?')">Ingresar como {{roles['roles'][i]['nombre']}}</a>
             </div><br><br>                
         {% endfor %}
     </div>

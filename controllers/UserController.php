@@ -25,7 +25,7 @@ class UserController{
             $_SESSION['id_usuario'] = $usuario;
         }
         //
-        $roles = UserModel::getInstance()->roles($usuario);
+        $roles = RolesModel::getInstance()->roles($usuario);
         if(count($roles) > 1){
             $parametros['roles'] = $roles;
             $parametros['id'] = $usuario;
@@ -90,13 +90,13 @@ class UserController{
     
     public function seccionUsuarios(){
         //Accede a la seccion de usuarios.
-        if($this->sePuedeAccederASeccion()){
+        if($this->sePuedeAccederASeccion('usuario_seccion')){
             $parametros['mensaje'] = 'Bienvenido a la seccion de usuarios.';
             $this->accesoAPaginaUsuarios($parametros);
         }
     }
     
-    public function sePuedeAccederASeccion(){
+    public function sePuedeAccederASeccion($permission){
         //Chequea la posibilidad de acceder a una seccion.
         if(!isset($_SESSION['id_usuario'])){session_start();}
         if(!isset($_SESSION['id_usuario'])){
@@ -112,12 +112,15 @@ class UserController{
         }elseif(!$this->chequeoAccesoUsuarioActivo($_SESSION['id_usuario'])){
             return false;
         }
+        if(!AppController::getInstance()->checkPermission($permission)){
+            return false;
+        }
         return true;
     }
     
     public function listadoCompletoUsuarios(){
         //Retorna el listado de usuarios.
-        if($this->sePuedeAccederASeccion()){
+        if($this->sePuedeAccederASeccion('usuario_index')){
                 $id_usuario = $_SESSION['id_usuario'];
                 $listado = UserModel::getInstance()->listadoUsuarios($id_usuario);
                 if(count($listado) == 0){
@@ -147,7 +150,7 @@ class UserController{
     
     public function modificarEstado($id,$estado){
         //Cambia el estado del usuario pasado por parametro (activo/bloqueado)
-        if($this->sePuedeAccederASeccion()){
+        if($this->sePuedeAccederASeccion('configuracion')){
             UserModel::getInstance()->actualizarEstado($id,!$estado);
             $this->listadoCompletoUsuarios();
         }else{
@@ -158,7 +161,7 @@ class UserController{
     
     public function eliminarUsuario($id){
         //Elimina el usuario pasado por parametro
-        if($this->sePuedeAccederASeccion()){
+        if($this->sePuedeAccederASeccion('usuario_destroy')){
             UserModel::getInstance()->eliminarUsuario($id);
             $this->listadoCompletoUsuarios();
         }else{
@@ -169,7 +172,7 @@ class UserController{
     
     public function buscarPorNombreUsuario($nombreUsuario){
         //Busqueda de usuarios por nombre de usuario
-        if($this->sePuedeAccederASeccion()){
+        if($this->sePuedeAccederASeccion('usuario_index')){
             $usuarios = UserModel::getInstance()->buscarNombreUsuario($nombreUsuario,$_SESSION['id_usuario']);
             if(count($usuarios) > 0){
                 $parametros['mensaje'] = 'Usuarios con nombre de usuario contiene: '.$nombreUsuario;
@@ -183,7 +186,7 @@ class UserController{
     
     public function buscarPorEstado($estado){
         //Busqueda de usuarios por estado.
-        if($this->sePuedeAccederASeccion()){
+        if($this->sePuedeAccederASeccion('usuario_index')){
             $usuarios = UserModel::getInstance()->buscarPorEstado($estado,$_SESSION['id_usuario']);
             if(count($usuarios) > 0){
                 if($estado){
@@ -204,7 +207,8 @@ class UserController{
     }
     
     public function verMiUsuario(){
-        if($this->sePuedeAccederASeccion()){
+        //Muestra el perfil completo de el usuario logeado
+        if($this->sePuedeAccederASeccion('usuario_show')){
             $usuario = UserModel::getInstance()->obtenerDatos($_SESSION['id_usuario']);
             $arreglo = array(
                 'mensaje' => 'Tu usuario',
@@ -227,5 +231,15 @@ class UserController{
     public function crearTabla(){
         $arreglo = array("0"=> $_POST["emailUs"], "1"=> $_POST["nombreUs"],"2"=> $_POST["contraUs"],"3"=> $_POST["nombreRealUs"] ,"4"=> $_POST["ApellidoUs"]);
         UserModel::getInstance()->insertarUsuario($arreglo);
-    }  
+    }
+    
+    public function existeUsuarioConId($usuarioId){
+        //Retorna si existe usuario con el id pasado por parametro.
+        $existe = UserModel::getInstance()->obtenerUsuario($usuarioId);
+        if(count($existe) == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

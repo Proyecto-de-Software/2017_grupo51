@@ -13,6 +13,7 @@ require_once('controllers/UserController.php');
 require_once('models/PDORepository.php');
 require_once('models/ConfigurationModule.php');
 require_once('models/UserModel.php');
+require_once('models/RolesModel.php');
 require_once('models/PacienteModel.php');
 require_once('models/Configuration.php');
 require_once('views/TwigView.php');
@@ -49,7 +50,7 @@ if(!isset($_GET['action'])){
 }elseif($_GET['action']=='permisoConfiguracion'){
     echo AppController::getInstance()->checkPermission('configuracion');
 }elseif($_GET['action'] == 'accesoConfiguracion'){
-    Configuracion::getInstance()->ejecutar();
+    Configuracion::getInstance()->accesoPagConfiguracion();
 }elseif($_GET['action'] == 'cerrarSesion'){
     UserController::getInstance()->cerrarSesion();
     IndexController::getInstance()->index();
@@ -192,4 +193,30 @@ if(!isset($_GET['action'])){
     UserController::getInstance()->crearTabla();
 }elseif($_GET['action']=='CrearPaciente'){
     Paciente::getInstance()->crearTablaPaciente();
+}elseif($_GET['action'] == 'permisoSeccionUsuarios'){
+    echo AppController::getInstance()->checkPermission('usuario_seccion');
+}elseif($_GET['action'] == 'permisoSeccionPacientes'){
+    echo AppController::getInstance()->checkPermission('paciente_seccion');
+}elseif($_GET['action'] == 'permisoSeccionRoles'){
+    echo AppController::getInstance()->checkPermission('roles_seccion');
+}elseif($_GET['action'] == 'actualizarConfiguracion'){
+    Configuracion::getInstance()->formularioConfiguracion();
+}elseif($_GET['action'] == 'enviarConfiguracion'){
+    Configuracion::getInstance()->actualizar();
+}elseif($_GET['action'] == 'mostrarConfiguracion'){
+    Configuracion::getInstance()->mostrarInformacion();
+}elseif($_GET['action'] == 'manejoDeRoles'){
+    RolesController::getInstance()->manejoDeRolesUsuarios();
+}elseif($_GET['action'] == 'desasignarRol'){
+    if(isset($_GET['rolId']) && isset($_GET['usuarioId'])){
+        RolesController::getInstance()->asignacionRol($_GET['usuarioId'],$_GET['rolId'],false);
+    }else{
+        IndexController::getInstance()->index();
+    }
+}elseif($_GET['action'] == 'asignarRol'){
+    if(isset($_GET['rolId']) && isset($_GET['usuarioId'])){
+        RolesController::getInstance()->asignacionRol($_GET['usuarioId'],$_GET['rolId'],true);
+    }else{
+        IndexController::getInstance()->index();
+    }
 }

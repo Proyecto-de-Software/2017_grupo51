@@ -3,6 +3,7 @@
     <link rel="stylesheet" type="text/css" href="templates/css/sitioInhabilitado.css" >
 {% endblock %}
 {% block javascript %}
+    <script src="templates/js/moduloUsuario.js"></script>
     <script src="templates/js/moduloRoles.js"></script>
     <script src="templates/js/validacionPermisos.js"></script>
 {% endblock %}
@@ -11,11 +12,11 @@
         <ul class="nav navbar-nav navbar-right navbar-header">
             <li class="dropdown"><a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Menú <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="./?action=cambioRoles" onclick="return poseeMasDeUnRol({{id_usuario}})">Cambiar de rol</a></li>
+                    <li><a href="./?action=manejoDeRoles" onclick="if(!permisoConfiguracion('permisoListadoUsuario','{{rol_nombre}}')) return false;">Asignar/Desasignar roles</a></li>
+                    <li><a href="./?action=cambioRoles" onclick="if(confirmacion('¿Esta seguro que desea cambiar de rol?')){return poseeMasDeUnRol({{id_usuario}});}else{return false;}">Cambiar de rol</a></li>
                 </ul>
             </li>
             <li><a href="./?action=volverAInicio" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver al inicio</a></li>
-            <li><a href="./?action=cerrarSesion" class="btn"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
         </ul>
     </div>
 {% endblock %} 
@@ -27,5 +28,53 @@
             </div>
         </div>
     </div>
+    {% if usuariosYroles is defined %}
+        <div class="container table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombre y Apellido</th>
+                        {% for rol in roles %}
+                            <th>{{ rol['nombre'] }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set id_tr = 1 %}
+                    {% set cantId = 0 %}
+                    {% for usuario in usuarios %}
+                        <tr title="{{ id_tr }}" {% if id_tr != 1 %}class="hide"{% endif %}>
+                            <td>{{ usuario.first_name }} {{ usuario.last_name }}</td>
+                            {% for rol in roles %}
+                                {% if usuariosYroles[usuario.id][rol.id] %}
+                                    <td><a href="./?action=desasignarRol&rolId={{ rol.id }}&usuarioId={{ usuario.id }}" onclick="if(confirmacion('¿Esta seguro que desea desasignar el rol {{rol.nombre}} al usuario?')){return puedeDesasignar({{usuario.id}});}else{return false;};" class="btn btn-primary">Desasignar rol</a></td>
+                                {% else %}
+                                    <td><a href="./?action=asignarRol&rolId={{ rol.id }}&usuarioId={{ usuario.id }}" onclick="return confirmacion('¿Esta seguro que desea asignar el rol {{rol.nombre}} al usuario?');" class="btn btn-primary">Asignar rol</a></td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                        {% set cantId = cantId + 1 %}
+                        {% if cantId == elemPorPagina %} {% set id_tr = id_tr + 1 %} {% set cantId = 0 %} {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination">
+                    {% set cantPaginas = ((usuarios | length)/elemPorPagina) | round(0,'ceil') %}
+                    {% for i in 1..cantPaginas %}    
+                        <li id="selec{{i}}" {% if i == 1 %}class="active"{% endif %}><a href="javascript:mostrarTablas({{i}});">{{i}}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>    
+        </div>
+    {% endif %}
 {% endblock %}            
-{% block atributosFooter %}class="posicionFooter"{% endblock %}
+{% block atributosFooter %}
+    {% if usuarios is not defined%}
+        class="posicionFooter"
+    {% elseif ((usuarios | length) < 10) %}
+        class="posicionFooter"
+    {% elseif (elemPorPagina < 10) %}
+        class="posicionFooter"
+    {% endif %}
+{% endblock %}
