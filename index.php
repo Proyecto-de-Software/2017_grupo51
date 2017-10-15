@@ -18,8 +18,6 @@ require_once('models/PacienteModel.php');
 require_once('models/Configuration.php');
 require_once('views/TwigView.php');
 require_once('views/Home.php');
-require_once('models/PacienteValidation.php');
-require_once('models/CreateUsrValidation.php');
 
 
 
@@ -192,7 +190,7 @@ if(!isset($_GET['action'])){
 }elseif($_GET['action']=='CrearUsuario'){
     UserController::getInstance()->crearTabla();
 }elseif($_GET['action']=='CrearPaciente'){
-    Paciente::getInstance()->crearTablaPaciente();
+    Paciente::getInstance()->crearTablaPaciente(false,0);
 }elseif($_GET['action'] == 'permisoSeccionUsuarios'){
     echo AppController::getInstance()->checkPermission('usuario_seccion');
 }elseif($_GET['action'] == 'permisoSeccionPacientes'){
@@ -216,6 +214,22 @@ if(!isset($_GET['action'])){
 }elseif($_GET['action'] == 'asignarRol'){
     if(isset($_GET['rolId']) && isset($_GET['usuarioId'])){
         RolesController::getInstance()->asignacionRol($_GET['usuarioId'],$_GET['rolId'],true);
+    }else{
+        IndexController::getInstance()->index();
+    }
+}elseif($_GET['action'] == 'modificarUsuario'){
+    UserController::getInstance()->modificarUsuario();
+}elseif($_GET['action'] == 'actualizarUsuario'){
+    UserController::getInstance()->actualizarUsuario();
+}elseif($_GET['action'] == 'modificarPaciente'){
+    if(isset($_GET['idPaciente']) && is_numeric($_GET['idPaciente'])){
+        Paciente::getInstance()->modificarPaciente($_GET['idPaciente']);
+    }else{
+        IndexController::getInstance()->index();
+    }
+}elseif($_GET['action'] == 'actualizarPaciente'){
+    if(isset($_GET['idPaciente']) && is_numeric($_GET['idPaciente'])){
+        Paciente::getInstance()->crearTablaPaciente(true,$_GET['idPaciente']);
     }else{
         IndexController::getInstance()->index();
     }

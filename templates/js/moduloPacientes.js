@@ -1,4 +1,5 @@
 function visibilidadTipoDocumento(seleccion){
+    //Muestra u oculta la opcion de seleccion de tipo de documento
     if(seleccion == 'buscarDocumentoPaciente'){
         $("#selectDoc").removeClass('hide');
     }else{
@@ -7,6 +8,7 @@ function visibilidadTipoDocumento(seleccion){
 }
 
 function validarBusqueda(){
+    //Valida los datos ingresados para busqueda de paciente
     var seleccion = $("#seleccion").val();
     if(seleccion == 0){
         alert('Debe seleccionar una opcion para buscar paciente.');

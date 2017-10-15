@@ -25,6 +25,7 @@ function chequeoCantRoles(id){
 }
 
 function puedeDesasignar(idUsuario){
+    //Retorna si se puede o no desasignar un rol a un usuario
     var poseeMasDeUnRol = chequeoCantRoles(idUsuario);
     if(poseeMasDeUnRol){
         return true;

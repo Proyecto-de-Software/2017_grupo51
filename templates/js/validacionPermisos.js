@@ -1,5 +1,6 @@
-//Funcion llamada desde submit de busqueda de usuarios
+
 function validarEnvio(rol_nombre){
+    //Funcion llamada desde submit de busqueda de usuarios
     var elemento = $("#seleccion").val();
     
     if(elemento == 0){
@@ -11,6 +12,7 @@ function validarEnvio(rol_nombre){
 }
 
 function permisoConfiguracion(permiso,rolnombre){
+    //Retorna si un usuario posee o no un permiso dado
     var tienePermiso = chequePermisoValido(permiso);
     if(!tienePermiso){
         alert('Los usuarios con rol de ' + rolnombre + ' no poseen permisos para acceder a esta funcionalidad.'); 
@@ -19,6 +21,7 @@ function permisoConfiguracion(permiso,rolnombre){
 }
 
 function chequePermisoValido(permiso){
+    //Chequea si un usuario posee un permiso dado
     var retorno = false;
     $.ajax({
         url: './index.php',

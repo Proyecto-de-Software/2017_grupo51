@@ -7,6 +7,7 @@
     <script src="templates/js/moduloUsuario.js"></script>
     <script src="templates/js/moduloPacientes.js"></script>
 {% endblock %}
+{% block atributosBody %}onload="nobackbutton();"{%endblock%}
 {% block navlist %}
     <div>
         <ul class="nav navbar-nav navbar-right navbar-header">
@@ -28,11 +29,11 @@
                         </select>
                         <select class="form-control hide" name="selectDoc" id="selectDoc">
                             <option value="0">Selecciona un tipo de documento</option>
-                            <option value="DNI">Documento nacional de inentidad (DNI)</option>
-                            <option>Libreta Enrolamiento (l.e)</option>
-                            <option>Pasaporte</option>
-                            <option>Carnet extragero</option>
-                            <option>Reg unico de contribuyentes (RUC)</option>
+                            <option value="DNI">DNI</option>
+                            <option value="LE">LE</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                            <option value="Carnet extragero">Carnet extragero</option>
+                            <option value="RUC">RUC</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -149,7 +150,7 @@
                             </tr>
                         </tbody>
                     </table>    
-                    <a href="#" class="btn btn-primary"> Modificar paciente</a>
+                    <a href="./?action=modificarPaciente&idPaciente={{pacienteCompleto[0]['id']}}" class="btn btn-primary"> Modificar paciente</a>
                 </div>
             {% endif %}
     </div>

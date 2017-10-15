@@ -1,6 +1,5 @@
 // validad los formularios para creacion de un nuevo usuario
-function validarCrearUsuario (){
-
+function validarCrearUsuario (existeCheckbox){
 	var email = document.getElementById("emailUs").value;
 	var nombreUsuario = document.getElementById("nombreUs").value;
 	var password = document.getElementById("contraUs").value;
@@ -23,13 +22,16 @@ function validarCrearUsuario (){
 	}else if ( (! letras.test(nombrereal)) || (! letras.test(apellido)) ){
         alert("El nombre debe tener solo letras");
         return false;
-    }else if(!document.getElementById('check1').checked && !document.getElementById('check2').checked && !document.getElementById('check3').checked ){
-    	alert("Selecciona al menos un Rol");
-    	return false;
+    }else if(existeCheckbox){
+        if(!validarCheck()){
+            alert("Selecciona al menos un Rol");
+            return false;
+        }
     }
 }
 
 function existe_Usr(){
+        //Valida que no exista ningun usuario registrado el mail y/o nombre de usuario ingresado.
 	var email = document.getElementById("emailUs").value;
 	var nameUsr = document.getElementById("nombreUs").value;
 	var retorno = validarEmail_nombre(email, nameUsr);
@@ -41,7 +43,7 @@ function existe_Usr(){
 }
 
 function validarEmail_nombre (email, nombreUs){
-	
+	//Valida que no exista un usuario con el mail ni con nombre de usuario pasado por parametro
 	var aux = false;
 	$.ajax({
 		url: "./index.php", 
@@ -56,4 +58,16 @@ function validarEmail_nombre (email, nombreUs){
 
 	return aux;
 
+}
+
+function validarCheck(){
+    //Valida que haya al menos un checkbox seleccionado.
+    var checks = document.getElementsByName('check[]');
+    var seleccionado = false;
+    for (var i = 0; i < checks.length; i++){
+        if(checks[i].checked){
+            seleccionado = true;
+        }
+    }
+    return seleccionado;
 }

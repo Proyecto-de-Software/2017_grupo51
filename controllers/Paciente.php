@@ -11,9 +11,36 @@ class Paciente{
         return self::$instance;
     }
     public function forPac(){
-        //Muestra el formulario de registro de pacientes.
+        //Muestra el formulario de registro de pacientes para crear.
+        if(UserController::getInstance()->sePuedeAccederASeccion('paciente_new')){
+            $this->formularioPacientes([]);
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
+        }
+    }
+    
+    public function formularioPacientes($arreglo){
+        //Muestra formulario de pacientes
         $layout = IndexController::getInstance()->layout();
+        if(isset($arreglo['paciente'])){
+            $layout['paciente'] = $arreglo['paciente'];
+            $layout['titulo'] = 'Actualizar información.';
+        }else{
+            $layout['titulo'] = 'Ingrese los datos del nuevo paciente.';
+        }
         Home::getInstance()->show('formPacientes.html.twig',$layout);
+    }
+    
+    public function modificarPaciente($idPaciente){
+        //Carga el formulario de paciente con los datos del paciente pasado por parametro
+        if(UserController::getInstance()->sePuedeAccederASeccion('paciente_update')){
+            $parametros['paciente'] = PacienteModel::getInstance()->obtenerDatosCompletos($idPaciente);
+            $this->formularioPacientes($parametros);
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
+        }
     }
     
     public function accesoPagPacientes(){
@@ -24,10 +51,14 @@ class Paciente{
             $layout['id_usuario'] = $_SESSION['id_usuario'];
             $layout['rol_nombre'] = $_SESSION['rolNombre'];
             Home::getInstance()->show('seccionPacientes.html.twig',$layout);
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
     
     public function listadoCompletoPacientes(){
+        //Lista todos los pacientes con algunos detalles
         if(UserController::getInstance()->sePuedeAccederASeccion('paciente_index')){
             $pacientes = PacienteModel::getInstance()->obtenerPacientes();
             if(count($pacientes) == 0){
@@ -38,6 +69,9 @@ class Paciente{
                     $parametros['mensaje'] = 'Listado de pacientes.';
                     $this->accesoAPaginaPacientes($parametros);
                 }
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
     
@@ -56,6 +90,7 @@ class Paciente{
     }
     
     public function verDatosCompletosPaciente($idPaciente){
+        //Muestra los datos completos de el paciente pasado por parametro
         if(UserController::getInstance()->sePuedeAccederASeccion('paciente_show')){
             $paciente = PacienteModel::getInstance()->obtenerDatosCompletos($idPaciente);
             $arreglo = array(
@@ -64,7 +99,7 @@ class Paciente{
             );
             $this->accesoAPaginaPacientes($arreglo);
         }else{
-            $this->cerrarSesion();
+            UserController::getInstance()->cerrarSesion();
             IndexController::getInstance()->index();
         }
     }
@@ -91,6 +126,9 @@ class Paciente{
                 $parametros['mensaje'] = 'No hay pacientes cuyo nombre contenga: '.$nombrePaciente;
             }
             $this->accesoAPaginaPacientes($parametros);
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
     
@@ -105,6 +143,9 @@ class Paciente{
                 $parametros['mensaje'] = 'No hay pacientes cuyo apellido contenga: '.$apellidoPaciente;
             }
             $this->accesoAPaginaPacientes($parametros);
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
     
@@ -119,11 +160,15 @@ class Paciente{
                 $parametros['mensaje'] = 'No hay pacientes con tipo de documento '.$doc. ' que contengan el número: '.$numero;
             }
             $this->accesoAPaginaPacientes($parametros);
-    }
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
+        }
     }
 
     function ya_existe_paciente($numero_doc){
-        $aux = PacienteValidation:: getInstance()->existePaciente($numero_doc);
+        //Chequea si existe paciente con el numero de documento pasado por parametro
+        $aux = PacienteModel::getInstance()->existePaciente($numero_doc);
         if (count($aux) == 0){
             return true;
         }else {
@@ -131,8 +176,44 @@ class Paciente{
         }
     }
 
-    function crearTablaPaciente(){
-        $arregloPac = array("0"=> $_POST["ApellidoP"], "1"=> $_POST["NombreP"],"2"=> $_POST["FecNacP"],"3"=> $_POST["GeneroP"] ,"4"=> $_POST["TipoDocP"], "5"=> $_POST["NroDocP"], "6"=> $_POST["DomicP"], "7"=> $_POST["TelefonoP"], "8"=> $_POST["ObraSocP"] );
-        UserModel::getInstance()->insertarPaciente($arregloPac);
+    function crearTablaPaciente($creaOActualiza,$idpaciente){
+        //Si creaOActualiza es false crea un nuevo paciente. Actualiza en caso contrario.
+        if(UserController::getInstance()->sePuedeAccederASeccion('paciente_new')){
+            if($this->validarDatos()){
+                if($_POST["TelefonoP"] == 0){
+                    $telefono = NULL;
+                }else{
+                    $telefono = $_POST["TelefonoP"];
+                }
+                if($_POST["ObraSocP"] == 'No posee'){
+                    $obraSocial = NULL;
+                }else{
+                    $obraSocial = $_POST["ObraSocP"];
+                }
+                $arregloPac = array("0"=> $_POST["ApellidoP"], "1"=> $_POST["NombreP"],"2"=> $_POST["FecNacP"],"3"=> $_POST["GeneroP"] ,"4"=> $_POST["TipoDocP"], "5"=> $_POST["NroDocP"], "6"=> $_POST["DomicP"], "7"=> $telefono, "8"=> $obraSocial, "9"=> $_POST["heladera"], "10"=> $_POST["electricidad"], "11"=> $_POST["mascota"], "12"=> $_POST["viviendaP"], "13"=> $_POST["calefaP"], "14"=> $_POST["tipoAguaP"] );
+                if($creaOActualiza){
+                    PacienteModel::getInstance()->actualizarPaciente($arregloPac,$idpaciente);
+                }else{
+                    PacienteModel::getInstance()->insertarPaciente($arregloPac);
+                }
+                $idPaciente = PacienteModel::getInstance()->obtenerIdPacienteConDoc($_POST['TipoDocP'],$_POST["NroDocP"]);
+                $this->verDatosCompletosPaciente($idPaciente);
+            }
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
+        }
     }
+    
+    public function validarDatos(){
+        //Valida los datos ingresados
+        if(isset($_POST["ApellidoP"]) && isset($_POST["NombreP"]) && isset($_POST["ObraSocP"]) && isset($_POST["FecNacP"]) && isset($_POST["GeneroP"]) && isset($_POST["TipoDocP"]) && isset($_POST["NroDocP"]) && isset($_POST["DomicP"]) && isset($_POST["heladera"]) && isset($_POST["electricidad"]) && isset($_POST["mascota"]) && isset($_POST["viviendaP"]) && isset($_POST["calefaP"]) && isset($_POST["tipoAguaP"]) && isset($_POST["TelefonoP"])){
+            if(is_string($_POST["ApellidoP"]) && is_string($_POST["NombreP"]) && is_string($_POST["ObraSocP"]) && is_string($_POST["GeneroP"]) && is_string($_POST["TipoDocP"]) && is_string($_POST["NroDocP"]) && is_string($_POST["DomicP"]) && is_string($_POST["heladera"]) && is_string($_POST["electricidad"]) && is_string($_POST["mascota"]) && is_string($_POST["viviendaP"]) && is_string($_POST["calefaP"]) && is_string($_POST["tipoAguaP"]) && is_string($_POST["TelefonoP"])){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
 }

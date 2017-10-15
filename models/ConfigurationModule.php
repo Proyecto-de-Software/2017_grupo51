@@ -31,11 +31,13 @@ class ConfigurationModule extends PDORepository{
     }
     
     public function elementosPorPagina(){
+        //Retorna la cantidad de elementos por pagina a mostrar en los listados establecidos en la configuracion.
         $answer = $this->queryList("SELECT elementos_pagina FROM configuracion", []);
         return $answer[0]['elementos_pagina'];
     }
     
     public function actualizar($valoresActualizados){
+        //Actualiza la configuracion
         $this->queryList("UPDATE configuracion SET titulo_pagina=:titPag , mail_contacto=:mail , elementos_pagina =:elemPag , pagina_activa=:active WHERE id=1", ['titPag'=>$valoresActualizados['tituloPagina'],'mail'=>$valoresActualizados['mailContacto'],'elemPag'=>$valoresActualizados['elementosPagina'],'active'=>$valoresActualizados['estado']]);
     }
 }

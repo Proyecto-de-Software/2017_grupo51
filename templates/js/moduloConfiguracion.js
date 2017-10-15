@@ -1,5 +1,5 @@
 function validarInformacion(){
-    
+    //Valida la informacion del formulario de configuracion
     var estructuraMail = new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
     var titulo = $('#tituloPagina').val();
     var mail = $('#mailContacto').val();

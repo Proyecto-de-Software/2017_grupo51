@@ -6,107 +6,105 @@
 	        <div class="container">
             	<div class="row">
             	   	<div class="col-sm-5">
-            	   		<form method= "POST" name="form_pacientes" action="./?action=CrearPaciente" onsubmit="return existe_Pac();">
+            	   		<form method= "POST" name="form_pacientes" action="./?action={% if paciente is defined %}actualizarPaciente&idPaciente={{ paciente[0]['id'] }}{% else %}CrearPaciente{% endif %}" onsubmit="{% if paciente is not defined %}return existe_Pac();{% endif %}">
             	   			<div class="container well">
-            		   			<h1 class="text-center"><label>Ingrese los datos del paciente</label></h1><br>
+            		   			<h1 class="text-center"><label>{{ titulo }}</label></h1><br>
             		   			<div class="form-group">
-     	 							<label>Apellido (*):</label>
-     								<input type="text" class="form-control" name="ApellidoP" id="ApellidoP" placeholder="Apellido del paciente" required>
+     	 							<label>Apellido(*):</label>
+     								<input type="text" class="form-control" name="ApellidoP" id="ApellidoP" placeholder="Apellido del paciente" value="{% if paciente is defined %}{{ paciente[0]['apellido'] }}{% endif %}" required>
     							</div>
     							<div class="form-group">
-      								<label>Nombre (*):</label>
-     								<input type="text" class="form-control" name="NombreP" id="NombreP" placeholder="Nombre del paciente" required>
+      								<label>Nombre(*):</label>
+     								<input type="text" class="form-control" name="NombreP" id="NombreP" placeholder="Nombre del paciente" value="{% if paciente is defined %}{{ paciente[0]['nombre'] }}{% endif %}" required>
     							</div>
     							<div class="form-group">
-      								<label>fecha nacimiento (*):</label>
-     								<input type="date" class="form-control" name="FecNacP" id="FecNacP" required>
+      								<label>Fecha de nacimiento(*):</label>
+     								<input type="date" class="form-control" name="FecNacP" id="FecNacP" value="{% if paciente is defined %}{{ paciente[0]['fecha_nacimiento'] }}{% endif %}" required>
     							</div>
     							<div class="form-group">
-	      							<label>Genero (*):</label>
-     									<select class="form-control" name="GeneroP" id="GeneroP" >
-        									<option>Masculino</option>
-        									<option>Femenino</option>
+	      							<label>Género(*):</label>
+     									<select class="form-control" name="GeneroP" id="GeneroP">
+        									<option {% if paciente is defined %}{% if paciente[0]['genero'] == 'Masculino' %}selected{%endif%}{% endif %}>Masculino</option>
+        									<option {% if paciente is defined %}{% if paciente[0]['genero'] == 'Femenino' %}selected{%endif%}{% endif %}>Femenino</option>
         								</select>
     							</div>
     							<div class="form-group">
-    	  							<label>Tipo de Documento (*):</label>
+    	  							<label>Tipo de documento(*):</label>
 	     							<select class="form-control" name="TipoDocP" id="TipoDocP">
-     								<option>Documento nacional de inentidad (DNI)</option>
-     									<option>Libreta Enrolamiento (l.e)</option>
-     									<option>Pasaporte</option>
-     									<option>Carnet extragero</option>
-     									<option>Reg unico de contribuyentes (RUC)</option>
+                                                                        <option {% if paciente is defined %}{% if paciente[0]['tipo_documento'] == 'DNI' %}selected{%endif%}{% endif %}>DNI</option>
+     									<option {% if paciente is defined %}{% if paciente[0]['tipo_documento'] == 'LE' %}selected{%endif%}{% endif %}>LE</option>
+     									<option {% if paciente is defined %}{% if paciente[0]['tipo_documento'] == 'Pasaporte' %}selected{%endif%}{% endif %}>Pasaporte</option>
+     									<option {% if paciente is defined %}{% if paciente[0]['tipo_documento'] == 'Carnet extrangero' %}selected{%endif%}{% endif %}>Carnet extrangero</option>
+     									<option {% if paciente is defined %}{% if paciente[0]['tipo_documento'] == 'RUC' %}selected{%endif%}{% endif %}>RUC</option>
      								</select>
     							</div>
     							<div class="form-group">
-      								<label>Numero de Documento (*):</label>
-  		   							<input type="number" class="form-control" name="NroDocP" id="NroDocP" placeholder="Nro Documento del paciente" 	required>
+      								<label>Numero de Documento(*):</label>
+                                                                <input type="number" class="form-control" name="NroDocP" id="NroDocP" placeholder="Nro Documento del paciente" value="{% if paciente is defined %}{{ paciente[0]['numero_documento'] }}{% endif %}" required>
 	    						</div>
     							<div class="form-group">
-      								<label>Domicilio (*):</label>
-     								<input type="text" class="form-control" name="DomicP" id="DomicP" placeholder="Domicilio del paciente" required>
+      								<label>Domicilio(*):</label>
+     								<input type="text" class="form-control" name="DomicP" id="DomicP" placeholder="Domicilio del paciente" value="{% if paciente is defined %}{{ paciente[0]['domicilio'] }}{% endif %}" required>
     							</div>
     							<div class="form-group">
       								<label>Tel/Celular:</label>
-    	 							<input type="number" class="form-control" name="TelefonoP" id="TelefonoP" placeholder="Telefono del paciente">
+    	 							<input type="number" class="form-control" name="TelefonoP" id="TelefonoP" placeholder="Telefono del paciente" value="{% if paciente is defined %}{% if paciente[0]['tel_cel'] != null %}{{ paciente[0]['tel_cel'] }}{%endif%}{% endif %}">
 	    						</div>
     							<div class="form-group">
       								<label>Obra social:</label>
      								<select class="form-control" name="ObraSocP" id="ObraSocP">
-     									<option>OSDE</option>
-     									<option>IOMA</option>
-    	 								<option>Swiss Medical</option>
-	     								<option>OSPE</option>
+                                                                        <option {% if paciente is defined %}{% if paciente[0]['obra_social'] == null %}selected{%endif%}{% endif %}>No posee</option>
+     									<option {% if paciente is defined %}{% if paciente[0]['obra_social'] == 'OSDE' %}selected{%endif%}{% endif %}>OSDE</option>
+     									<option {% if paciente is defined %}{% if paciente[0]['obra_social'] == 'IOMA' %}selected{%endif%}{% endif %}>IOMA</option>
+    	 								<option {% if paciente is defined %}{% if paciente[0]['obra_social'] == 'Swiss Medical' %}selected{%endif%}{% endif %}>Swiss Medical</option>
+	     								<option {% if paciente is defined %}{% if paciente[0]['obra_social'] == 'OSPE' %}selected{%endif%}{% endif %}>OSPE</option>
      								</select>
     							</div>
     						</div>
                 <div class="container well">
     							<h1 class="text-center"><label>Datos demograficos del paciente</label></h1><br>
     							<div class="radio">
-    								<label>¿¿ Tiene Heladera ?? (*)</label><br>
-      								<label><input type="radio" name="heladera" required>Si</label>
-      								<label><input type="radio" name="heladera" required>No</label>
+    								<label>¿Tiene Heladera?(*)</label><br>
+      								<label><input type="radio" name="heladera" value="1" {% if paciente is defined %}{% if paciente[0]['heladera'] %}checked{%endif%}{% endif %} required>Si</label>
+      								<label><input type="radio" name="heladera" value="0" {% if paciente is defined %}{% if not paciente[0]['heladera'] %}checked{%endif%}{% endif %} required>No</label>
     							</div>
     							<div class="radio">
-    								<label>¿¿ Tiene electricidad ?? (*)</label><br>
-      								<label><input type="radio" name="electricidad" required>Si</label>
-      								<label><input type="radio" name="electricidad" required>No</label><br>
+    								<label>¿Tiene electricidad? (*)</label><br>
+      								<label><input type="radio" name="electricidad" value="1" {% if paciente is defined %}{% if paciente[0]['electricidad'] %}checked{%endif%}{% endif %} required>Si</label>
+      								<label><input type="radio" name="electricidad" value="0" {% if paciente is defined %}{% if not paciente[0]['electricidad'] %}checked{%endif%}{% endif %} required>No</label><br>
     							</div>
     							<div class="radio">
-                                    <label>¿¿ Tiene mascota(s) ?? (*)</label><br>
-      								<label><input type="radio" name="mascota" required>Si</label>
-      								<label><input type="radio" name="mascota" required>No</label>
+                                                                <label>¿Tiene mascota(s)? (*)</label><br>
+      								<label><input type="radio" name="mascota" value="1" {% if paciente is defined %}{% if paciente[0]['mascota'] %}checked{%endif%}{% endif %} required>Si</label>
+      								<label><input type="radio" name="mascota" value="0" {% if paciente is defined %}{% if not paciente[0]['mascota'] %}checked{%endif%}{% endif %} required>No</label>
     							</div>
     							<div class="form-group">
-	      							<label>Tipo de vivienda:</label>
-     									<select class="form-control" id="viviendaP">
-        									<option>Casa</option>
-        									<option>Depto</option>
-        									<option>Otro</option>
+	      							<label>Tipo de vivienda(*):</label>
+     									<select class="form-control" name="viviendaP" id="viviendaP">
+        									<option {% if paciente is defined %}{% if paciente[0]['tipo_vivienda'] == 'Casa' %}selected{%endif%}{% endif %}>Casa</option>
+        									<option {% if paciente is defined %}{% if paciente[0]['tipo_vivienda'] == 'Departamento' %}selected{%endif%}{% endif %}>Departamento</option>
         								</select>
     							</div>
     							<div class="form-group">
-	      							<label>tipo de calefaccion:</label>
-     									<select class="form-control" id="calefaP">
-        									<option>Gas</option>
-        									<option>Electrica por acumulacion</option>
-        									<option>Electrica por convectores</option>
-        									<option>Caldera con Radiador de agua</option>
-        									<option>Emisor termoelectrico</option>
-        									<option>Suelo radiante</option>
-        									<option>Otro</option>
+	      							<label>Tipo de calefacción(*):</label>
+     									<select class="form-control" name="calefaP" id="calefaP">
+        									<option {% if paciente is defined %}{% if paciente[0]['tipo_calefaccion'] == 'Gas' %}selected{%endif%}{% endif %}>Gas</option>
+        									<option {% if paciente is defined %}{% if paciente[0]['tipo_calefaccion'] == 'Electrica por acumulacion' %}selected{%endif%}{% endif %}>Electrica por acumulacion</option>
+        									<option {% if paciente is defined %}{% if paciente[0]['tipo_calefaccion'] == 'Electrica por convectores' %}selected{%endif%}{% endif %}>Electrica por convectores</option>
+        									<option {% if paciente is defined %}{% if paciente[0]['tipo_calefaccion'] == 'Caldera con Radiador de agua' %}selected{%endif%}{% endif %}>Caldera con Radiador de agua</option>
+        									<option {% if paciente is defined %}{% if paciente[0]['tipo_calefaccion'] == 'Emisor termoelectrico' %}selected{%endif%}{% endif %}>Emisor termoelectrico</option>
+        									<option {% if paciente is defined %}{% if paciente[0]['tipo_calefaccion'] == 'Suelo radiante' %}selected{%endif%}{% endif %}>Suelo radiante</option>
         								</select>
     							</div>
     							<div class="form-group">
-	      							<label>tipo de agua:</label>
-     									<select class="form-control" id="tipAguaP">
-        									<option>Corriente</option>
-        									<option>pozo</option>
-        									<option>otro</option>
+	      							<label>Tipo de agua(*):</label>
+     									<select class="form-control" name="tipoAguaP" id="tipoAguaP">
+        									<option {% if paciente is defined %}{% if paciente[0]['tipo_agua'] == 'Corriente' %}selected{%endif%}{% endif %}>Corriente</option>
+        									<option {% if paciente is defined %}{% if paciente[0]['tipo_agua'] == 'Pozo' %}selected{%endif%}{% endif %}>Pozo</option>
         								</select>
     							</div>
     						</div>
-    						<button type="submit" class="btn btn-primary" onclick="return validarFormPac();">Confirmar</button>
+    						<button type="submit" class="btn btn-primary" onclick="return validarFormPac();">{% if paciente is defined %}Actualizar paciente{% else %}Registrar paciente{% endif %}</button>
             	   		</form>
             	    </div>
 				</div>

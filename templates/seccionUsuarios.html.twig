@@ -7,7 +7,7 @@
     <script src="templates/js/validacionPermisos.js"></script>
     <script src="templates/js/bloqueoBotonAtras.js"></script>
 {% endblock %}
-
+{% block atributosBody %}onload="nobackbutton();"{%endblock%}
 {% block navlist %}
     <div>
         <ul class="nav navbar-nav navbar-right navbar-header">
@@ -121,7 +121,7 @@
                     </tr>
                 </tbody>
             </table> 
-            <a href="#" class="btn btn-primary"> Modificar usuario </a>
+            <a href="./?action=modificarUsuario" class="btn btn-primary"> Modificar usuario </a>
         </div>
     {% endif %}
 {% endblock %}

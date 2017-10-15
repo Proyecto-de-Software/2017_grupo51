@@ -21,6 +21,9 @@ class Configuracion {
             $layout = IndexController::getInstance()->layout();
             $layout['titulo'] = 'Bienvenido a la seccion de configuración del sitio.';
             Home::getInstance()->show('seccionConfiguracion.html.twig',$layout);
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
     
@@ -39,6 +42,9 @@ class Configuracion {
             $layout['pagina_activa'] = $configuracion->getActive();
             $layout['id_config'] = $configuracion->getId();
             Home::getInstance()->show('seccionConfiguracion.html.twig',$layout);
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
     
@@ -65,10 +71,14 @@ class Configuracion {
                 UserController::getInstance()->cerrarSesion();
                 IndexController::getInstance()->index();
             }
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
     
     public function validarElementosAEnviar(){
+        //Valida la informacion ingresada
         if(isset($_POST['tituloPagina'])&&isset($_POST['mailContacto'])&&isset($_POST['elementosPagina'])&&isset($_POST['estadoSitio'])){
             if((is_string($_POST['tituloPagina']))&& (filter_var($_POST['mailContacto'],FILTER_VALIDATE_EMAIL)) && (is_numeric($_POST['elementosPagina']))){
                 if($_POST['estadoSitio'] == 'true' || $_POST['estadoSitio'] == 'false'){
@@ -78,6 +88,7 @@ class Configuracion {
     }
     
     public function mostrarInformacion(){
+        //Carga la pagina que muestra la informacion de configuracion.
         $this->cargaPagina('Tabla de configuracion.');
     }
 }

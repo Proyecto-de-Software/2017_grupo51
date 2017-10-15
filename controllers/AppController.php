@@ -71,6 +71,7 @@ class AppController{
     }
     
     public function volverAInicio(){
+        //Vuelve a la pagina principal
         session_start();
         $layout = IndexController::getInstance()->layout();
         $layout['rol_nombre'] = $_SESSION['rolNombre'];

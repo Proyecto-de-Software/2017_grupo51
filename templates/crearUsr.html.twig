@@ -3,45 +3,48 @@
     <script src="templates/js/validarCrearUsr.js"></script>
 {% endblock %}
 {% block content %}
+    {% if usuario is defined %}
+        {% set validacionCheckbox = false %}
+    {% else %}
+        {% set validacionCheckbox = true %}
+    {% endif %}
     <div class="container">
     	<div class="row">
             <div class="col-md-6 col-md-offset-3 well">
-            	<form method= "POST" action="./?action=CrearUsuario" onsubmit="existe_Usr()">
-            	    <h1 class="text-center"><label>Ingrese datos del Usuario</label></h1><br>
+            	<form method= "POST" action="./?action={% if usuario is defined %}actualizarUsuario{% else %}CrearUsuario{% endif %}" onsubmit="{% if usuario is not defined %}return existe_Usr();{% endif %}">
+            	    <h1 class="text-center"><label>{{titulo}}</label></h1><br>
             	    	<div class="form-group">
                             <label>Email (*):</label>
-                            <input type="email" class="form-control" name="emailUs" id="emailUs" placeholder="SoyUnEjemplo@Gmail.com" required>
+                            <input type="email" class="form-control" name="emailUs" id="emailUs" placeholder="SoyUnEjemplo@Gmail.com" value="{% if usuario is defined %}{{ usuario[0]['email'] }}{% endif %}" required>
     			</div>
     			<div class="form-group">
-     	 		    <label>UserName (*):</label>
-                            <input type="text" class="form-control" maxlength="255" name="nombreUs" id="nombreUs" placeholder="nombre de USUARIO" required>
+     	 		    <label>Nombre de usuario(*):</label>
+                            <input type="text" class="form-control" maxlength="255" name="nombreUs" id="nombreUs" placeholder="Ingrese nombre de usuario" value="{% if usuario is defined %}{{ usuario[0]['username'] }}{% endif %}" required>
     			</div>
     			<div class="form-group">
-                            <label>UserPassword (*):</label>
-                            <input type="password" class="form-control" maxlength="255" name="contraUs" id="contraUs" placeholder="Contraseña del USUARIO" required>
+                            <label>Contraseña(*):</label>
+                            <input type="password" class="form-control" maxlength="255" name="contraUs" id="contraUs" placeholder="Ingrese contraseña" value="{% if usuario is defined %}{{ usuario[0]['password'] }}{% endif %}" required>
     			</div>
     			<div class="form-group">
-                            <label>Nombre usuario (*):</label>
-                            <input type="text" class="form-control" maxlength="255" name="nombreRealUs" id="nombreRealUs" placeholder="nombre real del USUARIO" required>
+                            <label>Nombre(*):</label>
+                            <input type="text" class="form-control" maxlength="255" name="nombreRealUs" id="nombreRealUs" placeholder="Ingrese nombre real del usuario" value="{% if usuario is defined %}{{ usuario[0]['first_name'] }}{% endif %}" required>
     			</div>
     			<div class="form-group">
-                            <label>Apellido usuario (*):</label>
-                            <input type="text" class="form-control" maxlength="30" name="ApellidoUs" id="apellidoUs" placeholder="Apellido del USUARIO" required>
+                            <label>Apellido(*):</label>
+                            <input type="text" class="form-control" maxlength="30" name="ApellidoUs" id="apellidoUs" placeholder="Ingrese apellido del usuario" value="{% if usuario is defined %}{{ usuario[0]['last_name'] }}{% endif %}" required>
     			</div>
-    			<div>
-                            <h2>Seleccion el/los roles para este usuario (*)</h2>
-                            <label class="checkbox-inline">
-                            <input type="checkbox" id=check1 value="1">Pediatra
-                            </label>
-                            <label class="checkbox-inline">
-                            <input type="checkbox" id=check2 value="2">Recepcionista
-                            </label>
-                            <label class="checkbox-inline">
-                            <input type="checkbox" id=check3 value="3">Administrador
-                            </label>
-    			</div>
+                        {% if roles is defined %}
+                            <div>
+                                <h4>Seleccion el/los roles para este usuario(*)</h4>
+                                {% for rol in roles %}
+                                    <label class="checkbox-inline">
+                                    <input type="checkbox" name="check[]" value={{rol.id}}>{{ rol.nombre }}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
     			<br><br>
-    			<button type="submit" class="btn btn-primary center-block" onclick="return validarCrearUsuario();">Confirmar</button>
+    			<button type="submit" class="btn btn-primary center-block" onclick="return validarCrearUsuario({{ validacionCheckbox }});">{% if usuario is defined %}Actualizar información{% else %}Registrar nuevo usuario{% endif %}</button>
             	</form>
             </div>
 	</div>

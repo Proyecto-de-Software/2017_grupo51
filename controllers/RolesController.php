@@ -27,6 +27,9 @@ class RolesController{
             $layout['id_usuario'] = $_SESSION['id_usuario'];
             $layout['rol_nombre'] = $_SESSION['rolNombre'];
             Home::getInstance()->show('seccionRoles.html.twig',$layout);
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
 
@@ -35,6 +38,9 @@ class RolesController{
         //Accede a la pagina de eleccion de roles
         if(UserController::getInstance()->sePuedeAccederASeccion('roles_seccion')){
             UserController::getInstance()->nuevaSesion($_SESSION['id_usuario']);
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
     
@@ -49,6 +55,7 @@ class RolesController{
     }
     
     public function manejoDeRolesUsuarios(){
+        //Obtiene cada usuario con los roles asignados y no asignados, carga la pagina asignar/desasignar rol
         if(UserController::getInstance()->sePuedeAccederASeccion('usuario_index')){
             $layout = IndexController::getInstance()->layout();
             $usuarios = UserModel::getInstance()->listadoUsuarios($_SESSION['id_usuario']);
@@ -70,6 +77,9 @@ class RolesController{
                 $layout['titulo'] = 'No hay usuarios registrados.';
             }
             Home::getInstance()->show('seccionRoles.html.twig',$layout);
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
     
@@ -88,6 +98,9 @@ class RolesController{
             }else{
                 IndexController::getInstance()->index();
             }
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
     

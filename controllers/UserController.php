@@ -12,8 +12,51 @@ class UserController{
     
     public function creaUsr(){
         //Muestra el formulario de creacion de un nuevo usuario.
+        if($this->sePuedeAccederASeccion('usuario_new')){
+            $parametros['roles'] = RolesModel::getInstance()->listadoDeRoles();
+            $this->formularioUsuarios($parametros);
+        }else{
+            $this->cerrarSesion();
+            IndexController::getInstance()->index();
+        }
+    }
+    
+    public function formularioUsuarios($arreglo){
+        //Carga el formulario de usuario
         $layout = IndexController::getInstance()->layout();
+        if(isset($arreglo['usuario'])){
+            $layout['usuario'] = $arreglo['usuario'];
+            $layout['titulo'] = 'Actualizar informacion.';
+        }else{
+            $layout['roles'] = $arreglo['roles'];
+            $layout['titulo'] = 'Ingrese datos del usuario nuevo.';
+        }
         Home::getInstance()->show('crearUsr.html.twig',$layout);
+    }
+    
+    public function modificarUsuario(){
+        //Obtiene los datos del usuario para modificar y carga el formulario de usuario
+        if($this->sePuedeAccederASeccion('usuario_update')){
+            $parametros['usuario'] = UserModel::getInstance()->obtenerUsuario($_SESSION['id_usuario']);
+            $this->formularioUsuarios($parametros);
+        }else{
+            $this->cerrarSesion();
+            IndexController::getInstance()->index();
+        }
+    }
+    
+    public function actualizarUsuario(){
+        if($this->sePuedeAccederASeccion('usuario_update')){
+            $_POST['check'] = [0];
+            if($this->validarDatos()){
+                $arreglo = array("0"=> $_POST["emailUs"], "1"=> $_POST["nombreUs"],"2"=> $_POST["contraUs"],"3"=> $_POST["nombreRealUs"] ,"4"=> $_POST["ApellidoUs"] , "5" => date("Y-m-d H:i:s"));
+                UserModel::getInstance()->actualizaUsuario($_SESSION['id_usuario'],$arreglo);
+                $this->verMiUsuario();
+            }
+        }else{
+            $this->cerrarSesion();
+            IndexController::getInstance()->index();
+        }
     }
     
     public function nuevaSesion($usuario){
@@ -90,9 +133,17 @@ class UserController{
     
     public function seccionUsuarios(){
         //Accede a la seccion de usuarios.
+        $this->paginaPrincipalUsuarios('Bienvenido a la seccion de usuarios.');
+    }
+    
+    public function paginaPrincipalUsuarios($mensaje){
+        //Accede a la seccion de usuarios.
         if($this->sePuedeAccederASeccion('usuario_seccion')){
-            $parametros['mensaje'] = 'Bienvenido a la seccion de usuarios.';
+            $parametros['mensaje'] = $mensaje;
             $this->accesoAPaginaUsuarios($parametros);
+        }else{
+            $this->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
     
@@ -131,7 +182,10 @@ class UserController{
                     $parametros['mensaje'] = 'Listado de usuarios.';
                     $this->accesoAPaginaUsuarios($parametros);
                 }
-    }
+        }else{
+            $this->cerrarSesion();
+            IndexController::getInstance()->index();
+        }
 }
     
     public function accesoAPaginaUsuarios($arreglo){
@@ -181,6 +235,9 @@ class UserController{
                 $parametros['mensaje'] = 'No hay usuarios cuyo nombre de usuario contengan: '.$nombreUsuario;
             }
             $this->accesoAPaginaUsuarios($parametros);
+        }else{
+            $this->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
     
@@ -203,6 +260,9 @@ class UserController{
                 }
             }
             $this->accesoAPaginaUsuarios($parametros);
+        }else{
+            $this->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
     
@@ -215,12 +275,15 @@ class UserController{
                 'tuUsuario' => $usuario
             );
             $this->accesoAPaginaUsuarios($arreglo);
+        }else{
+            $this->cerrarSesion();
+            IndexController::getInstance()->index();
         }
     }
 
     public function ya_existe_usuario($mail,$nameUsr){
         //valida contra base de datos
-        $aux = CreateUsrValidation::getInstance()->usuario_existente($mail, $nameUsr);
+        $aux = UserModel::getInstance()->usuario_existente($mail, $nameUsr);
         if (count($aux) == 0){
             return true;
         }else {
@@ -229,10 +292,44 @@ class UserController{
     }
 
     public function crearTabla(){
-        $arreglo = array("0"=> $_POST["emailUs"], "1"=> $_POST["nombreUs"],"2"=> $_POST["contraUs"],"3"=> $_POST["nombreRealUs"] ,"4"=> $_POST["ApellidoUs"]);
-        UserModel::getInstance()->insertarUsuario($arreglo);
+        //Crea un usuario nuevo en la bd
+        if($this->sePuedeAccederASeccion('usuario_new')){
+            if($this->validarDatos()){
+                $arreglo = array("0"=> $_POST["emailUs"], "1"=> $_POST["nombreUs"],"2"=> $_POST["contraUs"],"3"=> $_POST["nombreRealUs"] ,"4"=> $_POST["ApellidoUs"]);
+                UserModel::getInstance()->insertarUsuario($arreglo);
+                $idUsuarioRegistrado = UserModel::getInstance()->obtenerIdUsuario($_POST['emailUs']);
+                foreach ($_POST['check'] as $value) {
+                    UserModel::getInstance()->insertarRolesUsuario($idUsuarioRegistrado, $value);
+                    }
+                $this->paginaPrincipalUsuarios('Usuario creado exitosamente.');
+            }
+        }else{
+            $this->cerrarSesion();
+            IndexController::getInstance()->index();
+        }
     }
     
+    public function validarDatos(){
+        //Valida los datos de usuario ingresados
+        $retorno = true;
+        if(isset($_POST["emailUs"]) && isset($_POST["nombreUs"]) && isset($_POST["contraUs"]) && isset($_POST["nombreRealUs"]) && isset($_POST["ApellidoUs"]) && isset($_POST['check'])){
+            if(filter_var($_POST["emailUs"],FILTER_VALIDATE_EMAIL) && is_string($_POST["nombreUs"]) && is_string($_POST["contraUs"]) && is_string($_POST["nombreRealUs"]) && is_string($_POST["ApellidoUs"]) && is_array($_POST['check'])){
+                foreach ($_POST['check'] as $value) {
+                    if(!is_numeric($value)){
+                        $retorno = false;
+                        break;
+                    }
+                }
+            }else{
+                $retorno = false;
+            }
+        }else{
+            $retorno = false;
+        }
+        return $retorno;
+    }
+
+
     public function existeUsuarioConId($usuarioId){
         //Retorna si existe usuario con el id pasado por parametro.
         $existe = UserModel::getInstance()->obtenerUsuario($usuarioId);

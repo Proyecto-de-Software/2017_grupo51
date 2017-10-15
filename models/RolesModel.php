@@ -16,15 +16,18 @@ class RolesModel extends PDORepository{
     }
     
     public function obtenerRol($rolId){
+        //Retorna el rol con id pasado por parametro
         $answer = $this->queryList("SELECT nombre FROM rol WHERE id=:rolId", ['rolId'=>$rolId]);
         return $answer;
     }
     
     public function asignarRol($usuarioId,$rolId){
+        //Asigna un rol a un usuario
         $this->queryList("INSERT INTO usuario_tiene_rol (usuario_id,rol_id) VALUES (:idUsuario,:idRol)", ['idRol'=>$rolId,'idUsuario'=>$usuarioId]);
     }
     
     public function desasignarRol($usuarioId,$rolId){
+        //Elimina un rol a un usuario
         $this->queryList("DELETE FROM usuario_tiene_rol WHERE usuario_id=:idUsuario AND rol_id=:idRol", ['idRol'=>$rolId,'idUsuario'=>$usuarioId]);
     }
     
@@ -35,6 +38,7 @@ class RolesModel extends PDORepository{
     }
     
     public function listadoDeRoles(){
+        //Retorna todos los roles.
         $answer = $this->queryList("SELECT * FROM rol", []);
         return $answer;
     }

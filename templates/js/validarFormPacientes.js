@@ -38,7 +38,7 @@ function validarFormPac (){
 }
 
 function existe_Pac(){
-
+        //Retorna si ya existe o no un paciente
 	var nroDoc = document.getElementById("NroDocP").value;
 	var retorno = validarDoc(nroDoc);
 
@@ -49,6 +49,7 @@ function existe_Pac(){
 }
 
 function validarDoc (nroDoc){
+        //Chequea si existe un paciente con el numero de documento pasado por parametro
 	var aux = false;
 	$.ajax({
 		url: "./index.php", 
