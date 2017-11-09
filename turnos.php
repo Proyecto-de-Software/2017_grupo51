@@ -52,6 +52,7 @@
             break;
 
         case '/turnos':
+            $msg['text'] = 'Primer texto.'.PHP_EOL;
             foreach ($cmd_params as $a){
                 $msg['text'] = 'Bueeeno, '.$a. PHP_EOL;
             }
