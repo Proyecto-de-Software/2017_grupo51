@@ -53,7 +53,7 @@
 
         case '/turnos':
             $msg['text'] = 'Primer texto.' . PHP_EOL;
-            $msg['text']  = 'Los turnos disponibles son: 11:45 | 15:15';
+            $msg['text']  .= 'Los turnos disponibles son: 11:45 | 15:15';
             break;
     }
     
