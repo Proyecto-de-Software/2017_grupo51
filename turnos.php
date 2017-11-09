@@ -56,4 +56,17 @@
             break;
     }
     
-    return $msg;
+    $url = 'https://api.telegram.org/bot457190639:AAFsaLyfb1pXsbI8ZL7-KohOCtbPklyNJX0/sendMessage';
+
+    $options = array(
+        'http' => array(
+            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method'  => 'POST',
+            'content' => http_build_query($msg)
+        )
+    );
+
+    $context  = stream_context_create($options);
+    $result = file_get_contents($url, false, $context);
+
+    exit(0);
