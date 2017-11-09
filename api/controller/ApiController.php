@@ -23,10 +23,12 @@
                     $retorno = json_encode($arregloDeHorarios);
                 }
             }else{
+                $arreglo['otro'] = 'Algo';
                 $arreglo['error'] = 'Ya paso esta fecha.';
                 $retorno = json_encode($arreglo);
             }
         }else{
+            $arreglo['otro'] = 'Algo';
             $arreglo['error'] = 'Fecha ingresada invalida.';
             $retorno = json_encode($arreglo);
         }
