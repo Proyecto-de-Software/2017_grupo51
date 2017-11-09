@@ -55,3 +55,5 @@
             $msg['text']  = 'Los turnos disponibles son: 10:30 | 11:45 | 15:15';
             break;
     }
+    
+    return $msg;
