@@ -5,7 +5,6 @@
     $response = json_decode($rawData, $returnArray);
     $id_del_chat = $response['message']['chat']['id'];
 
-
     // Obtener comando (y sus posibles parametros)
     $regExp = '#^(\/[a-zA-Z0-9\/]+?)(\ .*?)$#i';
 
@@ -53,7 +52,9 @@
             break;
 
         case '/turnos':
-            $msg['text'] = 'Bueeeno, '.$cmd_params. PHP_EOL;
+            foreach ($cmd_params as $a){
+                $msg['text'] = 'Bueeeno, '.$a. PHP_EOL;
+            }
             $msg['text']  = 'Los turnos disponibles son: 11:45 | 15:15';
             break;
     }
@@ -62,7 +63,7 @@
 
     $options = array(
         'http' => array(
-            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+           'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
             'method'  => 'POST',
             'content' => http_build_query($msg)
         )
