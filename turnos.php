@@ -52,7 +52,10 @@
             break;
 
         case '/turnos':
-            $msg['text'] = 'Primer texto.' . PHP_EOL;
+            $msg['text'] = 'Primer texto.'. PHP_EOL;
+            foreach ($cmd_params as $a){
+                $msg['text'] .= 'Bueeeno, '.$a. PHP_EOL;
+            }
             $msg['text']  .= 'Los turnos disponibles son: 11:45 | 15:15';
             break;
     }
