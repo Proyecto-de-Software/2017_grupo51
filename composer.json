@@ -1,6 +1,7 @@
 {
     "require": {
         "twig/twig": "~1.0",
-        "fxp/composer-asset-plugin": "~1.0"
+        "fxp/composer-asset-plugin": "~1.0",
+        "slim/slim": "3.0"
     }
 }

@@ -46,7 +46,7 @@ if(!isset($_GET['action'])){
             IndexController::getInstance()->index();
     }
 }elseif($_GET['action']=='permisoConfiguracion'){
-    echo AppController::getInstance()->checkPermission('configuracion');
+    return AppController::getInstance()->checkPermission('configuracion');
 }elseif($_GET['action'] == 'accesoConfiguracion'){
     Configuracion::getInstance()->accesoPagConfiguracion();
 }elseif($_GET['action'] == 'cerrarSesion'){

@@ -31,11 +31,9 @@
     							<div class="form-group">
     	  							<label>Tipo de documento(*):</label>
 	     							<select class="form-control" name="TipoDocP" id="TipoDocP">
-                                                                        <option {% if paciente is defined %}{% if paciente[0]['tipo_documento'] == 'DNI' %}selected{%endif%}{% endif %}>DNI</option>
-     									<option {% if paciente is defined %}{% if paciente[0]['tipo_documento'] == 'LE' %}selected{%endif%}{% endif %}>LE</option>
-     									<option {% if paciente is defined %}{% if paciente[0]['tipo_documento'] == 'Pasaporte' %}selected{%endif%}{% endif %}>Pasaporte</option>
-     									<option {% if paciente is defined %}{% if paciente[0]['tipo_documento'] == 'Carnet extrangero' %}selected{%endif%}{% endif %}>Carnet extrangero</option>
-     									<option {% if paciente is defined %}{% if paciente[0]['tipo_documento'] == 'RUC' %}selected{%endif%}{% endif %}>RUC</option>
+                                                                    {% for documento in documentos %}
+                                                                        <option {% if paciente is defined %}{% if paciente[0]['tipo_documento'] == documento.nombre %}selected{%endif%}{% endif %}>{{ documento.nombre }}</option>
+                                                                    {% endfor %}
      								</select>
     							</div>
     							<div class="form-group">
@@ -53,11 +51,10 @@
     							<div class="form-group">
       								<label>Obra social:</label>
      								<select class="form-control" name="ObraSocP" id="ObraSocP">
-                                                                        <option {% if paciente is defined %}{% if paciente[0]['obra_social'] == null %}selected{%endif%}{% endif %}>No posee</option>
-     									<option {% if paciente is defined %}{% if paciente[0]['obra_social'] == 'OSDE' %}selected{%endif%}{% endif %}>OSDE</option>
-     									<option {% if paciente is defined %}{% if paciente[0]['obra_social'] == 'IOMA' %}selected{%endif%}{% endif %}>IOMA</option>
-    	 								<option {% if paciente is defined %}{% if paciente[0]['obra_social'] == 'Swiss Medical' %}selected{%endif%}{% endif %}>Swiss Medical</option>
-	     								<option {% if paciente is defined %}{% if paciente[0]['obra_social'] == 'OSPE' %}selected{%endif%}{% endif %}>OSPE</option>
+                                                                    <option {% if paciente is defined %}{% if paciente[0]['obra_social'] == null %}selected{%endif%}{% endif %}>No posee</option>
+                                                                    {% for obraS in obraSocial %}
+     									<option {% if paciente is defined %}{% if paciente[0]['obra_social'] == obraS.nombre %}selected{%endif%}{% endif %}>{{ obraS.nombre }}</option>
+                                                                    {% endfor %}    
      								</select>
     							</div>
     						</div>
@@ -81,26 +78,25 @@
     							<div class="form-group">
 	      							<label>Tipo de vivienda(*):</label>
      									<select class="form-control" name="viviendaP" id="viviendaP">
-        									<option {% if paciente is defined %}{% if paciente[0]['tipo_vivienda'] == 'Casa' %}selected{%endif%}{% endif %}>Casa</option>
-        									<option {% if paciente is defined %}{% if paciente[0]['tipo_vivienda'] == 'Departamento' %}selected{%endif%}{% endif %}>Departamento</option>
+                                                                            {% for vivienda in tipoVivienda %}
+        									<option {% if paciente is defined %}{% if paciente[0]['tipo_vivienda'] == vivienda.nombre %}selected{%endif%}{% endif %}>{{ vivienda.nombre }}</option>
+                                                                            {% endfor %}
         								</select>
     							</div>
     							<div class="form-group">
 	      							<label>Tipo de calefacción(*):</label>
      									<select class="form-control" name="calefaP" id="calefaP">
-        									<option {% if paciente is defined %}{% if paciente[0]['tipo_calefaccion'] == 'Gas' %}selected{%endif%}{% endif %}>Gas</option>
-        									<option {% if paciente is defined %}{% if paciente[0]['tipo_calefaccion'] == 'Electrica por acumulacion' %}selected{%endif%}{% endif %}>Electrica por acumulacion</option>
-        									<option {% if paciente is defined %}{% if paciente[0]['tipo_calefaccion'] == 'Electrica por convectores' %}selected{%endif%}{% endif %}>Electrica por convectores</option>
-        									<option {% if paciente is defined %}{% if paciente[0]['tipo_calefaccion'] == 'Caldera con Radiador de agua' %}selected{%endif%}{% endif %}>Caldera con Radiador de agua</option>
-        									<option {% if paciente is defined %}{% if paciente[0]['tipo_calefaccion'] == 'Emisor termoelectrico' %}selected{%endif%}{% endif %}>Emisor termoelectrico</option>
-        									<option {% if paciente is defined %}{% if paciente[0]['tipo_calefaccion'] == 'Suelo radiante' %}selected{%endif%}{% endif %}>Suelo radiante</option>
+                                                                            {% for calefaccion in tipoCalefaccion %}
+        									<option {% if paciente is defined %}{% if paciente[0]['tipo_calefaccion'] == calefaccion.nombre %}selected{%endif%}{% endif %}>{{ calefaccion.nombre }}</option>
+                                                                            {% endfor %}
         								</select>
     							</div>
     							<div class="form-group">
 	      							<label>Tipo de agua(*):</label>
      									<select class="form-control" name="tipoAguaP" id="tipoAguaP">
-        									<option {% if paciente is defined %}{% if paciente[0]['tipo_agua'] == 'Corriente' %}selected{%endif%}{% endif %}>Corriente</option>
-        									<option {% if paciente is defined %}{% if paciente[0]['tipo_agua'] == 'Pozo' %}selected{%endif%}{% endif %}>Pozo</option>
+                                                                            {% for agua in tipoAgua %}
+        									<option {% if paciente is defined %}{% if paciente[0]['tipo_agua'] == agua.nombre %}selected{%endif%}{% endif %}>{{ agua.nombre }}</option>
+                                                                            {% endfor %}
         								</select>
     							</div>
     						</div>

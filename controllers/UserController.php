@@ -133,14 +133,26 @@ class UserController{
     
     public function seccionUsuarios(){
         //Accede a la seccion de usuarios.
-        $this->paginaPrincipalUsuarios('Bienvenido a la seccion de usuarios.');
+        if($this->sePuedeAccederASeccion('usuario_index')){
+            $this->paginaPrincipalUsuarios('listar_usuarios');
+        }elseif($this->sePuedeAccederASeccion('usuario_show')){
+            $this->paginaPrincipalUsuarios('mi_usuario');
+        }else{
+            $this->paginaPrincipalUsuarios('Bienvenido a la seccion de usuarios.');
+        }
     }
     
     public function paginaPrincipalUsuarios($mensaje){
         //Accede a la seccion de usuarios.
         if($this->sePuedeAccederASeccion('usuario_seccion')){
-            $parametros['mensaje'] = $mensaje;
-            $this->accesoAPaginaUsuarios($parametros);
+            if($mensaje == 'listar_usuarios'){
+                $this->listadoCompletoUsuarios();
+            }else if($mensaje == 'mi_usuario'){
+                $this->verMiUsuario();
+            }else{
+                $parametros['mensaje'] = $mensaje;
+                $this->accesoAPaginaUsuarios($parametros);
+            }
         }else{
             $this->cerrarSesion();
             IndexController::getInstance()->index();

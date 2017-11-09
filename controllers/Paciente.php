@@ -23,6 +23,16 @@ class Paciente{
     public function formularioPacientes($arreglo){
         //Muestra formulario de pacientes
         $layout = IndexController::getInstance()->layout();
+        $documentos_api = file_get_contents("https://api-referencias.proyecto2017.linti.unlp.edu.ar/tipo-documento");
+        $obraSocial_api = file_get_contents("https://api-referencias.proyecto2017.linti.unlp.edu.ar/obra-social");
+        $tipoVivienda_api = file_get_contents("https://api-referencias.proyecto2017.linti.unlp.edu.ar/tipo-vivienda");
+        $tipoAgua_api = file_get_contents("https://api-referencias.proyecto2017.linti.unlp.edu.ar/tipo-agua");
+        $tipoCalefaccion_api = file_get_contents("https://api-referencias.proyecto2017.linti.unlp.edu.ar/tipo-calefaccion");
+        $layout['documentos'] = json_decode($documentos_api);
+        $layout['obraSocial'] = json_decode($obraSocial_api);
+        $layout['tipoVivienda'] = json_decode($tipoVivienda_api);
+        $layout['tipoAgua'] = json_decode($tipoAgua_api);
+        $layout['tipoCalefaccion'] = json_decode($tipoCalefaccion_api);
         if(isset($arreglo['paciente'])){
             $layout['paciente'] = $arreglo['paciente'];
             $layout['titulo'] = 'Actualizar información.';
