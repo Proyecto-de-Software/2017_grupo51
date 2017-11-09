@@ -8,12 +8,7 @@
     $app = new \Slim\App();
     
     $app->get("/turnos/{fecha}", function($request, $response, $args){
-        //return ApiController::getInstance()->turnos($args['fecha']);
-        $var = ApiController::getInstance()->turnos($args['fecha']);
-        $vars = json_decode($var);
-        if(isset($vars->error)){
-            echo 'esissste';
-        }
+        return ApiController::getInstance()->turnos($args['fecha']);
     });
     
     $app->run();
