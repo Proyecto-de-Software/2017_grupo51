@@ -54,7 +54,7 @@
 
         case '/turnos':
             $msg['text'] = 'Bueeeno, '.$cmd_params. PHP_EOL;
-            $msg['text']  = 'Los turnos disponibles son: 10:30 | 11:45 | 15:15';
+            $msg['text']  = 'Los turnos disponibles son: 11:45 | 15:15';
             break;
     }
     
