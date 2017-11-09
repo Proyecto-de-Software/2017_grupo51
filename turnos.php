@@ -11,7 +11,7 @@
 
 
     $tmp = preg_match($regExp, $response['message']['text'], $aResults);
-
+    
     if (isset($aResults[1])) {
         $cmd = trim($aResults[1]);
         $cmd_params = trim($aResults[2]);
@@ -46,12 +46,14 @@
             break;
 
         case '/reservar':
-            $msg['text']  = 'Te confirmamos el turno para:' . PHP_EOL;
-            $msg['text'] .= '10:30' . PHP_EOL;
+            $msg['text'] = var_dump($cmd_params);
+            //$msg['text']  = 'Te confirmamos el turno para:' . PHP_EOL;
+            //$msg['text'] .= '10:30' . PHP_EOL;
             $msg['reply_to_message_id'] = null;
             break;
 
         case '/turnos':
+            $msg['text'] = var_dump($cmd_params);
             $msg['text']  = 'Los turnos disponibles son: 10:30 | 11:45 | 15:15';
             break;
     }

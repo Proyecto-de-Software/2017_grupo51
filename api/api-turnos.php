@@ -8,7 +8,7 @@
     $app = new \Slim\App();
     
     $app->get("/turnos/{fecha}", function($request, $response, $args){
-        return ApiController::getInstance()->turnos($request,$args['fecha']);
+        return ApiController::getInstance()->turnos($args['fecha']);
     });
     
     $app->run();

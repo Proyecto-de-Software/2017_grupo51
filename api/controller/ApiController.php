@@ -10,7 +10,7 @@
         return self::$instance;
     }
     
-    public function turnos($request,$fecha){
+    public function turnos($fecha){
         if($this->isDate($fecha)){
             $fechaABuscar = date("Y-m-d", strtotime($fecha));
             if($this->esFechaValida($fechaABuscar)){
