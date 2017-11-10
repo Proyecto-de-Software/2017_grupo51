@@ -53,15 +53,15 @@
 
         case '/turnos':
             if($cmd_params != NULL){
-            $contents = file_get_contents("https://grupo51.proyecto2017.linti.unlp.edu.ar/api/api-turnos.php/turnos/".$cmd_params);
-            $answer = json_decode($contents);
-            if(isset($answer->error)){
-                $msg['text'] = $answer->error.PHP_EOL;
-            }else{
-                $msg['text'] = 'Horarios libres para la fecha '.$cmd_params. PHP_EOL;
-                foreach($answer as $a){
-                    $msg['text'] .= $a.PHP_EOL;
-                }
+                $contents = file_get_contents("https://grupo51.proyecto2017.linti.unlp.edu.ar/api/api-turnos.php/turnos/".$cmd_params);
+                $answer = json_decode($contents);
+                if(isset($answer->error)){
+                    $msg['text'] = $answer->error.PHP_EOL;
+                }else{
+                    $msg['text'] = 'Horarios libres para la fecha '.$cmd_params. PHP_EOL;
+                    foreach($answer as $a){
+                        $msg['text'] .= $a.' hs'.PHP_EOL;
+                    }
             }}else{
                 $msg['text'] = 'Debes ingresar una fecha del tipo DD-MM-AAAA';
             }

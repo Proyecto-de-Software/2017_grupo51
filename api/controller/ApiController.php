@@ -62,7 +62,7 @@
             }
             for($j=0; $j<4; $j+=3){
                 $minutos = strval($j).'0';
-                $arregloHorarios[$pos] = $hora.':'.$minutos.':'.$segundos;
+                $arregloHorarios[$pos] = $hora.':'.$minutos;
                 $pos++;
             }
         }
