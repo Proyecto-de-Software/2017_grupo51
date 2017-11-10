@@ -39,18 +39,28 @@
             $msg['text']  = 'Los comandos disponibles son estos:' . PHP_EOL;
             $msg['text'] .= '/start Inicializa el bot' . PHP_EOL;
             $msg['text'] .= '/turnos dd-mm-aaaa Muestra los turnos disponibles del día' . PHP_EOL;
-            $msg['text'] .= '/reservar dd-mm-aaaa hh:mm Realiza la reserva del turno' . PHP_EOL;
+            $msg['text'] .= '/reservar dni dd-mm-aaaa hh:mm Realiza la reserva del turno' . PHP_EOL;
             $msg['text'] .= '/help Muestra esta ayuda flaca';
             $msg['reply_to_message_id'] = null;
             break;
 
         case '/reservar':
             $params = explode(' ', $cmd_params);
-            $msg['text'] = 'Parametros ingresados.'.PHP_EOL;
-            foreach ($params as $p) {
-                $msg['text'] .= $p.PHP_EOL;
-            }
-            $msg['reply_to_message_id'] = null;
+            $url = 'https://grupo51.proyecto2017.linti.unlp.edu.ar/api/api-turnos.php/turnos';
+            $data = array('dni' => $params[0], 'fecha' => $params[1], 'hora' => $params[2]);
+    
+            // use key 'http' even if you send the request to https://...
+            $options = array(
+                'http' => array(
+                    'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                    'method'  => 'POST',
+                    'content' => http_build_query($data)
+                )
+            );
+            $context  = stream_context_create($options);
+            $result = file_get_contents($url, false, $context);
+            $answer = json_decode($result);
+            $msg['text'] = $answer->error;
             break;
 
         case '/turnos':
