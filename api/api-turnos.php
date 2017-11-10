@@ -11,4 +11,8 @@
         return ApiController::getInstance()->turnos($args['fecha']);
     });
     
+    $app->post('/turnos', function(){
+       return ApiController::getInstance()->reservarTurno(); 
+    });
+    
     $app->run();

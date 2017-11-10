@@ -45,9 +45,11 @@
             break;
 
         case '/reservar':
-            $msg['text'] = var_dump($cmd_params);
-            //$msg['text']  = 'Te confirmamos el turno para:' . PHP_EOL;
-            //$msg['text'] .= '10:30' . PHP_EOL;
+            $params = explode(' ', $cmd_params);
+            $msg['text'] = 'Parametros ingresados.'.PHP_EOL;
+            foreach ($params as $p) {
+                $msg['text'] .= $p.PHP_EOL;
+            }
             $msg['reply_to_message_id'] = null;
             break;
 

@@ -1,9 +1,8 @@
 <?php
 
-    $results = file_get_contents('https://grupo51.proyecto2017.linti.unlp.edu.ar/api/api-turnos.php/turnos/9-11-2017');
-    echo 'Paso';
-    $url = 'http://localhost/grupo51/turnos.php';
-    $data = array('/turnos','otra');
+    
+    $url = 'http://localhost/grupo51/api/api-turnos.php/turnos';
+    $data = array('dni' => 77777, 'fecha' => '11-11-2017', 'hora' => '20:00');
     
     // use key 'http' even if you send the request to https://...
     $options = array(

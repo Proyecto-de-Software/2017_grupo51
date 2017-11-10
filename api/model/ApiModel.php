@@ -12,4 +12,13 @@
             $answer = $this->queryList("SELECT TIME_FORMAT(hora, '%H:%i') as horario FROM turnos WHERE fecha=:fechaIngresada ORDER BY hora ASC", ['fechaIngresada' => $fecha]);
             return $answer;
         }
+        
+        public function existeTurnoDado($fecha,$horario){
+            $answer = $this->queryList("SELECT id FROM turnos WHERE fecha=:fechaIngresada AND hora=:horario", ['fechaIngresada' => $fecha, 'horario' => $horario]);
+            return $answer;
+        }
+        
+        public function reservarTurno($fecha,$horario,$dni){
+            $this->queryList("INSERT INTO turnos (fecha,dni,hora) VALUES (:fechaIngresada, :doc, :horario)", ['fechaIngresada' => $fecha, 'horario' => $horario, 'doc' => $dni]);
+        }
     }
