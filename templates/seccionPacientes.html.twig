@@ -74,6 +74,7 @@
                             <td>{{ paciente.numero_documento }}</td>
                             <td><a href="./?action=verDatosCompletosPaciente&id={{ paciente.id }}" onclick="return permisoConfiguracion('permisoVerDatosCompletosPaciente', '{{rol_nombre}}')" class="btn btn-primary">Ver datos completos</a></td>
                             <td><a href="./?action=eliminarPaciente&id={{ paciente.id }}" onclick="if(confirmacion('¿Esta seguro que desea eliminar el paciente?')) { return permisoConfiguracion('permisoEliminarPaciente', '{{rol_nombre}}');}else{return false;}" class="btn btn-primary">Eliminar paciente</a></td>
+                            <td><a href="./?action=historiaClinica&idPaciente={{paciente.id}}&nacimiento={{ paciente.fecha_nacimiento }}" class="btn btn-primary" onclick="if(!permisoConfiguracion('permisoListarControles','{{rol_nombre}}')) return false;">Ver historia clinica</a></td>
                         </tr>
                         {% set cantId = cantId + 1 %}
                         {% if cantId == elemPorPagina %} {% set id_tr = id_tr + 1 %} {% set cantId = 0 %} {% endif %}
@@ -147,6 +148,18 @@
                             <tr>
                                 <td><strong>Tipo de agua:</strong></td>
                                 <td>{{ pacienteCompleto[0]['tipo_agua'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Grafico percentilo cefalico</strong></td>
+                                <td><a href="./?action=graficoPercentiloCefalico&sexo={{ pacienteCompleto[0]['genero'] }}&idPaciente={{pacienteCompleto[0]['id']}}" class="btn btn-primary" onclick="if(!permisoConfiguracion('permisoHistoriaClinica','{{rol_nombre}}')) return false;">Ver grafico</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Grafico talla</strong></td>
+                                <td><a href="./?action=graficoTalla&sexo={{ pacienteCompleto[0]['genero'] }}&idPaciente={{pacienteCompleto[0]['id']}}" class="btn btn-primary" onclick="if(!permisoConfiguracion('permisoHistoriaClinica','{{rol_nombre}}')) return false;">Ver grafico</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Grafico peso</strong></td>
+                                <td><a href="./?action=graficoPeso&nacimiento={{ pacienteCompleto[0]['fecha_nacimiento'] }}&sexo={{ pacienteCompleto[0]['genero'] }}&idPaciente={{pacienteCompleto[0]['id']}}" class="btn btn-primary" onclick="if(!permisoConfiguracion('permisoHistoriaClinica','{{rol_nombre}}')) return false;">Ver grafico</a></td>
                             </tr>
                         </tbody>
                     </table>    

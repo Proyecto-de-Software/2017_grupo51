@@ -1,0 +1,77 @@
+{% extends "layout.html.twig" %}
+{% block content %}
+    <div class="text-center">
+                <h1><strong>Detalle del control.</strong></h1>
+    </div>
+    <div class="container table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td><strong>Nombre y apellido del paciente:</strong></td>
+                                <td>{{ control[0]['nombre'] }} {{ control[0]['apellido'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Edad:</strong></td>
+                                <td>{{ edad }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fecha del control:</strong></td>
+                                <td>{{ control[0]['fecha'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Peso:</strong></td>
+                                <td>{{ control[0]['peso'] }} kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Vacunas completas:</strong></td>
+                                <td>{% if control[0]['vacunas_completas'] %}Si{% else %}No{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Vacunas - Observaciones:</strong></td>
+                                <td>{{ control[0]['vacunas_observaciones'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Maduración acorde:</strong></td>
+                                <td>{% if control[0]['maduracion_acorde'] %}Si{% else %}No{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Maduración - Observaciones:</strong></td>
+                                <td>{{ control[0]['maduracion_observaciones'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Examen fisico normal:</strong></td>
+                                <td>{% if control[0]['examen_fisico_normal'] %}Si{% else %}No{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Examen fisico - Observaciones:</strong></td>
+                                <td>{{ control[0]['examen_fisico_observaciones'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Percentilo cefalico:</strong></td>
+                                <td>{% if control[0]['percentilo_cefalico'] is null %}Sin registro{% else %}{{ control[0]['percentilo_cefalico'] }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Percentilo perimetro cefalico:</strong></td>
+                                <td>{% if control[0]['percentilo_perimetro_cefalico'] is null %}Sin registro{% else %}{{ control[0]['percentilo_perimetro_cefalico'] }} cm{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Talla:</strong></td>
+                                <td>{% if control[0]['talla'] is null %}Sin registro{% else %}{{ control[0]['talla'] }} cm{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Alimentación:</strong></td>
+                                <td>{% if control[0]['alimentacion'] is null %}Sin registro{% else %}{{ control[0]['alimentacion'] }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Observaciones generales:</strong></td>
+                                <td>{% if control[0]['observaciones_generales'] is null %}Sin registro{% else %}{{control[0]['observaciones_generales']}}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pediatra que realizo el control:</strong></td>
+                                <td>{{ control[0]['first_name'] }} {{ control[0]['last_name'] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>    
+                    <a href="./?action=modificarControl&idPaciente={{control[0]['id']}}" class="btn btn-primary"> Modificar control</a>
+                </div>
+{% endblock %}

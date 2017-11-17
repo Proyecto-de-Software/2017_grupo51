@@ -1,0 +1,11 @@
+{% extends "layout.html.twig" %}
+{% block javascript %}
+    <script src="graphic/code/highcharts.js"></script>
+    <script src="graphic/code/modules/exporting.js"></script>
+    <script src="templates/js/dibujaGrafico.js"></script>
+{% endblock %}
+{% block atributosBody %}onload="dibujar({{datosGrafico}});"{%endblock%}
+{% block content %}
+    <div id="container"></div>
+{% endblock %}
+{% block atributosFooter %}class="posicionFooter"{% endblock %}

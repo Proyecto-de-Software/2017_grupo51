@@ -1,0 +1,58 @@
+{% extends "layout.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="templates/css/sitioInhabilitado.css" >
+{% endblock %}
+{% block javascript %}
+    <script src="templates/js/validacionPermisos.js"></script>
+    <script src="templates/js/moduloUsuario.js"></script>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <h1><strong>{{titulo}}</strong></h1>
+            </div>
+        </div>
+        {% if titulo != 'No posee controles.' %}
+        <div class="container table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Fecha del control</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set id_tr = 1 %}
+                    {% set cantId = 0 %}
+                    {% for control in controles %}
+                        <tr title="{{ id_tr }}" {% if id_tr != 1 %}class="hide"{% endif %}>
+                            <td>{{ control.fecha}}</td>
+                            <td><a href="./?action=verControlCompleto&idControl={{control.id}}&nacimiento={{ nacimiento }}" onclick="return permisoConfiguracion('permisoHistoriaClinica', '{{rol_nombre}}')" class="btn btn-primary">Ver control completo</a></td>
+                            <td><a href="./?action=eliminarControl&idControl={{ control.id }}" onclick="if(confirmacion('¿Esta seguro que desea eliminar el control?')) { return permisoConfiguracion('permisoEliminarControl', '{{rol_nombre}}');}else{return false;}" class="btn btn-primary">Eliminar control</a></td>
+                        </tr>
+                        {% set cantId = cantId + 1 %}
+                        {% if cantId == elemPorPagina %} {% set id_tr = id_tr + 1 %} {% set cantId = 0 %} {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination">
+                    {% set cantPaginas = ((controles | length)/elemPorPagina) | round(0,'ceil') %}
+                    {% for i in 1..cantPaginas %}    
+                        <li id="selec{{i}}" {% if i == 1 %}class="active"{% endif %}><a href="javascript:mostrarTablas({{i}});">{{i}}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block atributosFooter %}
+    {% if controles is not defined%}
+        class="posicionFooter"
+    {% elseif ((listaPacientes | length) < 10) %}
+        class="posicionFooter"
+    {% elseif (elemPorPagina < 10) %}
+        class="posicionFooter"
+    {% endif %}
+{% endblock %}

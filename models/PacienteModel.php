@@ -71,4 +71,19 @@ class PacienteModel extends PDORepository{
         $answer = $this->queryList("SELECT id FROM paciente WHERE numero_documento=:nroDoc", ['nroDoc'=>$nroDoc]);
         return $answer;
     }
+    
+    public function fechaNacimiento($idPaciente){
+        $answer = $this->queryList("SELECT fecha_nacimiento FROM paciente WHERE id=:idPac", ['idPac' => $idPaciente]);
+        return $answer[0]['fecha_nacimiento'];
+    }
+    
+    public function obtenerControles($idPaciente){
+        $answer = $this->queryList("SELECT fecha,id FROM control_salud WHERE id_paciente=:paciente", ['paciente' => $idPaciente]);
+        return $answer;
+    }
+    
+    public function obtenerControlCompleto($idControl){
+        $answer = $this->queryList("SELECT cs.id,cs.fecha,cs.peso,cs.vacunas_completas,cs.vacunas_observaciones,cs.maduracion_acorde,cs.maduracion_observaciones,cs.examen_fisico_normal,cs.examen_fisico_observaciones,cs.percentilo_cefalico,cs.percentilo_perimetro_cefalico,cs.talla,cs.alimentacion, cs.observaciones_generales,p.nombre,p.apellido,u.first_name,u.last_name FROM control_salud cs INNER JOIN usuario u ON(cs.id_usuario_registro=u.id) INNER JOIN paciente p ON(p.id=cs.id_paciente) WHERE cs.id=:control", ['control' => $idControl]);
+        return $answer;
+    }
 }

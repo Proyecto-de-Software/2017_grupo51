@@ -40,9 +40,11 @@ if(!isset($_GET['action'])){
         if(is_numeric($_GET['idrol'])&& is_string($_GET['nombrerol'])&& is_numeric($_GET['idusuario'])){
             UserController::getInstance()->iniciarSesionComoRol($_GET['nombrerol'],$_GET['idrol'],$_GET['idusuario'],true);
         }else{
+            UserController::getInstance()->cerrarSesion();
             IndexController::getInstance()->index();
         }
     }else{
+            UserController::getInstance()->cerrarSesion();
             IndexController::getInstance()->index();
     }
 }elseif($_GET['action']=='permisoConfiguracion'){
@@ -60,6 +62,10 @@ if(!isset($_GET['action'])){
     echo AppController::getInstance()->checkPermission('usuario_index');
 }elseif ($_GET['action'] == 'permisoVerUsuario') {
     echo AppController::getInstance()->checkPermission('usuario_show');
+}elseif($_GET['action'] == 'permisoListarControles'){
+    echo AppController::getInstance()->checkPermission('control_index');
+}elseif($_GET['action'] == 'permisoEliminarControl'){
+    echo AppController::getInstance()->checkPermission('control_delete');
 }elseif($_GET['action'] == 'permisoBuscarNombreUsuario'){
     echo AppController::getInstance()->checkPermission('busqueda_usuario_nombreusuario');
 }elseif(($_GET['action'] == 'permisoBuscarActivos')||($_GET['action'] == 'permisoBuscarBloqueados')){
@@ -71,9 +77,11 @@ if(!isset($_GET['action'])){
         if(is_numeric($_GET['id']) &&  is_numeric($_GET['estado'])){
             UserController::getInstance()->modificarEstado($_GET['id'],$_GET['estado']);
         }else{
+            UserController::getInstance()->cerrarSesion();
             IndexController::getInstance()->index();
         }
     }else{    
+        UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'eliminarUsuario'){
@@ -81,9 +89,11 @@ if(!isset($_GET['action'])){
         if(is_numeric($_GET['id'])){
             UserController::getInstance()->eliminarUsuario($_GET['id']);
         }else{
+            UserController::getInstance()->cerrarSesion();
             IndexController::getInstance()->index();
         }
     }else{
+        UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'buscarUsuarios'){
@@ -92,6 +102,7 @@ if(!isset($_GET['action'])){
             if(is_string($_POST['nombreUsuario'])){
                 UserController::getInstance()->buscarPorNombreUsuario($_POST['nombreUsuario']);
             }else{
+                UserController::getInstance()->cerrarSesion();
                 IndexController::getInstance()->index();
             }
         }elseif($_POST['busquedaUsuario'] == 'permisoBuscarActivos'){
@@ -100,6 +111,7 @@ if(!isset($_GET['action'])){
             UserController::getInstance()->buscarPorEstado(0);
         }
     }else{
+        UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'permisoCrearUsuario'){
@@ -113,9 +125,11 @@ if(!isset($_GET['action'])){
         if(is_string($_GET['idUsuario'])){
             echo RolesController::getInstance()->puedeCambiarDeRoles($_GET['idUsuario']);
         }else{
+            UserController::getInstance()->cerrarSesion();
             IndexController::getInstance()->index();
         }
     }else{
+        UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'verMiUsuario'){
@@ -137,9 +151,11 @@ if(!isset($_GET['action'])){
         if(is_numeric($_GET['id'])){
             Paciente::getInstance()->verDatosCompletosPaciente($_GET['id']);
         }else{
+            UserController::getInstance()->cerrarSesion();
             IndexController::getInstance()->index();
         }
     }else{
+        UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'eliminarPaciente'){
@@ -147,9 +163,11 @@ if(!isset($_GET['action'])){
         if(is_numeric($_GET['id'])){
             Paciente::getInstance()->eliminarPaciente($_GET['id']);
         }else{
+            UserController::getInstance()->cerrarSesion();
             IndexController::getInstance()->index();
         }
     }else{
+        UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'buscarPaciente'){
@@ -163,21 +181,26 @@ if(!isset($_GET['action'])){
                 if((isset($_POST['selectDoc'])) && ($_POST['selectDoc'] != "0")){
                     Paciente::getInstance()->buscarPorDocumento($_POST['buscaPaciente'],$_POST['selectDoc']);
                 }else{
+                    UserController::getInstance()->cerrarSesion();
                     IndexController::getInstance()->index();
                 }
             }else{
+                UserController::getInstance()->cerrarSesion();
                 IndexController::getInstance()->index();
             }
         }else{
+            UserController::getInstance()->cerrarSesion();
             IndexController::getInstance()->index();
         }
     }else{
+        UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action']== 'existePaciente'){
     if(isset($_GET["numero_doc"])){
         echo Paciente::getInstance()-> ya_existe_paciente($_GET ["numero_doc"]);
     }else{
+        UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 
@@ -197,6 +220,8 @@ if(!isset($_GET['action'])){
     echo AppController::getInstance()->checkPermission('paciente_seccion');
 }elseif($_GET['action'] == 'permisoSeccionRoles'){
     echo AppController::getInstance()->checkPermission('roles_seccion');
+}elseif($_GET['action'] == 'permisoHistoriaClinica'){
+    echo AppController::getInstance()->checkPermission('paciente_historia');
 }elseif($_GET['action'] == 'actualizarConfiguracion'){
     Configuracion::getInstance()->formularioConfiguracion();
 }elseif($_GET['action'] == 'enviarConfiguracion'){
@@ -209,12 +234,14 @@ if(!isset($_GET['action'])){
     if(isset($_GET['rolId']) && isset($_GET['usuarioId'])){
         RolesController::getInstance()->asignacionRol($_GET['usuarioId'],$_GET['rolId'],false);
     }else{
+        UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'asignarRol'){
     if(isset($_GET['rolId']) && isset($_GET['usuarioId'])){
         RolesController::getInstance()->asignacionRol($_GET['usuarioId'],$_GET['rolId'],true);
     }else{
+        UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'modificarUsuario'){
@@ -225,12 +252,49 @@ if(!isset($_GET['action'])){
     if(isset($_GET['idPaciente']) && is_numeric($_GET['idPaciente'])){
         Paciente::getInstance()->modificarPaciente($_GET['idPaciente']);
     }else{
+        UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'actualizarPaciente'){
     if(isset($_GET['idPaciente']) && is_numeric($_GET['idPaciente'])){
         Paciente::getInstance()->crearTablaPaciente(true,$_GET['idPaciente']);
     }else{
+        UserController::getInstance()->cerrarSesion();
+        IndexController::getInstance()->index();
+    }
+}elseif($_GET['action'] == 'historiaClinica'){
+    if(isset($_GET['idPaciente']) && is_numeric($_GET['idPaciente']) && (isset($_GET['nacimiento'])) ){
+        Paciente::getInstance()->verHistoriaClinica($_GET['idPaciente'],$_GET['nacimiento']);
+    }else{
+        UserController::getInstance()->cerrarSesion();
+        IndexController::getInstance()->index();
+    }
+}elseif($_GET['action'] == 'graficoPercentiloCefalico'){
+    if(isset($_GET['idPaciente']) && (isset($_GET['sexo'])) && (($_GET['sexo'] == 'Masculino') || ($_GET['sexo'] == 'Femenino')) && is_numeric($_GET['idPaciente'])){
+        Paciente::getInstance()->verGraficoPercentiloCefalico($_GET['idPaciente'],$_GET['sexo']);
+    }else{
+        UserController::getInstance()->cerrarSesion();
+        IndexController::getInstance()->index();
+    }
+}elseif($_GET['action'] == 'graficoTalla'){
+    if(isset($_GET['idPaciente']) && (isset($_GET['sexo'])) && (($_GET['sexo'] == 'Masculino') || ($_GET['sexo'] == 'Femenino')) && is_numeric($_GET['idPaciente'])){
+        Paciente::getInstance()->verGraficoTalla($_GET['idPaciente'],$_GET['sexo']);
+    }else{
+        UserController::getInstance()->cerrarSesion();
+        IndexController::getInstance()->index();
+    }
+}elseif($_GET['action'] == 'graficoPeso'){
+    if(isset($_GET['idPaciente']) && (isset($_GET['sexo'])) && (isset($_GET['nacimiento'])) && (($_GET['sexo'] == 'Masculino') || ($_GET['sexo'] == 'Femenino')) && is_numeric($_GET['idPaciente'])){
+        Paciente::getInstance()->verGraficoPeso($_GET['idPaciente'],$_GET['sexo'],$_GET['nacimiento']);
+    }else{
+        UserController::getInstance()->cerrarSesion();
+        IndexController::getInstance()->index();
+    }
+}elseif($_GET['action'] == 'verControlCompleto'){
+    if(isset($_GET['idControl']) && (is_numeric($_GET['idControl'])) && (isset($_GET['nacimiento'])) ){
+        Paciente::getInstance()->verControlCompleto($_GET['idControl'],$_GET['nacimiento']);
+    }else{
+        UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }
