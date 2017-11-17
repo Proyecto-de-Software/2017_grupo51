@@ -48,7 +48,7 @@ if(!isset($_GET['action'])){
             IndexController::getInstance()->index();
     }
 }elseif($_GET['action']=='permisoConfiguracion'){
-    return AppController::getInstance()->checkPermission('configuracion');
+    echo AppController::getInstance()->checkPermission('configuracion');
 }elseif($_GET['action'] == 'accesoConfiguracion'){
     Configuracion::getInstance()->accesoPagConfiguracion();
 }elseif($_GET['action'] == 'cerrarSesion'){
@@ -270,15 +270,15 @@ if(!isset($_GET['action'])){
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'graficoPercentiloCefalico'){
-    if(isset($_GET['idPaciente']) && (isset($_GET['sexo'])) && (($_GET['sexo'] == 'Masculino') || ($_GET['sexo'] == 'Femenino')) && is_numeric($_GET['idPaciente'])){
-        Paciente::getInstance()->verGraficoPercentiloCefalico($_GET['idPaciente'],$_GET['sexo']);
+    if(isset($_GET['idPaciente']) && (isset($_GET['sexo'])) && (isset($_GET['nacimiento'])) && (($_GET['sexo'] == 'Masculino') || ($_GET['sexo'] == 'Femenino')) && is_numeric($_GET['idPaciente'])){
+        Paciente::getInstance()->verGraficoPercentiloCefalico($_GET['idPaciente'],$_GET['sexo'],$_GET['nacimiento']);
     }else{
         UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'graficoTalla'){
-    if(isset($_GET['idPaciente']) && (isset($_GET['sexo'])) && (($_GET['sexo'] == 'Masculino') || ($_GET['sexo'] == 'Femenino')) && is_numeric($_GET['idPaciente'])){
-        Paciente::getInstance()->verGraficoTalla($_GET['idPaciente'],$_GET['sexo']);
+    if(isset($_GET['idPaciente']) && (isset($_GET['sexo'])) && (isset($_GET['nacimiento'])) && (($_GET['sexo'] == 'Masculino') || ($_GET['sexo'] == 'Femenino')) && is_numeric($_GET['idPaciente'])){
+        Paciente::getInstance()->verGraficoTalla($_GET['idPaciente'],$_GET['sexo'],$_GET['nacimiento']);
     }else{
         UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
@@ -297,4 +297,25 @@ if(!isset($_GET['action'])){
         UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
+}elseif($_GET['action'] == 'eliminarControl'){
+    if( (isset($_GET['idControl'])) && (is_numeric($_GET['idControl'])) && (isset($_GET['nacimiento'])) && (isset($_GET['idPaciente'])) && (is_numeric($_GET['idPaciente'])) ){
+        Paciente::getInstance()->eliminarControl($_GET['idControl'],$_GET['nacimiento'],$_GET['idPaciente']);
+    }else{
+        UserController::getInstance()->cerrarSesion();
+        IndexController::getInstance()->index();
+    }
+}elseif($_GET['action'] == 'accesoGraficosDemograficos'){
+    Paciente::getInstance()->listadoGraficosDemograficos();
+}elseif($_GET['action'] == 'verGraficoMascotas'){
+    Paciente::getInstance()->verGraficoMascotas();
+}elseif($_GET['action'] == 'verGraficoElectricidad'){
+    Paciente::getInstance()->verGraficoElectricidad();
+}elseif($_GET['action'] == 'verGraficoHeladera'){
+    Paciente::getInstance()->verGraficoHeladera();
+}elseif($_GET['action'] == 'verGraficoAgua'){
+    Paciente::getInstance()->verGraficoAgua();
+}elseif($_GET['action'] == 'verGraficoVivienda'){
+    Paciente::getInstance()->verGraficoVivienda();
+}elseif($_GET['action'] == 'verGraficoCalefaccion'){
+    Paciente::getInstance()->verGraficoCalefaccion();
 }

@@ -15,6 +15,7 @@
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="./?action=formPaciente" onclick="if (!permisoConfiguracion('permisoCrearPaciente', '{{rol_nombre}}'))return false;">Nuevo paciente</a></li>
                     <li><a href="./?action=listarPacientes" onclick="if (!permisoConfiguracion('permisoListarPaciente', '{{rol_nombre}}'))return false;">Listar pacientes</a></li>
+                    <li><a href="./?action=accesoGraficosDemograficos">Graficos de datos demograficos</a></li>
                 </ul>
             </li>
             <li><a href="./?action=volverAInicio" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver al inicio</a></li>
@@ -151,11 +152,11 @@
                             </tr>
                             <tr>
                                 <td><strong>Grafico percentilo cefalico</strong></td>
-                                <td><a href="./?action=graficoPercentiloCefalico&sexo={{ pacienteCompleto[0]['genero'] }}&idPaciente={{pacienteCompleto[0]['id']}}" class="btn btn-primary" onclick="if(!permisoConfiguracion('permisoHistoriaClinica','{{rol_nombre}}')) return false;">Ver grafico</a></td>
+                                <td><a href="./?action=graficoPercentiloCefalico&nacimiento={{ pacienteCompleto[0]['fecha_nacimiento'] }}&sexo={{ pacienteCompleto[0]['genero'] }}&idPaciente={{pacienteCompleto[0]['id']}}" class="btn btn-primary" onclick="if(!permisoConfiguracion('permisoHistoriaClinica','{{rol_nombre}}')) return false;">Ver grafico</a></td>
                             </tr>
                             <tr>
                                 <td><strong>Grafico talla</strong></td>
-                                <td><a href="./?action=graficoTalla&sexo={{ pacienteCompleto[0]['genero'] }}&idPaciente={{pacienteCompleto[0]['id']}}" class="btn btn-primary" onclick="if(!permisoConfiguracion('permisoHistoriaClinica','{{rol_nombre}}')) return false;">Ver grafico</a></td>
+                                <td><a href="./?action=graficoTalla&nacimiento={{ pacienteCompleto[0]['fecha_nacimiento'] }}&sexo={{ pacienteCompleto[0]['genero'] }}&idPaciente={{pacienteCompleto[0]['id']}}" class="btn btn-primary" onclick="if(!permisoConfiguracion('permisoHistoriaClinica','{{rol_nombre}}')) return false;">Ver grafico</a></td>
                             </tr>
                             <tr>
                                 <td><strong>Grafico peso</strong></td>
