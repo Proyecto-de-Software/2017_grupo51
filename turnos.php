@@ -37,10 +37,10 @@
 
         case '/help':
             $msg['text']  = 'Los comandos disponibles son estos:' . PHP_EOL;
-            $msg['text'] .= '/start Inicializa el bot' . PHP_EOL;
-            $msg['text'] .= '/turnos dd-mm-aaaa Muestra los turnos disponibles del día' . PHP_EOL;
-            $msg['text'] .= '/reservar dni dd-mm-aaaa hh:mm Realiza la reserva del turno' . PHP_EOL;
-            $msg['text'] .= '/help Muestra esta ayuda flaca';
+            $msg['text'] .= '/start Inicializa el bot.' . PHP_EOL;
+            $msg['text'] .= '/turnos dd-mm-aaaa Muestra los turnos disponibles del día.' . PHP_EOL;
+            $msg['text'] .= '/reservar dni dd-mm-aaaa hh:mm Realiza la reserva del turno.' . PHP_EOL;
+            $msg['text'] .= '/help Muestra esta ayuda.';
             $msg['reply_to_message_id'] = null;
             break;
 

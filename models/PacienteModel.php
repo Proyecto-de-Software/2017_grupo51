@@ -71,4 +71,81 @@ class PacienteModel extends PDORepository{
         $answer = $this->queryList("SELECT id FROM paciente WHERE numero_documento=:nroDoc", ['nroDoc'=>$nroDoc]);
         return $answer;
     }
+    
+    public function fechaNacimiento($idPaciente){
+        //Retorna la fecha de nacimiento del paciente
+        $answer = $this->queryList("SELECT fecha_nacimiento FROM paciente WHERE id=:idPac", ['idPac' => $idPaciente]);
+        return $answer[0]['fecha_nacimiento'];
+    }
+    
+    public function obtenerControles($idPaciente){
+        //Retorna los controles de un paciente
+        $answer = $this->queryList("SELECT fecha,id FROM control_salud WHERE id_paciente=:paciente", ['paciente' => $idPaciente]);
+        return $answer;
+    }
+    
+    public function obtenerControlCompleto($idControl){
+        //Retorna el detalle de un control
+        $answer = $this->queryList("SELECT cs.id,cs.fecha,cs.peso,cs.vacunas_completas,cs.vacunas_observaciones,cs.maduracion_acorde,cs.maduracion_observaciones,cs.examen_fisico_normal,cs.examen_fisico_observaciones,cs.percentilo_cefalico,cs.percentilo_perimetro_cefalico,cs.talla,cs.alimentacion, cs.observaciones_generales,p.nombre,p.apellido,u.first_name,u.last_name FROM control_salud cs INNER JOIN usuario u ON(cs.id_usuario_registro=u.id) INNER JOIN paciente p ON(p.id=cs.id_paciente) WHERE cs.id=:control", ['control' => $idControl]);
+        return $answer;
+    }
+    
+    public function eliminarControl($idControl){
+        //Elimina un control dado
+        $this->queryList("DELETE FROM control_salud WHERE id=:control", ['control' => $idControl]);
+    }
+    
+    public function datosMascotas(){
+        //Retorna los datos de mascotas de todos los pacientes
+        $answer = $this->queryList("SELECT mascota FROM paciente",[]);
+        return $answer;
+    }
+    
+    public function datosElectricidad(){
+        //Retorna los datos de electricidad de todos los pacientes
+        $answer = $this->queryList("SELECT electricidad FROM paciente",[]);
+        return $answer;
+    }
+    
+    public function datosHeladera(){
+        //Retorna los datos de heladera de todos los pacientes
+        $answer = $this->queryList("SELECT heladera FROM paciente",[]);
+        return $answer;
+    }
+    
+    public function agua(){
+        //Retorna los datos de tipo de agua de todos los pacientes
+        $answer = $this->queryList("SELECT tipo_agua FROM paciente",[]);
+        return $answer;
+    }
+    
+    public function viviendas(){
+        //Retorna los datos de tipo de vivienda de todos los pacientes
+        $answer = $this->queryList("SELECT tipo_vivienda FROM paciente",[]);
+        return $answer;
+    }
+    
+    public function calefaccion(){
+        //Retorna los datos de tipo de calefaccion de todos los pacientes
+        $answer = $this->queryList("SELECT tipo_calefaccion FROM paciente",[]);
+        return $answer;
+    }
+    
+    public function obtenerPeso($idPaciente,$fechaNacimiento,$nuevafecha){
+        //Retorna los pesos registrados de un paciente
+        $answer = $this->queryList("SELECT fecha,peso FROM control_salud WHERE id_paciente=:paciente AND fecha BETWEEN :primerFecha AND :segundaFecha", ['paciente' => $idPaciente,'primerFecha' => $fechaNacimiento,'segundaFecha' => $nuevafecha]);
+        return $answer;
+    }
+    
+    public function obtenerTalla($idPaciente,$fechaNacimiento,$nuevafecha){
+        //Retorna las tallas registradas de un paciente
+        $answer = $this->queryList("SELECT fecha,talla FROM control_salud WHERE talla IS NOT NULL AND id_paciente=:paciente AND fecha BETWEEN :primerFecha AND :segundaFecha", ['paciente' => $idPaciente,'primerFecha' => $fechaNacimiento,'segundaFecha' => $nuevafecha]);
+        return $answer;
+    }
+    
+    public function obtenerPercentilos($idPaciente,$fechaNacimiento,$nuevafecha){
+        //Retorna los percentilos registrados de un paciente
+        $answer = $this->queryList("SELECT fecha,percentilo_perimetro_cefalico FROM control_salud WHERE percentilo_perimetro_cefalico IS NOT NULL AND id_paciente=:paciente AND fecha BETWEEN :primerFecha AND :segundaFecha", ['paciente' => $idPaciente,'primerFecha' => $fechaNacimiento,'segundaFecha' => $nuevafecha]);
+        return $answer;
+    }
 }
