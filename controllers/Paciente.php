@@ -613,14 +613,28 @@ class Paciente{
             }
         }
         return false;
-   } 
-   public function crearControlPac(){
-        session_start();
-        var_dump($_SESSION);
+    } 
+    public function crearControlPac(){
         if($this->validarControlPac()){
-            //pasa todas las var del post a un array y mandaselo al modelo(para usr es con $_SESSION)
+            $arreglo = array("0"=> $_POST["FechaCons"], "1"=> $_POST["PesoPac"],"2"=> $_POST["AllVacunas"],"3"=> $_POST["VacObs"] ,"4"=> $_POST["MaduraAcorde"], "5"=> $_POST["MaduracionObs"], "6"=> $_POST["ExamenFis"], "7"=> $_POST["ExamenFisicoObs"], "8"=> $_POST["PC"], "9"=> $_POST["PPC"], "10"=> $_POST["TallaPac"], "11"=> $_POST["AlimPac"], "12"=> $_POST["AlimObs"], "13"=>$_SESSION["id_usuario"]);
+            PacienteModel::getInstance()->insertarControlPac($arreglo);
         }else{
             IndexController::getInstance()->index();
         }
-   }
+    }
+
+    public function actualizarControlPac($idControl){
+        if($this->validarControlPac()){
+            $arreglo = array("0"=> $_POST["FechaCons"], "1"=> $_POST["PesoPac"],"2"=> $_POST["AllVacunas"],"3"=> $_POST["VacObs"] ,"4"=> $_POST["MaduraAcorde"], "5"=> $_POST["MaduracionObs"], "6"=> $_POST["ExamenFis"], "7"=> $_POST["ExamenFisicoObs"], "8"=> $_POST["PC"], "9"=> $_POST["PPC"], "10"=> $_POST["TallaPac"], "11"=> $_POST["AlimPac"], "12"=> $_POST["AlimObs"], "13"=>$_SESSION["id_usuario"]);
+            PacienteModel::getInstance()->insertarControlPac($arreglo, $idControl);
+        }else{
+            IndexController::getInstance()->index();
+        }
+    }
+
+    public function cargarFormControl(){
+        $layout = IndexController::getInstance()->layout();
+        $layout['titulo'] = 'Ingrese la información.';
+        Home::getInstance()->show('formControlPacientes.html.twig',$layout);
+    }
 }

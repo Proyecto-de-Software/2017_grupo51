@@ -322,11 +322,15 @@ if(!isset($_GET['action'])){
     Paciente::getInstance()->verGraficoCalefaccion();
 }elseif($_GET['action'] == 'nuevoControl'){
     if(isset($_GET['idPaciente']) && is_numeric($_GET['idPaciente']) ){
-        //Aca va el llamado a la funcion de crear control
+        Paciente::getInstance()->cargarFormControl()
     }else{
         UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
-}else if($_GET['action'] == 'formControlPac'){
-    Paciente::getInstance()->crearControlPac();
+}elseif($_GET['action'] == 'crearControl'){
+        Paciente::getInstance()->crearControlPac();
+}elseif($_GET['action'] == 'actualizarControl'){
+        Paciente::getInstance()->actualizarControlPac();
 }
+
+

@@ -60,7 +60,7 @@ class PacienteModel extends PDORepository{
         //Inserta un nuevo paciente
         $this->queryList("INSERT INTO paciente (apellido, nombre, fecha_nacimiento, genero, tipo_documento, numero_documento, domicilio, tel_cel, obra_social, heladera, electricidad, tipo_vivienda, mascota, tipo_calefaccion, tipo_agua) VALUES (:apellidoPac, :nombrePac, :fecha_nacimientoPac, :generoPac, :tipo_documentoPac, :numero_documentoPac, :domicilioPac, :tel_celPac, :obra_socialPac, :heladPac, :elecPac, :viviPac, :mascotaPac, :calePac, :aguaPac)",['apellidoPac'=>$arregloDatosPac[0], 'nombrePac'=>$arregloDatosPac[1], 'fecha_nacimientoPac'=>$arregloDatosPac[2], 'generoPac'=>$arregloDatosPac[3], 'tipo_documentoPac'=>$arregloDatosPac[4], 'numero_documentoPac'=>$arregloDatosPac[5], 'domicilioPac'=>$arregloDatosPac[6], 'tel_celPac'=>$arregloDatosPac[7], 'obra_socialPac'=>$arregloDatosPac[8], 'heladPac'=>$arregloDatosPac[9], 'elecPac'=>$arregloDatosPac[10], 'viviPac'=>$arregloDatosPac[12], 'mascotaPac'=>$arregloDatosPac[11], 'calePac'=>$arregloDatosPac[13], 'aguaPac'=>$arregloDatosPac[14] ]);    
     }
-    
+
     public function actualizarPaciente($arregloDatosPac,$idpaciente){
         //Actualiza el paciente pasado por parametro
         $this->queryList("UPDATE paciente SET apellido=:apellidoPac, nombre=:nombrePac, fecha_nacimiento=:fecha_nacimientoPac, genero=:generoPac, tipo_documento=:tipo_documentoPac, numero_documento=:numero_documentoPac, domicilio=:domicilioPac, tel_cel=:tel_celPac, obra_social=:obra_socialPac, heladera=:heladPac, electricidad=:elecPac, tipo_vivienda=:viviPac, mascota=:mascotaPac, tipo_calefaccion=:calePac, tipo_agua=:aguaPac WHERE id=:idPaciente",['apellidoPac'=>$arregloDatosPac[0], 'nombrePac'=>$arregloDatosPac[1], 'fecha_nacimientoPac'=>$arregloDatosPac[2], 'generoPac'=>$arregloDatosPac[3], 'tipo_documentoPac'=>$arregloDatosPac[4], 'numero_documentoPac'=>$arregloDatosPac[5], 'domicilioPac'=>$arregloDatosPac[6], 'tel_celPac'=>$arregloDatosPac[7], 'obra_socialPac'=>$arregloDatosPac[8], 'heladPac'=>$arregloDatosPac[9], 'elecPac'=>$arregloDatosPac[10], 'viviPac'=>$arregloDatosPac[12], 'mascotaPac'=>$arregloDatosPac[11], 'calePac'=>$arregloDatosPac[13], 'aguaPac'=>$arregloDatosPac[14], 'idPaciente'=>$idpaciente ]);
@@ -77,7 +77,15 @@ class PacienteModel extends PDORepository{
         $answer = $this->queryList("SELECT fecha_nacimiento FROM paciente WHERE id=:idPac", ['idPac' => $idPaciente]);
         return $answer[0]['fecha_nacimiento'];
     }
-    
+
+    public function insertarControlPac($Arreglo_datos){
+        $answer = $this->queryList("INSERT INTO control_salud (fecha, peso, vacunas_completas, vacunas_observaciones, maduracion_acorde, maduracion_observaciones, examen_fisico_normal, examen_fisico_observaciones, percentilo_cefalico, percentilo_perimetro_cefalico, talla, alimentacion, observaciones_generales, id_usuario_registro) VALUES :fecha, :peso, :vac_comp, :obs_vac, :maduracion ,:obs_mad, :examen_fis, :obs_exam, :PC, :PPC, :talla, :alimentacion, :obs_gen, :id_usr)",['fecha'=>$Arreglo_datos[0], 'peso'=>$Arreglo_datos[1], 'vac_comp'=>$Arreglo_datos[2], 'obs_vac'=>$Arreglo_datos[3], 'maduracion'=>$Arreglo_datos[4], 'obs_mad'=>$Arreglo_datos[5], 'examen_fis'=>$Arreglo_datos[6], 'obs_exam'=>$Arreglo_datos[7], 'PC'=>$Arreglo_datos[8], 'PPC'=>$Arreglo_datos[9] , 'talla'=>$Arreglo_datos[10] , 'alimentacion'=>$Arreglo_datos[11] , 'obs_gen'=>$Arreglo_datos[12], 'id_usr'=>$Arreglo_datos[13]]);
+    }
+
+    public function actualizarControlPac($Arreglo_datos, $idcontrol){
+        $answer = $this->queryList("UPDATE control_salud SET fecha=:fecha_new, peso=:peso_new, vacunas_completas=:vac_comp, vacunas_observaciones=:obs_vac, maduracion_acorde=:maduracion, maduracion_observaciones=:obs_mad, examen_fisico_normal=:examen_fis, examen_fisico_observaciones=obs_exam, percentilo_cefalico=:PC , percentilo_perimetro_cefalico=:PPC, talla=:talla_new, alimentacion=:alimentacion_new, observaciones_generales=>obs_gen, id_usuario_registro=:id_usr WHERE id=:idcontrol ",['fecha_new'=>$Arreglo_datos[0], 'peso_new'=>$Arreglo_datos[1], 'vac_comp'=>$Arreglo_datos[2], 'obs_vac'=>$Arreglo_datos[3], 'maduracion'=>$Arreglo_datos[4], 'obs_mad'=>$Arreglo_datos[5], 'examen_fis'=>$Arreglo_datos[6], 'obs_exam'=>$Arreglo_datos[7], 'PC'=>$Arreglo_datos[8], 'PPC'=>$Arreglo_datos[9] , 'talla_new'=>$Arreglo_datos[10] , 'alimentacion_new'=>$Arreglo_datos[11] , 'obs_gen'=>$Arreglo_datos[12], 'id_usr'=>$Arreglo_datos[13], 'idControl'=>$idControl ]);
+    }
+
     public function obtenerControles($idPaciente){
         //Retorna los controles de un paciente
         $answer = $this->queryList("SELECT fecha,id FROM control_salud WHERE id_paciente=:paciente", ['paciente' => $idPaciente]);
@@ -148,4 +156,6 @@ class PacienteModel extends PDORepository{
         $answer = $this->queryList("SELECT fecha,percentilo_perimetro_cefalico FROM control_salud WHERE percentilo_perimetro_cefalico IS NOT NULL AND id_paciente=:paciente AND fecha BETWEEN :primerFecha AND :segundaFecha", ['paciente' => $idPaciente,'primerFecha' => $fechaNacimiento,'segundaFecha' => $nuevafecha]);
         return $answer;
     }
+
+
 }
