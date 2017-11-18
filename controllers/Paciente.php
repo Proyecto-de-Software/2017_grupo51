@@ -225,5 +225,22 @@ class Paciente{
         return false;
     }
     
-    
+   public function validarControlPac(){
+        //valida datos ingresados en formulario de control de pacientes
+        if(isset($_POST["PesoPac"]) && isset($_POST["FechaCons"]) && isset($_POST["VacObs"]) && isset($_POST["MaduracionObs"]) && isset($_POST["ExamenFisicoOBs"]) && isset($_POST["ExamenFis"]) && isset($_POST["MaduraAcorde"]) && isset($_POST["AllVacunas"])){
+            if(is_string($_POST["PesoPac"]) && is_string($_POST["FechaCons"]) && is_string($_POST["VacObs"]) && is_string($_POST["MaduracionObs"]) && is_string($_POST["ExamenFisicoOBs"]) && is_string($_POST["ExamenFis"]) && is_string($_POST["MaduraAcorde"]) && is_string($_POST["AllVacunas"])){
+                return true;
+            }
+        }
+        return false;
+   } 
+   public function crearControlPac(){
+        session_start();
+        var_dump($_SESSION);
+        if($this->validarControlPac()){
+            //pasa todas las var del post a un array y mandaselo al modelo(para usr es con $_SESSION)
+        }else{
+            IndexController::getInstance()->index();
+        }
+   }
 }

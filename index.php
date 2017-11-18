@@ -233,4 +233,6 @@ if(!isset($_GET['action'])){
     }else{
         IndexController::getInstance()->index();
     }
+}else if($_GET['action'] == 'formControlPac'){
+    Paciente::getInstance()->crearControlPac();
 }
