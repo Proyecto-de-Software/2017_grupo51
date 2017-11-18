@@ -3,12 +3,12 @@
     <script src="templates/js/FormControlPaciente.js"></script>
 {% endblock %}
 {% block content %}
-	<form method= "POST" action="./?action={% if control is defined %}actualizarControl&idControl={{control['id']}}{% else %}crearControl{% endif %}" onsubmit="a donde vamos">
+	<form method= "POST" action="./?action={% if control is defined %}actualizarControl&idControl={{control['id']}}{% else %}crearControl&id_paciente={{ idpaciente }}{% endif %}" onsubmit="a donde vamos">
 		<div class="container well">
 			<h1 class="text-center"><label>{{ titulo }}</label></h1><br>
 			<div class="form-group">
 				<label>Fecha(*):</label>
-				<input type="date" class="form_control" name="FechaCons" id="FechaCons" placeholder="Fecha de consulta" value="" required>
+				<input type="date" class="form_control" name="FechaCons" id="FechaCons" placeholder="Fecha de consulta" value="{% if paciente is defined %}{{ control['apellido'] }}{% endif %}" required>
 			</div>
 			<div class="form-group">
 				<label>Edad:</label>
@@ -16,7 +16,7 @@
 			</div>
 			<div class="form-group">
 				<label>Peso(*):</label>
-				<input type="number" class="form-control" name="PesoPac" id="PesoPac" placeholder="Ingrese el peso" value="" required>
+				<input type="number" class="form-control" name="PesoPac" id="PesoPac" placeholder="Ingrese el peso" value="{% if paciente is defined %}{{ control['apellido'] }}{% endif %}" required>
 			</div>
 			<div class="form-group">
 				<label>Tiene todas las vacunas ??(*):</label><br>
@@ -25,7 +25,7 @@
 			</div>
 			<div class="form-group">
 				<label>Observaciones de Vacuna (*):</label>
-				<input type="text" class="form-control" name="VacObs" id="VacObs" placeholder="Observaciones" value="" required>
+				<input type="text" class="form-control" name="VacObs" id="VacObs" placeholder="Observaciones" value="{% if paciente is defined %}{{ control['apellido'] }}{% endif %}" required>
 			</div>
 			<div class="form-group">
 				<label>Maduracion acorde ??(*):</label><br>
@@ -34,7 +34,7 @@
 			</div>
 			<div class="form-group">
 				<label>Observaciones de Maduración (*):</label>
-				<input type="text" class="form-control" name="MaduracionObs" id="MaduracionObs" placeholder="Observaciones" value="" required>
+				<input type="text" class="form-control" name="MaduracionObs" id="MaduracionObs" placeholder="Observaciones" value="{% if paciente is defined %}{{ control['apellido'] }}{% endif %}" required>
 			</div>
 			<div class="form-group">
 				<label>Examen físico normal ??(*):</label><br>
@@ -43,27 +43,27 @@
 			</div>
 			<div class="form-group">
 				<label>Observaciones del examen fisico (*):</label>
-				<input type="text" class="form-control" name="ExamenFisicoOBs" id="ExamenFisicoOBs" placeholder="Observaciones" value="" required>
+				<input type="text" class="form-control" name="ExamenFisicoObs" id="ExamenFisicoObs" placeholder="Observaciones" value="{% if paciente is defined %}{{ control[''] }}{% endif %}" required>
 			</div>
 			<div class="form-group">
 				<label>PC: Percentilo cefálico</label>
-				<input type="number" class="form-control" name="PC" id="PC" placeholder="Ingrese una cantidad" value="">
+				<input type="number" class="form-control" name="PC" id="PC" placeholder="Ingrese una cantidad" value="{% if paciente is defined %}{{ control[''] }}{% endif %}">
 			</div>
 			<div class="form-group">
 				<label>PPC: Percentilo perímetro cefálico</label>
-				<input type="number" class="form-control" name="PPC" id="PPC" placeholder="Ingrese una cantidad" value="">
+				<input type="number" class="form-control" name="PPC" id="PPC" placeholder="Ingrese una cantidad" value="{% if paciente is defined %}{{ control[''] }}{% endif %}">
 			</div>
 			<div class="form-group">
 				<label>Talla:</label>
-				<input type="number" class="form-control" name="TallaPac" id="TallaPac" placeholder="Ingrese la Talla" value="">
+				<input type="number" class="form-control" name="TallaPac" id="TallaPac" placeholder="Ingrese la Talla" value="{% if paciente is defined %}{{ control[''] }}{% endif %}">
 			</div>
 			<div class="form-group">
 				<label>Alimentacion:</label>
-				<input type="text" class="form-control" name="AlimPac" id="AlimPac" placeholder="Descripcion de Alimnetacion" value="">
+				<input type="text" class="form-control" name="AlimPac" id="AlimPac" placeholder="Descripcion de Alimnetacion" value="{% if paciente is defined %}{{ control[''] }}{% endif %}">
 			</div>
 			<div class="form-group">
 				<label>Observaciones Grales:</label>
-				<input type="text" class="form-control" name="AlimObs" id="AlimObs" placeholder="Observaciones" value="">
+				<input type="text" class="form-control" name="AlimObs" id="AlimObs" placeholder="Observaciones" value="{% if paciente is defined %}{{ control[''] }}{% endif %}">
 			</div>
 			<button type="submit" class="btn btn-primary" onclick="return validarFormControlPac();">{% if idcontrol is defined %}Actualizar control{% else %}Registrar control{% endif %}</button>
 		</div>

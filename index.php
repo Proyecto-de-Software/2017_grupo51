@@ -320,15 +320,15 @@ if(!isset($_GET['action'])){
     Paciente::getInstance()->verGraficoVivienda();
 }elseif($_GET['action'] == 'verGraficoCalefaccion'){
     Paciente::getInstance()->verGraficoCalefaccion();
-}elseif($_GET['action'] == 'nuevoControl'){
+}elseif($_GET['action'] == 'probando'){
     if(isset($_GET['idPaciente']) && is_numeric($_GET['idPaciente']) ){
-        Paciente::getInstance()->cargarFormControl()
+        Paciente::getInstance()->cargarFormControl($_GET['id_paciente']);
     }else{
         UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'crearControl'){
-        Paciente::getInstance()->crearControlPac();
+        Paciente::getInstance()->crearControlPac($_GET['idpaciente']);
 }elseif($_GET['action'] == 'actualizarControl'){
         Paciente::getInstance()->actualizarControlPac();
 }
