@@ -60,6 +60,8 @@ if(!isset($_GET['action'])){
     AppController::getInstance()->volverAInicio();
 }elseif($_GET['action'] == 'permisoListadoUsuario'){
     echo AppController::getInstance()->checkPermission('usuario_index');
+}elseif($_GET['action'] == 'permisoNuevoControl'){
+    echo AppController::getInstance()->checkPermission('control_new');
 }elseif ($_GET['action'] == 'permisoVerUsuario') {
     echo AppController::getInstance()->checkPermission('usuario_show');
 }elseif($_GET['action'] == 'permisoListarControles'){
@@ -318,4 +320,11 @@ if(!isset($_GET['action'])){
     Paciente::getInstance()->verGraficoVivienda();
 }elseif($_GET['action'] == 'verGraficoCalefaccion'){
     Paciente::getInstance()->verGraficoCalefaccion();
+}elseif($_GET['action'] == 'nuevoControl'){
+    if(isset($_GET['idPaciente']) && is_numeric($_GET['idPaciente']) ){
+        //Aca va el llamado a la funcion de crear control
+    }else{
+        UserController::getInstance()->cerrarSesion();
+        IndexController::getInstance()->index();
+    }
 }
