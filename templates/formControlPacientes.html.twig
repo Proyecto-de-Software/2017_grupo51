@@ -3,69 +3,67 @@
     <script src="templates/js/FormControlPaciente.js"></script>
 {% endblock %}
 {% block content %}
-	<form method= "POST" action="./?action={% if control is defined %}actualizarControl&idControl={{control['id']}}{% else %}crearControl&id_paciente={{ idpaciente }}{% endif %}" onsubmit="a donde vamos">
+	<form method= "POST" action="./?action={% if control is defined %}actualizarControl&idPaciente={{ idPaciente }}&idControl={{control[0]['id']}}{% else %}crearControl&idPaciente={{ idpaciente }}{% endif %}">
 		<div class="container well">
 			<h1 class="text-center"><label>{{ titulo }}</label></h1><br>
-			<div class="form-group">
-				<label>Fecha(*):</label>
-				<input type="date" class="form_control" name="FechaCons" id="FechaCons" placeholder="Fecha de consulta" value="{% if paciente is defined %}{{ control['apellido'] }}{% endif %}" required>
-			</div>
-			<div class="form-group">
-				<label>Edad:</label>
-				<input type="number" class="form-control" placeholder="Ingrese la edad del paciente">
-			</div>
+                        {% if control is not defined %}
+                            <div class="form-group">
+				<label>Fecha:</label>
+                                <p>Guarda automaticamente la fecha actual</p>
+                            </div>
+                        {% endif %}
 			<div class="form-group">
 				<label>Peso(*):</label>
-				<input type="number" class="form-control" name="PesoPac" id="PesoPac" placeholder="Ingrese el peso" value="{% if paciente is defined %}{{ control['apellido'] }}{% endif %}" required>
+				<input type="number" class="form-control" name="PesoPac" id="PesoPac" placeholder="Ingrese el peso" value="{% if control is defined %}{{ control[0]['peso'] }}{% endif %}" required>
 			</div>
 			<div class="form-group">
-				<label>Tiene todas las vacunas ??(*):</label><br>
-				<label><input type="radio" name="AllVacunas" value="1" required>Si</label>
-      			<label><input type="radio" name="AllVacunas" value="0" required>No</label><br>
+				<label>Tiene todas las vacunas (*):</label><br>
+                                <label><input type="radio" name="AllVacunas" value="1" {% if control is defined %}{% if control[0]['vacunas_completas'] %}checked{% endif %}{% endif %} required>Si</label>
+      			<label><input type="radio" name="AllVacunas" value="0" {% if control is defined %}{% if not control[0]['vacunas_completas'] %}checked{% endif %}{% endif %} required>No</label><br>
 			</div>
 			<div class="form-group">
 				<label>Observaciones de Vacuna (*):</label>
-				<input type="text" class="form-control" name="VacObs" id="VacObs" placeholder="Observaciones" value="{% if paciente is defined %}{{ control['apellido'] }}{% endif %}" required>
+				<input type="text" class="form-control" name="VacObs" id="VacObs" placeholder="Observaciones" value="{% if control is defined %}{{ control[0]['vacunas_observaciones'] }}{% endif %}" required>
 			</div>
 			<div class="form-group">
-				<label>Maduracion acorde ??(*):</label><br>
-				<label><input type="radio" name="MaduraAcorde" value="1" required>Si</label>
-      			<label><input type="radio" name="MaduraAcorde" value="0" required>No</label><br>
+				<label>Maduracion acorde (*):</label><br>
+				<label><input type="radio" name="MaduraAcorde" value="1" {% if control is defined %}{% if control[0]['maduracion_acorde'] %}checked{% endif %}{% endif %} required>Si</label>
+      			<label><input type="radio" name="MaduraAcorde" value="0" {% if control is defined %}{% if not control[0]['maduracion_acorde'] %}checked{% endif %}{% endif %} required>No</label><br>
 			</div>
 			<div class="form-group">
 				<label>Observaciones de Maduración (*):</label>
-				<input type="text" class="form-control" name="MaduracionObs" id="MaduracionObs" placeholder="Observaciones" value="{% if paciente is defined %}{{ control['apellido'] }}{% endif %}" required>
+				<input type="text" class="form-control" name="MaduracionObs" id="MaduracionObs" placeholder="Observaciones" value="{% if control is defined %}{{ control[0]['maduracion_observaciones'] }}{% endif %}" required>
 			</div>
 			<div class="form-group">
-				<label>Examen físico normal ??(*):</label><br>
-				<label><input type="radio" name="ExamenFis" value="1" required>Si</label>
-      			<label><input type="radio" name="ExamenFis" value="0" required>No</label><br>
+				<label>Examen físico normal (*):</label><br>
+				<label><input type="radio" name="ExamenFis" value="1" {% if control is defined %}{% if control[0]['examen_fisico_normal'] %}checked{% endif %}{% endif %} required>Si</label>
+      			<label><input type="radio" name="ExamenFis" value="0" {% if control is defined %}{% if not control[0]['examen_fisico_normal'] %}checked{% endif %}{% endif %} required>No</label><br>
 			</div>
 			<div class="form-group">
 				<label>Observaciones del examen fisico (*):</label>
-				<input type="text" class="form-control" name="ExamenFisicoObs" id="ExamenFisicoObs" placeholder="Observaciones" value="{% if paciente is defined %}{{ control[''] }}{% endif %}" required>
+				<input type="text" class="form-control" name="ExamenFisicoObs" id="ExamenFisicoObs" placeholder="Observaciones" value="{% if control is defined %}{{ control[0]['examen_fisico_observaciones'] }}{% endif %}" required>
 			</div>
 			<div class="form-group">
 				<label>PC: Percentilo cefálico</label>
-				<input type="number" class="form-control" name="PC" id="PC" placeholder="Ingrese una cantidad" value="{% if paciente is defined %}{{ control[''] }}{% endif %}">
+				<input type="number" class="form-control" name="PC" id="PC" placeholder="Ingrese valor" value="{% if control is defined %}{% if control[0]['percentilo_cefalico'] != null %}{{ control[0]['percentilo_cefalico'] }}{% endif %}{% endif %}">
 			</div>
 			<div class="form-group">
 				<label>PPC: Percentilo perímetro cefálico</label>
-				<input type="number" class="form-control" name="PPC" id="PPC" placeholder="Ingrese una cantidad" value="{% if paciente is defined %}{{ control[''] }}{% endif %}">
+				<input type="number" class="form-control" name="PPC" id="PPC" placeholder="Ingrese valor" value="{% if control is defined %}{% if control[0]['percentilo_perimetro_cefalico'] != null %}{{ control[0]['percentilo_perimetro_cefalico'] }}{% endif %}{% endif %}">
 			</div>
 			<div class="form-group">
 				<label>Talla:</label>
-				<input type="number" class="form-control" name="TallaPac" id="TallaPac" placeholder="Ingrese la Talla" value="{% if paciente is defined %}{{ control[''] }}{% endif %}">
+				<input type="number" class="form-control" name="TallaPac" id="TallaPac" placeholder="Ingrese la Talla" value="{% if control is defined %}{% if control[0]['talla'] != null %}{{ control[0]['talla'] }}{% endif %}{% endif %}">
 			</div>
 			<div class="form-group">
 				<label>Alimentacion:</label>
-				<input type="text" class="form-control" name="AlimPac" id="AlimPac" placeholder="Descripcion de Alimnetacion" value="{% if paciente is defined %}{{ control[''] }}{% endif %}">
+				<input type="text" class="form-control" name="AlimPac" id="AlimPac" placeholder="Descripcion de Alimnetacion" value="{% if control is defined %}{% if control[0]['alimentacion'] != null %}{{ control[0]['alimentacion'] }}{% endif %}{% endif %}">
 			</div>
 			<div class="form-group">
 				<label>Observaciones Grales:</label>
-				<input type="text" class="form-control" name="AlimObs" id="AlimObs" placeholder="Observaciones" value="{% if paciente is defined %}{{ control[''] }}{% endif %}">
+				<input type="text" class="form-control" name="AlimObs" id="AlimObs" placeholder="Observaciones" value="{% if control is defined %}{% if control[0]['observaciones_generales'] != null %}{{ control[0]['observaciones_generales'] }}{% endif %}{% endif %}">
 			</div>
-			<button type="submit" class="btn btn-primary" onclick="return validarFormControlPac();">{% if idcontrol is defined %}Actualizar control{% else %}Registrar control{% endif %}</button>
+			<button type="submit" class="btn btn-primary" onclick="return validarFormControlPac();">{% if control is defined %}Actualizar control{% else %}Registrar control{% endif %}</button>
 		</div>
 	</form>
 {% endblock %}

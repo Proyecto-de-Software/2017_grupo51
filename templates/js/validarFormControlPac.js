@@ -1,7 +1,7 @@
 //funcion para validar el Formulario de creacion de pacientes
 function validarFormPac (){
 
-	var fecha = document.getElementById("FechaCons").value;
+	
 	var peso = document.getElementById("PesoPac").value;
 	var vacunas = document.getElementById("AllVacunas").value;
 	var obsVacunas = document.getElementById("VacObs").value;
@@ -15,12 +15,14 @@ function validarFormPac (){
 	var alimentacion = document.getElementById("AlimPac").value;
 	var obsGrales = document.getElementById("AlimObs").value;
 
-	if ((fecha == "") || (peso == "") || (vacunas == "") || (obsVacunas == "") || (maduracion == "") || (obsMaduracion == "") || (obsExaman == "") || (examenFisico == "")) {
+	if ( (peso == "") || (vacunas == "") || (obsVacunas == "") || (maduracion == "") || (obsMaduracion == "") || (obsExaman == "") || (examenFisico == "")) {
 		alert ("Los campos con (*) son obligatorios");
 		return false;
 	}else if ( inNaN(peso) || isNaN(talla) || isNan(PC) || isNaN(PPC) ){
 		alert ("Error !! Se esperaba un Numero");
 		return false;
-	}else if ( )
+	}else{
+            return true;
+        }
 
 }

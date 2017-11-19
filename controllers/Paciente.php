@@ -247,11 +247,13 @@ class Paciente{
         }
     }
     
-    public function verControlCompleto($idControl,$fechaNacimiento){
+    public function verControlCompleto($idControl,$fechaNacimiento,$idPaciente){
         //Muestra un control completo de un paciente
         if(UserController::getInstance()->sePuedeAccederASeccion('paciente_historia')){
             $parametros = IndexController::getInstance()->layout();
             $parametros['control'] = PacienteModel::getInstance()->obtenerControlCompleto($idControl);
+            $parametros['idPaciente'] = $idPaciente;
+            $parametros['nacimiento'] = $fechaNacimiento;
             $edad = $this->calcular_edad($fechaNacimiento,$parametros['control'][0]['fecha']);
             if($edad->format('%Y') == 0){
                 $parametros['edad'] = $this->calculoSemanas($fechaNacimiento, $parametros['control'][0]['fecha']);
@@ -607,36 +609,92 @@ class Paciente{
 
     public function validarControlPac(){
         //valida datos ingresados en formulario de control de pacientes
-        if(isset($_POST["PesoPac"]) && isset($_POST["FechaCons"]) && isset($_POST["VacObs"]) && isset($_POST["MaduracionObs"]) && isset($_POST["ExamenFisicoOBs"]) && isset($_POST["ExamenFis"]) && isset($_POST["MaduraAcorde"]) && isset($_POST["AllVacunas"])){
-            if(is_string($_POST["PesoPac"]) && is_string($_POST["FechaCons"]) && is_string($_POST["VacObs"]) && is_string($_POST["MaduracionObs"]) && is_string($_POST["ExamenFisicoOBs"]) && is_string($_POST["ExamenFis"]) && is_string($_POST["MaduraAcorde"]) && is_string($_POST["AllVacunas"])){
+        if(isset($_POST["PesoPac"]) && isset($_POST["VacObs"]) && isset($_POST["MaduracionObs"]) && isset($_POST["ExamenFisicoObs"]) && isset($_POST["ExamenFis"]) && isset($_POST["MaduraAcorde"]) && isset($_POST["AllVacunas"])){
+            if(is_string($_POST["PesoPac"]) && is_string($_POST["VacObs"]) && is_string($_POST["MaduracionObs"]) && is_string($_POST["ExamenFisicoObs"]) && is_string($_POST["ExamenFis"]) && is_string($_POST["MaduraAcorde"]) && is_string($_POST["AllVacunas"])){
                 return true;
             }
         }
         return false;
     } 
-    public function crearControlPac($idpac){
-        session_start();
-      //  if($this->validarControlPac()){
-            $arreglo = array("0"=> $_POST["FechaCons"], "1"=> $_POST["PesoPac"],"2"=> $_POST["AllVacunas"],"3"=> $_POST["VacObs"] ,"4"=> $_POST["MaduraAcorde"], "5"=> $_POST["MaduracionObs"], "6"=> $_POST["ExamenFis"], "7"=> $_POST["ExamenFisicoObs"], "8"=> $_POST["PC"], "9"=> $_POST["PPC"], "10"=> $_POST["TallaPac"], "11"=> $_POST["AlimPac"], "12"=> $_POST["AlimObs"], "13"=>$_SESSION['id_usuario'], "14"=>$idpac );
-            PacienteModel::getInstance()->insertarControlPac($arreglo);
-        //}else{
-       //     IndexController::getInstance()->index();
-       // }
-    }
-
-    public function actualizarControlPac($idControl){
-        if($this->validarControlPac()){
-            $arreglo = array("0"=> $_POST["FechaCons"], "1"=> $_POST["PesoPac"],"2"=> $_POST["AllVacunas"],"3"=> $_POST["VacObs"] ,"4"=> $_POST["MaduraAcorde"], "5"=> $_POST["MaduracionObs"], "6"=> $_POST["ExamenFis"], "7"=> $_POST["ExamenFisicoObs"], "8"=> $_POST["PC"], "9"=> $_POST["PPC"], "10"=> $_POST["TallaPac"], "11"=> $_POST["AlimPac"], "12"=> $_POST["AlimObs"], "13"=>$_SESSION["id_usuario"]);
-            PacienteModel::getInstance()->insertarControlPac($arreglo, $idControl);
+    public function crearTablaControl($arregloPar){
+        if(UserController::getInstance()->sePuedeAccederASeccion('control_new')){
+            if($this->validarControlPac()){
+                if($_POST['PC'] == ''){
+                    $pc = NULL;
+                }else{
+                    $pc = $_POST['PC'];
+                }
+                if($_POST['PPC'] == ''){
+                    $ppc = NULL;
+                }else{
+                    $ppc = $_POST['PPC'];
+                }
+                if($_POST['TallaPac'] == ''){
+                    $talla = NULL;
+                }else{
+                    $talla = $_POST['TallaPac'];
+                }
+                if($_POST['AlimPac'] == ''){
+                    $alimentacion = NULL;
+                }else{
+                    $alimentacion = $_POST['AlimPac'];
+                }
+                if($_POST['AlimObs'] == ''){
+                    $alimentacionObs = NULL;
+                }else{
+                    $alimentacionObs = $_POST['AlimObs'];
+                }
+                if(!isset($arregloPar['idControl'])){
+                    $fechaActual = date('Y-m-d');
+                    $arreglo = array("0"=> $fechaActual, "1"=> $_POST["PesoPac"],"2"=> $_POST["AllVacunas"],"3"=> $_POST["VacObs"] ,"4"=> $_POST["MaduraAcorde"], "5"=> $_POST["MaduracionObs"], "6"=> $_POST["ExamenFis"], "7"=> $_POST["ExamenFisicoObs"], "8"=> $pc, "9"=> $ppc, "10"=> $talla, "11"=> $alimentacion, "12"=> $alimentacionObs, "13"=>$_SESSION['id_usuario'], "14"=>$arregloPar['idPaciente'] );
+                    $idControl = PacienteModel::getInstance()->insertarControlPac($arreglo);
+                }else{
+                    $idControl = $arregloPar['idControl'];
+                    $arreglo = array("0"=> $_POST["PesoPac"], "1"=> $_POST["AllVacunas"],"2"=> $_POST["VacObs"],"3"=> $_POST["MaduraAcorde"] ,"4"=> $_POST["MaduracionObs"], "5"=> $_POST["ExamenFis"], "6"=> $_POST["ExamenFisicoObs"], "7"=> $pc, "8"=> $ppc, "9"=> $talla, "10"=> $alimentacion, "11"=> $alimentacionObs, "12"=> $_SESSION['id_usuario'] );
+                    PacienteModel::getInstance()->actualizarControlPac($arreglo, $arregloPar['idControl']);
+                }
+                $fechaNacimiento = PacienteModel::getInstance()->fechaNacimiento($arregloPar['idPaciente']);
+                $this->verControlCompleto($idControl, $fechaNacimiento, $arregloPar['idPaciente']);
+            }else{
+                IndexController::getInstance()->index();
+        }
         }else{
+            UserController::getInstance()->cerrarSesion();
             IndexController::getInstance()->index();
         }
     }
 
-    public function cargarFormControl($idpac){
+    public function crearFormControl($idPaciente){
+        if(UserController::getInstance()->sePuedeAccederASeccion('control_new')){
+            $parametros['idPaciente'] = $idPaciente;
+            $this->cargarFormControl($parametros);
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
+        }
+    }
+    
+    public function modificarFormControl($idControl,$idPaciente){
+        if(UserController::getInstance()->sePuedeAccederASeccion('control_update')){
+            $parametros['idControl'] = $idControl;
+            $parametros['idPaciente'] = $idPaciente;
+            $this->cargarFormControl($parametros);
+        }else{
+            UserController::getInstance()->cerrarSesion();
+            IndexController::getInstance()->index();
+        }
+    }
+    
+    public function cargarFormControl($arreglo){
         $layout = IndexController::getInstance()->layout();
-        $layout['idpaciente'] = $idpac;
-        $layout['titulo'] = 'Ingrese la información.';
+        if(isset($arreglo['idControl'])){
+            $layout['control'] = PacienteModel::getInstance()->obtenerControlAModificar($arreglo['idControl']);
+            $layout['titulo'] = 'Modificar información.';
+            $layout['idPaciente'] = $arreglo['idPaciente'];
+        }else{
+            $layout['idpaciente'] = $arreglo['idPaciente'];
+            $layout['titulo'] = 'Ingrese la información.';
+        }
         Home::getInstance()->show('formControlPacientes.html.twig',$layout);
     }
 }

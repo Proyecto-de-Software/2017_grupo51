@@ -78,15 +78,6 @@ class PacienteModel extends PDORepository{
         return $answer[0]['fecha_nacimiento'];
     }
 
-    public function insertarControlPac($Arreglo_datos){
-        var_dump($Arreglo_datos);
-        $this->queryList("INSERT INTO control_salud (fecha, peso, vacunas_completas, vacunas_observaciones, maduracion_acorde, maduracion_observaciones, examen_fisico_normal, examen_fisico_observaciones, percentilo_cefalico, percentilo_perimetro_cefalico, talla, alimentacion, observaciones_generales, id_paciente, id_usuario_registro) VALUES ( :fecha_new, :peso_new, :vac_comp, :obs_vac, :maduracion_new, :obs_mad, :examen_fis, :obs_exam, :PC, :PPC, :talla_new, :alimentacion_new, :obs_gen, :id_pac, :id_usr )",[ 'fecha_new'=>$Arreglo_datos[0], 'peso_new'=>$Arreglo_datos[1], 'vac_comp'=>$Arreglo_datos[2], 'obs_vac'=>$Arreglo_datos[3], 'maduracion_new'=>$Arreglo_datos[4], 'obs_mad'=>$Arreglo_datos[5], 'examen_fis'=>$Arreglo_datos[6], 'obs_exam'=>$Arreglo_datos[7], 'PC'=>$Arreglo_datos[8], 'PPC'=>$Arreglo_datos[9], 'talla_new'=>$Arreglo_datos[10] , 'alimentacion_new'=>$Arreglo_datos[11], 'obs_gen'=>$Arreglo_datos[12], 'id_usr'=>$Arreglo_datos[13], 'id_pac'=>$Arreglo_datos[14] ]);
-    }
-
-    public function actualizarControlPac($Arreglo_datos, $idcontrol){
-        $this->queryList("UPDATE control_salud SET fecha=:fecha_new, peso=:peso_new, vacunas_completas=:vac_comp, vacunas_observaciones=:obs_vac, maduracion_acorde=:maduracion, maduracion_observaciones=:obs_mad, examen_fisico_normal=:examen_fis, examen_fisico_observaciones=obs_exam, percentilo_cefalico=:PC , percentilo_perimetro_cefalico=:PPC, talla=:talla_new, alimentacion=:alimentacion_new, observaciones_generales=>obs_gen, id_usuario_registro=:id_usr WHERE id=:idcontrol ",['fecha_new'=>$Arreglo_datos[0], 'peso_new'=>$Arreglo_datos[1], 'vac_comp'=>$Arreglo_datos[2], 'obs_vac'=>$Arreglo_datos[3], 'maduracion'=>$Arreglo_datos[4], 'obs_mad'=>$Arreglo_datos[5], 'examen_fis'=>$Arreglo_datos[6], 'obs_exam'=>$Arreglo_datos[7], 'PC'=>$Arreglo_datos[8], 'PPC'=>$Arreglo_datos[9] , 'talla_new'=>$Arreglo_datos[10] , 'alimentacion_new'=>$Arreglo_datos[11] , 'obs_gen'=>$Arreglo_datos[12], 'id_usr'=>$Arreglo_datos[13], 'idControl'=>$idControl ]);
-    }
-
     public function obtenerControles($idPaciente){
         //Retorna los controles de un paciente
         $answer = $this->queryList("SELECT fecha,id FROM control_salud WHERE id_paciente=:paciente", ['paciente' => $idPaciente]);
@@ -157,6 +148,20 @@ class PacienteModel extends PDORepository{
         $answer = $this->queryList("SELECT fecha,percentilo_perimetro_cefalico FROM control_salud WHERE percentilo_perimetro_cefalico IS NOT NULL AND id_paciente=:paciente AND fecha BETWEEN :primerFecha AND :segundaFecha", ['paciente' => $idPaciente,'primerFecha' => $fechaNacimiento,'segundaFecha' => $nuevafecha]);
         return $answer;
     }
+    
+    public function insertarControlPac($Arreglo_datos){
+        $this->queryList("INSERT INTO control_salud (fecha, peso, vacunas_completas, vacunas_observaciones, maduracion_acorde, maduracion_observaciones, examen_fisico_normal, examen_fisico_observaciones, percentilo_cefalico, percentilo_perimetro_cefalico, talla, alimentacion, observaciones_generales, id_paciente, id_usuario_registro) VALUES ( :fecha_new, :peso_new, :vac_comp, :obs_vac, :maduracion_new, :obs_mad, :examen_fis, :obs_exam, :PC, :PPC, :talla_new, :alimentacion_new, :obs_gen, :id_pac, :id_usr )",[ 'fecha_new'=>$Arreglo_datos[0], 'peso_new'=>$Arreglo_datos[1], 'vac_comp'=>$Arreglo_datos[2], 'obs_vac'=>$Arreglo_datos[3], 'maduracion_new'=>$Arreglo_datos[4], 'obs_mad'=>$Arreglo_datos[5], 'examen_fis'=>$Arreglo_datos[6], 'obs_exam'=>$Arreglo_datos[7], 'PC'=>$Arreglo_datos[8], 'PPC'=>$Arreglo_datos[9], 'talla_new'=>$Arreglo_datos[10] , 'alimentacion_new'=>$Arreglo_datos[11], 'obs_gen'=>$Arreglo_datos[12], 'id_usr'=>$Arreglo_datos[13], 'id_pac'=>$Arreglo_datos[14] ]);
+        $id = $this->queryList("SELECT id FROM control_salud ORDER BY id DESC LIMIT 1", []);
+        return $id[0]['id'];
+    }
 
+    public function actualizarControlPac($Arreglo_datos, $idcontrol){
+        $this->queryList("UPDATE control_salud SET peso=:peso_new, vacunas_completas=:vac_comp, vacunas_observaciones=:obs_vac, maduracion_acorde=:maduracion, maduracion_observaciones=:obs_mad, examen_fisico_normal=:examen_fis, examen_fisico_observaciones=:obs_exam, percentilo_cefalico=:PC , percentilo_perimetro_cefalico=:PPC, talla=:talla_new, alimentacion=:alimentacion_new, observaciones_generales=:obs_gen, id_usuario_registro=:id_usr WHERE id=:idcontrol ",[ 'peso_new'=>$Arreglo_datos[0], 'vac_comp'=>$Arreglo_datos[1], 'obs_vac'=>$Arreglo_datos[2], 'maduracion'=>$Arreglo_datos[3], 'obs_mad'=>$Arreglo_datos[4], 'examen_fis'=>$Arreglo_datos[5], 'obs_exam'=>$Arreglo_datos[6], 'PC'=>$Arreglo_datos[7], 'PPC'=>$Arreglo_datos[8] , 'talla_new'=>$Arreglo_datos[9] , 'alimentacion_new'=>$Arreglo_datos[10] , 'obs_gen'=>$Arreglo_datos[11], 'id_usr'=>$Arreglo_datos[12], 'idcontrol'=>$idcontrol ]);
+    }
+    
+    public function obtenerControlAModificar($idControl){
+        $answer = $this->queryList("SELECT * FROM control_salud WHERE id=:controlId", ['controlId' => $idControl]);
+        return $answer;
+    }
 
 }

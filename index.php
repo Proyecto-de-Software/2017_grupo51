@@ -293,8 +293,8 @@ if(!isset($_GET['action'])){
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'verControlCompleto'){
-    if(isset($_GET['idControl']) && (is_numeric($_GET['idControl'])) && (isset($_GET['nacimiento'])) ){
-        Paciente::getInstance()->verControlCompleto($_GET['idControl'],$_GET['nacimiento']);
+    if(isset($_GET['idControl']) && (is_numeric($_GET['idControl'])) && (isset($_GET['nacimiento'])) && isset($_GET['idPaciente']) && is_numeric($_GET['idPaciente']) ){
+        Paciente::getInstance()->verControlCompleto($_GET['idControl'],$_GET['nacimiento'],$_GET['idPaciente']);
     }else{
         UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
@@ -320,17 +320,37 @@ if(!isset($_GET['action'])){
     Paciente::getInstance()->verGraficoVivienda();
 }elseif($_GET['action'] == 'verGraficoCalefaccion'){
     Paciente::getInstance()->verGraficoCalefaccion();
-}elseif($_GET['action'] == 'probando'){
+}elseif($_GET['action'] == 'nuevoControl'){
     if(isset($_GET['idPaciente']) && is_numeric($_GET['idPaciente']) ){
-        Paciente::getInstance()->cargarFormControl($_GET['id_paciente']);
+        Paciente::getInstance()->crearFormControl($_GET['idPaciente']);
+    }else{
+        UserController::getInstance()->cerrarSesion();
+        IndexController::getInstance()->index();
+    }
+}elseif($_GET['action'] == 'modificarControl'){
+    if(isset($_GET['idControl']) && is_numeric($_GET['idControl']) && isset($_GET['idPaciente']) && is_numeric($_GET['idPaciente']) ){
+        Paciente::getInstance()->modificarFormControl($_GET['idControl'],$_GET['idPaciente']);
     }else{
         UserController::getInstance()->cerrarSesion();
         IndexController::getInstance()->index();
     }
 }elseif($_GET['action'] == 'crearControl'){
-        Paciente::getInstance()->crearControlPac($_GET['idpaciente']);
+    if(isset($_GET['idPaciente']) && is_numeric($_GET['idPaciente']) ){
+        $arreglo['idPaciente'] = $_GET['idPaciente'];
+        Paciente::getInstance()->crearTablaControl($arreglo);
+    }else{
+        UserController::getInstance()->cerrarSesion();
+        IndexController::getInstance()->index();
+    }
 }elseif($_GET['action'] == 'actualizarControl'){
-        Paciente::getInstance()->actualizarControlPac();
+    if(isset($_GET['idControl']) && is_numeric($_GET['idControl']) && isset($_GET['idPaciente']) && is_numeric($_GET['idPaciente']) ){
+        $arreglo['idControl'] = $_GET['idControl'];
+        $arreglo['idPaciente'] = $_GET['idPaciente'];
+        Paciente::getInstance()->crearTablaControl($arreglo);
+    }else{
+        UserController::getInstance()->cerrarSesion();
+        IndexController::getInstance()->index();
+    }
 }
 
 

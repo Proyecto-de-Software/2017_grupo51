@@ -1,4 +1,11 @@
 {% extends "layout.html.twig" %}
+{% block navlist %}
+    <div>
+        <ul class="nav navbar-nav navbar-right navbar-header">
+            <li><a href="./?action=historiaClinica&idPaciente={{idPaciente}}&nacimiento={{ nacimiento }}" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver a la historia clinica</a></li>
+        </ul>
+    </div>
+{% endblock %}
 {% block content %}
     <div class="text-center">
                 <h1><strong>Detalle del control.</strong></h1>
@@ -48,7 +55,7 @@
                             </tr>
                             <tr>
                                 <td><strong>Percentilo cefalico:</strong></td>
-                                <td>{% if control[0]['percentilo_cefalico'] is null %}Sin registro{% else %}{{ control[0]['percentilo_cefalico'] }}{% endif %}</td>
+                                <td>{% if control[0]['percentilo_cefalico'] is null %}Sin registro{% else %}{{ control[0]['percentilo_cefalico'] }} cm{% endif %}</td>
                             </tr>
                             <tr>
                                 <td><strong>Percentilo perimetro cefalico:</strong></td>
@@ -72,6 +79,6 @@
                             </tr>
                         </tbody>
                     </table>    
-                    <a href="./?action=modificarControl&idPaciente={{control[0]['id']}}" class="btn btn-primary"> Modificar control</a>
+                    <a href="./?action=modificarControl&idPaciente={{idPaciente}}&idControl={{control[0]['id']}}" class="btn btn-primary"> Modificar control</a>
                 </div>
 {% endblock %}
