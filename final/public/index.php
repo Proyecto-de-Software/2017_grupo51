@@ -19,7 +19,7 @@
 |
 */
 
-require __DIR__.'/../bootstrap/autoload.php';
+require __DIR__.'../https://grupo51.proyecto2017.linti.unlp.edu.ar/bootstrap/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ require __DIR__.'/../bootstrap/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__.'../https://grupo51.proyecto2017.linti.unlp.edu.ar/bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------
