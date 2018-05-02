@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/final/app/User.php</file>
+            <file>file:/C:/xampp/htdocs/final/resources/views/index.blade.php</file>
+            <file>file:/C:/xampp/htdocs/final/resources/views/home.blade.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Http/Requests/UpdateUserRequest.php</file>
+            <file>file:/C:/xampp/htdocs/final/resources/views/formularioUsuario.blade.php</file>
+            <file>file:/C:/xampp/htdocs/final/resources/views/paginaPrincipalUsuarios.blade.php</file>
+            <file>file:/C:/xampp/htdocs/final/resources/views/iniciarSesion.blade.php</file>
+            <file>file:/C:/xampp/htdocs/final/public/index.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Models/Configuracion.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Http/Controllers/HomeController.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Models/Permiso.php</file>
+            <file>file:/C:/xampp/htdocs/final/resources/views/detalleUsuario.blade.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Http/Middleware/Permiso.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Http/Controllers/UsuariosController.php</file>
+            <file>file:/C:/xampp/htdocs/final/public/js/validarCrearUsr.js</file>
+            <file>file:/C:/xampp/htdocs/final/app/Models/Control.php</file>
+            <file>file:/C:/xampp/htdocs/final/resources/views/layout.blade.php</file>
+            <file>file:/C:/xampp/htdocs/final/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Models/Paciente.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Models/Turno.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Http/Controllers/ConfiguracionController.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Http/Controllers/IndexController.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Http/Controllers/Auth/RegisterController.php</file>
+            <file>file:/C:/xampp/htdocs/final/resources/views/auth/login.blade.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Models/Rol.php</file>
+            <file>file:/C:/xampp/htdocs/final/resources/views/paginaPrincipal.blade.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Http/Controllers/InicioSesionController.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Http/Requests/UserRequest.php</file>
+            <file>file:/C:/xampp/htdocs/final/config/app.php</file>
+            <file>file:/C:/xampp/htdocs/final/resources/lang/en/validation.php</file>
+            <file>file:/C:/xampp/htdocs/final/app/Http/Controllers/Auth/LoginController.php</file>
+            <file>file:/C:/xampp/htdocs/final/resources/views/layouts/app.blade.php</file>
+            <file>file:/C:/xampp/htdocs/final/resources/views/asignarRoles.blade.php</file>
+        </group>
+    </open-files>
+</project-private>
