@@ -12,7 +12,7 @@ function mostrarTablas(id){
 
 function visibilidadInput(valor){
     //Muestra u oculta el input para ingresar el nombre de usuario a mostrar.
-    if(valor == 'permisoBuscarNombreUsuario'){
+    if(valor == 'nombreUsuario'){
         $("#buscador").removeClass('hide');
     }else{
         $("#buscador").addClass('hide');
@@ -27,7 +27,7 @@ function confirmacion(mensaje){
 function obtenerDatos(){
     //Obtiene los datos necesarios para realizar la busqueda de usuarios.
     var seleccion = $("#seleccion").val();
-    if(seleccion == 'permisoBuscarNombreUsuario'){
+    if(seleccion == 'nombreUsuario'){
         var valorEntrada = $("#buscador").val();
         var letras=/^[a-zA-Z\s]*$/;
         if(valorEntrada == '' || valorEntrada.search(letras)){

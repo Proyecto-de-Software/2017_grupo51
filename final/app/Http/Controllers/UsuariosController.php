@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
 use App\Models\Configuracion;
@@ -16,10 +17,19 @@ class UsuariosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($condition = NULL)
     {
         $config = Configuracion::all();
-        $usuarios = User::orderBy('id', 'ASC')->paginate($config->toArray()[0]['elementos_pagina']);
+        if($condition == NULL){
+            $condition = [['id','!=',Auth::id()]];   
+            $usuarios = User::Usuarios([['id','!=',Auth::id()]])->orderBy('id', 'ASC')->paginate($config->toArray()[0]['elementos_pagina']);
+        }else{
+            $newCondition = unserialize($condition);
+            if(is_string($newCondition[2])){
+                $newCondition[2] = '%'.$newCondition[2].'%';
+            }
+            $usuarios = User::Usuarios([$newCondition,['id','!=',Auth::id()]])->orderBy('id', 'ASC')->paginate($config->toArray()[0]['elementos_pagina']);
+        }
         return view('paginaPrincipalUsuarios')->with(['config' => $config, 'usuarios' => $usuarios]);
     }
 
@@ -45,10 +55,14 @@ class UsuariosController extends Controller
     {
         $user = new User($request->all());
         $user->save();
-        dd($user);
-        $config = Configuracion::all();
-        $roles = Rol::all();
-        return view('asignarRoles')->with(['config' => $config, 'roles' => $roles]);
+        if(isset($request->all()['check'])){
+            $rolesAAsignar = $request->all()['check'];
+            foreach ($rolesAAsignar as $rol){
+                $user->roles()->attach($rol);
+            }
+        }
+        flash('Usuario creado exitosamente.');
+        return redirect('usuarios/'.$user->id);
     }
 
     /**
@@ -108,7 +122,83 @@ class UsuariosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        flash('Se ha eliminado el usuario.')->important();
+        return redirect()->route('usuarios');
+    }
+    
+    //Bloque o desbloque un usuario
+    public function lockOrUnlock($id){
+        $user = User::find($id);
+        $user->active = !$user->active;
+        $user->save();
+        return redirect()->route('usuarios');
     }
 
+    public function assignOrUnassignRol($id){
+        //Obtencion de todos los roles y los asignados al usuario.
+        //Construccion de un arreglo de roles que posee o no posee el usuario para enviar a la vista
+        $user = User::find($id);
+        $userRol = $user->roles->toArray();
+        $config = Configuracion::all();
+        $roles = Rol::all()->toArray();
+        $arrayRoles = $this->rolArrayBuilder($roles,$userRol);
+        return view('roles')->with(['config' => $config, 'roles' => $arrayRoles, 'usuario' => $user]);
+    }
+    
+    public function rolArrayBuilder($roles,$userRol){
+        //Arma el arreglo indicando cual rol posee el usuario, asignandole true,
+        // y asignandole false caso contrario
+        $arrayRoles = [];
+        $pos = 0;
+        foreach ($roles as $rol){
+            $usuarioPoseeRol = false;
+            foreach ($userRol as $rolUsuario){
+                if($rolUsuario['id'] == $rol['id']){
+                    $usuarioPoseeRol = true;
+                    $arrayRoles[$pos] = ['poseeRol' => true,'id' => $rol['id'],'nombre' => $rol['nombre']];
+                    break;
+                }
+            }
+            if(!$usuarioPoseeRol){
+                $arrayRoles[$pos] = ['poseeRol' => false,'id' => $rol['id'],'nombre' => $rol['nombre']];
+            }
+            $pos++;
+        }
+        return $arrayRoles;
+    }
+    
+    public function assignRol($userId,$rolId){
+        //Asgina el rol rolId al usuario userId
+        $user = User::find($userId);
+        $user->roles()->attach($rolId);
+        return redirect('/usuarios/'.$userId.'/assignOrUnassignRol');
+    }
+    
+    public function unassignRol($userId,$rolId){
+        //Dessgina el rol rolId al usuario userId
+        $user = User::find($userId);
+        $user->roles()->detach($rolId);
+        return redirect('/usuarios/'.$userId.'/assignOrUnassignRol');
+    }
+    
+    public function filter(Request $request){
+        //dd($request->request->all());
+        $search = $request->request->all();
+        switch ($search['busquedaUsuario']) {
+            case 'nombreUsuario':
+                $condition = serialize(['username','LIKE',$search['nombreUsuario']]);
+                return redirect('usuarios/index/'.$condition);
+            case 'activos':
+                $condition = serialize(['active','=',1]);
+                dd(is_string($condition));
+                return redirect('usuarios/index/'.$condition);
+            case 'bloqueados':
+                $condition = serialize(['active','=',0]);
+                return redirect('usuarios/index/'.$condition);
+            default:
+                return redirect('usuarios/index/');
+        }
+    }
 }

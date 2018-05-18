@@ -15,7 +15,7 @@
         <ul class="nav navbar-nav navbar-right navbar-header">
             <li class="dropdown"><a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Menú <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="{{ url('usuarios') }}">Usuarios</a></li>
+                    <li><a href="{{ url('usuarios/index') }}">Usuarios</a></li>
                     <li><a href="./?action=pacientes">Pacientes</a></li>
                     <li><a href="./?action=roles">Roles</a></li>
                     <li><a href="#" class="divider"></a></li>

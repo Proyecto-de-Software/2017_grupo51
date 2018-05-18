@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
+use App\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +16,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Validator::extend('mailValidatorEditUser',function($attribute, $value, $parameters, $validator){
+            $user = User::find($parameters[0]);
+            return empty($user->existeMailIgualAlMio($value)->toArray());
+        });
     }
 
     /**

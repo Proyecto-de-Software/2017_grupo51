@@ -21,13 +21,14 @@
             </li>
             <li><a href="{{ url('/home') }}" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver al inicio</a></li>
             <li>
-                <form class="navbar-form" action="./?action=buscarUsuarios" method="POST" onsubmit="return obtenerDatos();">
+                <form class="navbar-form" action="{{ url('usuarios/filter') }}" method="POST" onsubmit="return obtenerDatos();">
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <select class="form-control" name="busquedaUsuario" id="seleccion" onchange="visibilidadInput(this.value);">
                             <option value="0">Opciones de busqueda...</option>
-                            <option value="permisoBuscarNombreUsuario">Nombre de usuario</option>
-                            <option value="permisoBuscarActivos">Activos</option>
-                            <option value="permisoBuscarBloqueados">Bloqueados</option>
+                            <option value="nombreUsuario">Nombre de usuario</option>
+                            <option value="activos">Activos</option>
+                            <option value="bloqueados">Bloqueados</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -47,6 +48,7 @@
             <div class="text-center">
                 <h1><strong>Usuarios</strong></h1>
             </div>
+            @include('flash::message')
         </div>
     </div>
         <div class="container table-responsive">
@@ -64,8 +66,8 @@
                             <td>{{ $usuario['username'] }}</td>
                             <td>{{ $usuario['first_name'] }} {{ $usuario['last_name'] }}</td>
                             <td><a href="{{ url('usuarios/'.$usuario['id']) }}" class="btn btn-primary">Ver usuario completo</a></td>
-                            <td><a href="" onclick="return confirmacion('¿Esta seguro que desea eliminar el usuario?');" class="btn btn-danger">Borrar</a></td>
-                            <td><a href="" onclick="return confirmacion('¿Esta seguro que desea @if ($usuario['active'] == 1) bloquear @else desbloquear @endif el usuario?');" class="btn btn-primary">@if ($usuario['active'] == 1) Bloquear @else Desbloquear @endif</a></td>
+                            <td><a href="{{ url('usuarios/'.$usuario['id'].'/destroy') }}" onclick="return confirmacion('¿Esta seguro que desea eliminar el usuario?');" class="btn btn-danger">Borrar</a></td>
+                            <td><a href="{{ url('usuarios/'.$usuario['id'])."/lockOrUnlock" }}" onclick="return confirmacion('¿Esta seguro que desea @if ($usuario['active'] == 1) bloquear @else desbloquear @endif el usuario?');" class="btn btn-primary">@if ($usuario['active'] == 1) Bloquear @else Desbloquear @endif</a></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -76,7 +78,7 @@
         <div class="container">
         <div class="row">
             <div class="text-center">
-                <h1><strong>No hay usuarios registrados</strong></h1>
+                <h1><strong>No hay usuarios.</strong></h1>
             </div>
         </div>
     </div>

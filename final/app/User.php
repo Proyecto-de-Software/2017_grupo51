@@ -22,4 +22,14 @@ class User extends Authenticatable
         return $this->hasMany("App\Models\Control");
     }
     
+    public function existeMailIgualAlMio($mail){
+        return $this->where([
+            ['email', '=' , $mail ],
+            ['id', '!=' , $this->id ]
+        ])->get();
+    }
+    
+    public function scopeUsuarios($query, $value){
+        return $query->where($value);
+    }
 }

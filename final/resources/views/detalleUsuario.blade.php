@@ -13,7 +13,7 @@
 @section('navlist')
     <div>
         <ul class="nav navbar-nav navbar-right navbar-header">
-           <li><a href="{{ url('/usuarios') }}" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver a usuarios</a></li> 
+           <li><a href="{{ url('/usuarios/index') }}" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver a usuarios</a></li> 
         </ul>
     </div>
 @endsection
@@ -61,6 +61,7 @@
                 </tbody>
             </table> 
             <a href="{{ url('/usuarios/'.$usuario['id']).'/edit' }}" class="btn btn-primary"> Modificar usuario </a>
+            <a href="{{ url('/usuarios/'.$usuario['id']).'/assignOrUnassignRol' }}" class="btn btn-primary"> Asignar/Desasignar roles </a>
         </div>
 @endsection
 
