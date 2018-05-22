@@ -42,6 +42,9 @@ class Permiso
         if ($poseePermiso){
             return $next($request);
         }else{
+            if($permiso == 'usuario_index'){
+                return redirect('/usuarios/'.$user->id);
+            }
             flash('No posees permisos para acceder a dicha funcionalidad o seccion.')->error()->important();
             return redirect()->route('home');
         }

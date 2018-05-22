@@ -17,16 +17,24 @@ class UsuariosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($condition = NULL)
+    public function index($condition = NULL, $username = NULL)
     {
         $config = Configuracion::all();
         if($condition == NULL){
-            $condition = [['id','!=',Auth::id()]];   
             $usuarios = User::Usuarios([['id','!=',Auth::id()]])->orderBy('id', 'ASC')->paginate($config->toArray()[0]['elementos_pagina']);
         }else{
-            $newCondition = unserialize($condition);
-            if(is_string($newCondition[2])){
-                $newCondition[2] = '%'.$newCondition[2].'%';
+            switch ($condition) {
+                case 'username':
+                    $newCondition = ['username','LIKE','%'.$username.'%'];
+                    break;
+                case 'active':
+                    $newCondition = ['active','=',1];
+                    break;
+                case 'blocked':
+                    $newCondition = ['active','=',0];
+                    break;
+                default:
+                    return redirect('usuarios/index');
             }
             $usuarios = User::Usuarios([$newCondition,['id','!=',Auth::id()]])->orderBy('id', 'ASC')->paginate($config->toArray()[0]['elementos_pagina']);
         }
@@ -188,15 +196,11 @@ class UsuariosController extends Controller
         $search = $request->request->all();
         switch ($search['busquedaUsuario']) {
             case 'nombreUsuario':
-                $condition = serialize(['username','LIKE',$search['nombreUsuario']]);
-                return redirect('usuarios/index/'.$condition);
+                return redirect('usuarios/index/username/'.$search['nombreUsuario']);
             case 'activos':
-                $condition = serialize(['active','=',1]);
-                dd(is_string($condition));
-                return redirect('usuarios/index/'.$condition);
+                return redirect('usuarios/index/active');
             case 'bloqueados':
-                $condition = serialize(['active','=',0]);
-                return redirect('usuarios/index/'.$condition);
+                return redirect('usuarios/index/blocked');
             default:
                 return redirect('usuarios/index/');
         }

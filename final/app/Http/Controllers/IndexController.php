@@ -13,8 +13,7 @@ class IndexController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        
+    {
         $configuracion = Configuracion::all();
         return view('index')->with('config',$configuracion);
     }

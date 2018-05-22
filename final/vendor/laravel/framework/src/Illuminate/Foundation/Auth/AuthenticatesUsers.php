@@ -153,12 +153,12 @@ trait AuthenticatesUsers
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function logout(Request $request)
+    public function logout(Request $request,$message = NULL)
     {
         $this->guard()->logout();
 
         $request->session()->invalidate();
-
+        if($message != NULL){ flash($message)->error()->important(); }
         return redirect('/');
     }
 

@@ -43,7 +43,7 @@
     			</div>
     			<div class="form-group">
      	 		    <label>Nombre de usuario(*):</label>
-                            <input type="text" class="form-control" maxlength="255" name="username" id="nombreUs" placeholder="Ingrese nombre de usuario" value="@if (! empty($usuario)){{ $usuario['username'] }} @elseif (! empty(old('username'))) {{ old('username') }} @endif" required>
+                            <input type="text" class="form-control" maxlength="255" name="username" id="nombreUs" placeholder="Ingrese nombre de usuario" value="@if (! empty($usuario)){{ $usuario['username'] }}@elseif (! empty(old('username'))) {{ old('username') }} @endif" required>
     			</div>
     			<div class="form-group">
                             <label>Contraseña(*):</label>
@@ -51,11 +51,11 @@
     			</div>
     			<div class="form-group">
                             <label>Nombre(*):</label>
-                            <input type="text" class="form-control" maxlength="255" name="first_name" id="nombreRealUs" placeholder="Ingrese nombre real del usuario" value="@if (! empty($usuario)){{ $usuario['first_name'] }} @elseif (! empty(old('first_name'))) {{ old('first_name') }} @endif" required>
+                            <input type="text" class="form-control" maxlength="255" name="first_name" id="nombreRealUs" placeholder="Ingrese nombre real del usuario" value="@if (! empty($usuario)){{ $usuario['first_name'] }}@elseif (! empty(old('first_name'))) {{ old('first_name') }} @endif" required>
     			</div>
     			<div class="form-group">
                             <label>Apellido(*):</label>
-                            <input type="text" class="form-control" maxlength="30" name="last_name" id="apellidoUs" placeholder="Ingrese apellido del usuario" value="@if (! empty($usuario)){{ $usuario['last_name'] }} @elseif (! empty(old('last_name'))) {{ old('last_name') }} @endif" required>
+                            <input type="text" class="form-control" maxlength="30" name="last_name" id="apellidoUs" placeholder="Ingrese apellido del usuario" value="@if (! empty($usuario)){{ $usuario['last_name'] }}@elseif (! empty(old('last_name'))) {{ old('last_name') }} @endif" required>
     			</div>
                         @if(! empty($roles))
                         <div>
