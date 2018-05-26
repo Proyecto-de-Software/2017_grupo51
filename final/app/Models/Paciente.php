@@ -10,6 +10,9 @@ class Paciente extends Model
     protected $fillable = ["apellido","nombre","fecha_nacimiento","genero","tipo_documento","numero_documento","domicilio","tel_cel","obra_social","heladera","electricidad","tipo_vivienda","mascota","tipo_calefaccion","tipo_agua"];
     public $timestamps = false;
     
+    public function controles(){
+        return $this->hasMany('App\Models\Control','id_paciente');
+    }
     
     public function scopePacientes($query, $value){
         return $query->where($value);

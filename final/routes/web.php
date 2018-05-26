@@ -44,7 +44,18 @@ Route::post('/usuarios/filter', 'UsuariosController@filter')->middleware('auth',
 
 /* MANEJO DE PACIENTEES */
 Route::get('/pacientes','PacientesController@index')->middleware('auth','permiso:paciente_index','paginaactiva','usuarioactivo');
+Route::get('/pacientes/create', 'PacientesController@create')->middleware('auth','permiso:paciente_new','paginaactiva','usuarioactivo');
+Route::put('/pacientes/{id}', 'PacientesController@update')->middleware('auth','permiso:paciente_update','paginaactiva','usuarioactivo');
+Route::post('/pacientes', 'PacientesController@store')->middleware('auth','permiso:paciente_new','paginaactiva','usuarioactivo');
+Route::get('/pacientes/{id}/edit', 'PacientesController@edit')->middleware('auth','permiso:paciente_update','paginaactiva','usuarioactivo');
+Route::get('/pacientes/{id}', 'PacientesController@show')->middleware('auth','permiso:paciente_show','paginaactiva','usuarioactivo');
+Route::get('/pacientes/{id}/destroy', 'PacientesController@destroy')->middleware('auth','permiso:paciente_destroy','paginaactiva','usuarioactivo');
+
+/* MANEJO DE CONTROLES */
+Route::get('/controles/{paciente_id}','ControlesController@index')->middleware('auth','permiso:control_index','paginaactiva','usuarioactivo');
+Route::get('controles/{paciente_id}/create','ControlesController@create')->middleware('auth','permiso:control_new','paginaactiva','usuarioactivo');
+Route::get('/controles/{id}/show','ControlesController@show')->middleware('auth','permiso:control_index','paginaactiva','usuarioactivo');
+Route::get('/controles/{id}/destroy', 'ControlesController@destroy')->middleware('auth','permiso:control_destroy','paginaactiva','usuarioactivo');
 
 /* MANEJO DE LA CONFIGURACION DEL SITIO */
 Route::get('/configuracion','ConfiguracionController@index')->middleware('auth','permiso:configuracion','usuarioactivo');
-

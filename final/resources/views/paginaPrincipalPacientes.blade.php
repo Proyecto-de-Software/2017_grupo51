@@ -76,10 +76,10 @@
                             <td>{{ $paciente['fecha_nacimiento'] }}</td>
                             <td>{{ $paciente['tipo_documento'] }}</td>
                             <td>{{ $paciente['numero_documento'] }}</td>
-                            <td><a href="" class="btn btn-primary">Ver datos completos</a></td>
-                            <td><a href=""  class="btn btn-primary">Eliminar paciente</a></td>
-                            <td><a href="" class="btn btn-primary" >Ver historia clinica</a></td>
-                            <td><a href="" class="btn btn-primary" >Nuevo control</a></td>
+                            <td><a href="{{ url('pacientes/'.$paciente['id']) }}" class="btn btn-primary">Ver datos completos</a></td>
+                            <td><a href="{{ url('pacientes/'.$paciente['id'].'/destroy') }}"  class="btn btn-primary" onclick="return confirmacion('¿Esta seguro que desea eliminar el paciente?');">Eliminar paciente</a></td>
+                            <td><a href="{{ url('controles/'.$paciente['id']) }}" class="btn btn-primary" >Ver historia clinica</a></td>
+                            <td><a href="{{ url('controles/'.$paciente['id'].'/create') }}" class="btn btn-primary" >Nuevo control</a></td>
                         </tr>
                     @endforeach
                 </tbody>
