@@ -70,3 +70,7 @@ Route::get('/controles/{control_id}/edit','ControlesController@edit')->middlewar
 Route::get('/configuracion','ConfiguracionController@index')->middleware('auth','permiso:configuracion','paginaactiva','usuarioactivo');
 Route::put('/configuracion','ConfiguracionController@update')->middleware('auth','permiso:configuracion','paginaactiva','usuarioactivo');
 Route::get('/configuracion/actualizar','ConfiguracionController@edit')->middleware('auth','permiso:configuracion','paginaactiva','usuarioactivo');
+
+/* API TURNOS */
+Route::get('/turnos/{fecha}','TurnosController@turnos');
+Route::post('/turnos','TurnosController@reservarTurno');

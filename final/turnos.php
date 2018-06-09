@@ -65,7 +65,7 @@
 
         case '/turnos':
             if($cmd_params != NULL){
-                $contents = file_get_contents("https://grupo51.proyecto2017.linti.unlp.edu.ar/api/api-turnos.php/turnos/".$cmd_params);
+                $contents = file_get_contents("https://grupo51.proyecto2017.linti.unlp.edu.ar/final/public/turnos/".$cmd_params);
                 $answer = json_decode($contents);
                 if(isset($answer->error)){
                     $msg['text'] = $answer->error.PHP_EOL;
