@@ -16,7 +16,7 @@
             <li class="dropdown"><a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Menú <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="{{ url('usuarios/index') }}">Usuarios</a></li>
-                    <li><a href="{{ url('pacientes') }}">Pacientes</a></li>
+                    <li><a href="{{ url('pacientes/index') }}">Pacientes</a></li>
                     <li><a href="#" class="divider"></a></li>
                     <li><a href="{{ url('configuracion') }}">Configuración del sistema</a></li>
                 </ul>

@@ -31,7 +31,7 @@ class PacienteRequest extends FormRequest
             'tipo_documento' => 'regex:/^[A-Za-z\s-_]+$/|required',
             'numero_documento' => 'numeric|unique:paciente|required',
             'domicilio' => 'string|required',
-            'tel_cel' => 'numeric|unique:paciente',
+            'tel_cel' => 'nullable|numeric|unique:paciente',
             'obra_social' => 'regex:/^[A-Za-z\s-_]+$/',
             'heladera' => 'boolean|required',
             'electricidad' => 'boolean|required',

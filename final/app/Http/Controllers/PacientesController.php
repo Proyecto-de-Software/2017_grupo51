@@ -11,9 +11,26 @@ use App\Http\Requests\UpdatePacienteRequest;
 class PacientesController extends Controller
 {
     
-    public function index(){
+    public function index($condicion = NULL, $entrada = NULL, $tipo_documento = NULL){
         $config = Configuracion::all();
-        $pacientes = Paciente::Pacientes([])->orderBy('apellido', 'ASC')->paginate($config->toArray()[0]['elementos_pagina']);;
+        if($condicion == NULL){
+            $pacientes = Paciente::Pacientes([])->orderBy('apellido', 'ASC')->paginate($config->toArray()[0]['elementos_pagina']);
+        }else{
+            switch ($condicion) {
+                case 'dni':
+                    $pacientes = Paciente::Pacientes([['tipo_documento', '=' , $tipo_documento ],['numero_documento', '=' , $entrada]])->orderBy('apellido', 'ASC')->paginate($config->toArray()[0]['elementos_pagina']);;
+                    break;
+                case 'nombre':
+                    $pacientes = Paciente::Pacientes([['nombre', 'LIKE' , '%'.$entrada.'%' ]])->orderBy('apellido', 'ASC')->paginate($config->toArray()[0]['elementos_pagina']);;
+                    break;
+                case 'apellido':
+                    $pacientes = Paciente::Pacientes([['apellido', 'LIKE' , '%'.$entrada.'%' ]])->orderBy('apellido', 'ASC')->paginate($config->toArray()[0]['elementos_pagina']);;
+                    break;
+                default:
+                    return redirect('pacientes/index');
+            }
+        }
+        
         return view('paginaPrincipalPacientes')->with(['config' => $config, 'pacientes' => $pacientes]);
     }
     
@@ -95,4 +112,20 @@ class PacientesController extends Controller
         flash('La información del paciente se ha modificado exitosamente.')->info();
         return $this->show($request->id);
     }
+    
+    public function filter(Request $request){
+        $search = $request->all();
+        switch ($search['busquedaPaciente']) {
+            case 'buscarDocumentoPaciente':
+                return redirect('pacientes/index/dni/'.$search['entrada'].'/'.$search['tipo_dni']);
+            case 'buscarNombrePaciente':
+                return redirect('pacientes/index/nombre/'.$search['entrada']);
+            case 'buscarApellidoPaciente':
+                return redirect('pacientes/index/apellido/'.$search['entrada']);
+            default:
+               return redirect('pacientes/index');
+        }
+    }
+    
+    
 }

@@ -17,4 +17,8 @@ class Paciente extends Model
     public function scopePacientes($query, $value){
         return $query->where($value);
     }
+    
+    public function scopeDemograficos($query, $campo_devolver){
+        return $query->select($campo_devolver)->get()->all();
+    }
 }

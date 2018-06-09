@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Paciente;
 use App\Models\Configuracion;
 use App\Models\Control;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ControlRequest;
 use DateTime;
 
 class ControlesController extends Controller
@@ -19,7 +21,7 @@ class ControlesController extends Controller
     {
         $config = Configuracion::all();
         $controles = Paciente::find($id)->controles()->orderBy('fecha', 'ASC')->paginate($config->toArray()[0]['elementos_pagina']);
-        return view('paginaPrincipalControles')->with(['config' => $config, 'controles' => $controles]);
+        return view('paginaPrincipalControles')->with(['config' => $config, 'controles' => $controles, 'paciente' => $id]);
     }
 
     /**
@@ -39,9 +41,14 @@ class ControlesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ControlRequest $request)
     {
-        //
+        $control = new Control($request->all());
+        $control->fecha = date("Y-m-d");
+        $control->id_usuario_registro = Auth::id();
+        $control->save();
+        flash('Control creado exitosamente.');
+        return redirect('controles/'.$control->id.'/show');
     }
 
     /**
@@ -79,7 +86,10 @@ class ControlesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $control = Control::find($id);
+        $config = Configuracion::all();
+        //dd($control);
+        return view('formularioControl')->with(['config' => $config,'accion' => 'Editar', 'control' => $control, 'id_usuario' => Auth::id()]);
     }
 
     /**
@@ -89,9 +99,24 @@ class ControlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ControlRequest $request, $id)
     {
-        //
+        $control = Control::find($id);
+        $control->peso = $request->peso;
+        $control->vacunas_completas = $request->vacunas_completas;
+        $control->vacunas_observaciones = $request->vacunas_observaciones;
+        $control->maduracion_acorde = $request->maduracion_acorde;
+        $control->maduracion_observaciones = $request->maduracion_observaciones;
+        $control->examen_fisico_normal = $request->examen_fisico_normal;
+        $control->examen_fisico_observaciones = $request->examen_fisico_observaciones;
+        $control->percentilo_cefalico = $request->percentilo_cefalico;
+        $control->percentilo_perimetro_cefalico = $request->percentilo_perimetro_cefalico;
+        $control->talla = $request->talla;
+        $control->alimentacion = $request->alimentacion;
+        $control->observaciones_generales = $request->observaciones_generales;
+        $control->save();
+        flash('Control modificado exitosamente.');
+        return redirect('controles/'.$control->id.'/show');
     }
 
     /**
@@ -100,12 +125,11 @@ class ControlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $control = Control::find($id);
+    public function destroy($id_control, $id_paciente){
+        $control = Control::find($id_control);
         $control->delete();
         flash('Se ha eliminado el control.')->important();
-        return redirect('controles');
+        return redirect('controles/'.$id_paciente);
     }
     
     public function weeks($fechaNacimiento,$fechaControl){

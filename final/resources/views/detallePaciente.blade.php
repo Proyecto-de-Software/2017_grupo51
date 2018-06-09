@@ -8,7 +8,7 @@
 @section('navlist')
     <div>
         <ul class="nav navbar-nav navbar-right navbar-header">
-           <li><a href="{{ url('/pacientes') }}" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver a pacientes</a></li> 
+           <li><a href="{{ url('/pacientes/index') }}" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver a pacientes</a></li> 
         </ul>
     </div>
 @endsection
@@ -83,15 +83,15 @@
                             </tr>
                             <tr>
                                 <td><strong>Grafico percentilo cefalico</strong></td>
-                                <td><a href="./?action=graficoPercentiloCefalico&nacimiento={{ $paciente['fecha_nacimiento'] }}&sexo={{ $paciente['genero'] }}&idPaciente={{$paciente['id']}}" class="btn btn-primary" onclick="permisoConfiguracion('permisoHistoriaClinica')">Ver grafico</a></td>
+                                <td><a href="{{ url('pacientes/graficoCurva/percentilo_perimetro_cefalico').'/'.$paciente['id'] }}" class="btn btn-primary" >Ver grafico</a></td>
                             </tr>
                             <tr>
                                 <td><strong>Grafico talla</strong></td>
-                                <td><a href="./?action=graficoTalla&nacimiento={{ $paciente['fecha_nacimiento'] }}&sexo={{ $paciente['genero'] }}&idPaciente={{$paciente['id']}}" class="btn btn-primary" onclick="permisoConfiguracion('permisoHistoriaClinica')">Ver grafico</a></td>
+                                <td><a href="{{ url('pacientes/graficoCurva/talla').'/'.$paciente['id'] }}" class="btn btn-primary" >Ver grafico</a></td>
                             </tr>
                             <tr>
                                 <td><strong>Grafico peso</strong></td>
-                                <td><a href="./?action=graficoPeso&nacimiento={{ $paciente['fecha_nacimiento'] }}&sexo={{ $paciente['genero'] }}&idPaciente={{$paciente['id']}}" class="btn btn-primary" onclick="permisoConfiguracion('permisoHistoriaClinica')">Ver grafico</a></td>
+                                <td><a href="{{ url('pacientes/graficoCurva/peso').'/'.$paciente['id'] }}" class="btn btn-primary" onclick="permisoConfiguracion('permisoHistoriaClinica')">Ver grafico</a></td>
                             </tr>
                         </tbody>
                     </table>    

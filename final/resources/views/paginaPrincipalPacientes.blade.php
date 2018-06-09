@@ -17,12 +17,13 @@
             <li class="dropdown"><a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Menú <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="{{ url('/pacientes/create') }}" >Nuevo paciente</a></li>
-                    <li><a href="{{ url('/pacientes/demographics') }}">Graficos de datos demograficos</a></li>
+                    <li><a href="{{ url('/pacientes/demographics/allpatients') }}">Graficos de datos demograficos</a></li>
                 </ul>
             </li>
             <li><a href="{{ url('/home') }}" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver al inicio</a></li>
             <li>
                 <form class="navbar-form" action="{{ url('/pacientes/filter') }}" method="POST" onsubmit="return validarBusqueda();">
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <select class="form-control" name="busquedaPaciente" id="seleccion" onchange="visibilidadTipoDocumento(this.value);">
                             <option value="0">Opciones de busqueda...</option>
@@ -30,17 +31,18 @@
                             <option value="buscarApellidoPaciente">Apellido del paciente</option>
                             <option value="buscarDocumentoPaciente">Documento</option>
                         </select>
-                        <select class="form-control hide" name="selectDoc" id="selectDoc">
+                        <select class="form-control hide" name="tipo_dni" id="selectDoc">
                             <option value="0">Selecciona un tipo de documento</option>
                             <option value="DNI">DNI</option>
                             <option value="LE">LE</option>
+                            <option value="CI">CI</option>
                             <option value="Pasaporte">Pasaporte</option>
                             <option value="Carnet extranjero">Carnet extranjero</option>
                             <option value="RUC">RUC</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="buscaPaciente" id="buscador" required>
+                        <input type="text" class="form-control" name="entrada" id="buscador" required>
                     </div>
                     <button type="submit" class="btn btn-default">Buscar paciente</button>
                 </form>

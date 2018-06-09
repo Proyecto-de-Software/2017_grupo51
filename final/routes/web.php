@@ -43,19 +43,30 @@ Route::post('/usuarios/filter', 'UsuariosController@filter')->middleware('auth',
 #Route::resource('/usuarios','UsuariosController');
 
 /* MANEJO DE PACIENTEES */
-Route::get('/pacientes','PacientesController@index')->middleware('auth','permiso:paciente_index','paginaactiva','usuarioactivo');
+Route::get('/pacientes/index/{condicion?}/{contenido?}/{tipo_dni?}','PacientesController@index')->middleware('auth','permiso:paciente_index','paginaactiva','usuarioactivo');
 Route::get('/pacientes/create', 'PacientesController@create')->middleware('auth','permiso:paciente_new','paginaactiva','usuarioactivo');
 Route::put('/pacientes/{id}', 'PacientesController@update')->middleware('auth','permiso:paciente_update','paginaactiva','usuarioactivo');
 Route::post('/pacientes', 'PacientesController@store')->middleware('auth','permiso:paciente_new','paginaactiva','usuarioactivo');
 Route::get('/pacientes/{id}/edit', 'PacientesController@edit')->middleware('auth','permiso:paciente_update','paginaactiva','usuarioactivo');
 Route::get('/pacientes/{id}', 'PacientesController@show')->middleware('auth','permiso:paciente_show','paginaactiva','usuarioactivo');
 Route::get('/pacientes/{id}/destroy', 'PacientesController@destroy')->middleware('auth','permiso:paciente_destroy','paginaactiva','usuarioactivo');
+Route::post('/pacientes/filter', 'PacientesController@filter')->middleware('auth','permiso:paciente_index','paginaactiva','usuarioactivo');
+Route::get('/pacientes/grafico/{tipo_grafico}/{id_paciente}','GraficosController@demographicGraphic')->middleware('auth','permiso:paciente_show','paginaactiva','usuarioactivo');
+Route::get('/pacientes/graficoCurva/{tipo_grafico}/{id_paciente}','GraficosController@curveGraphic')->middleware('auth','permiso:paciente_show','paginaactiva','usuarioactivo');
+Route::get('/pacientes/demographics/allpatients','GraficosController@showDemograficGraphicList')->middleware('auth','permiso:paciente_show','paginaactiva','usuarioactivo');
+Route::get('/pacientes/demographics/allpatients/{tipo_grafico}','GraficosController@showDemograficGraphic')->middleware('auth','permiso:paciente_show','paginaactiva','usuarioactivo');
+
 
 /* MANEJO DE CONTROLES */
 Route::get('/controles/{paciente_id}','ControlesController@index')->middleware('auth','permiso:control_index','paginaactiva','usuarioactivo');
-Route::get('controles/{paciente_id}/create','ControlesController@create')->middleware('auth','permiso:control_new','paginaactiva','usuarioactivo');
+Route::get('/controles/{control_id}/create','ControlesController@create')->middleware('auth','permiso:control_new','paginaactiva','usuarioactivo');
 Route::get('/controles/{id}/show','ControlesController@show')->middleware('auth','permiso:control_index','paginaactiva','usuarioactivo');
-Route::get('/controles/{id}/destroy', 'ControlesController@destroy')->middleware('auth','permiso:control_destroy','paginaactiva','usuarioactivo');
+Route::put('/controles/{id}','ControlesController@update')->middleware('auth','permiso:control_update','paginaactiva','usuarioactivo');
+Route::post('/controles','ControlesController@store')->middleware('auth','permiso:control_new','paginaactiva','usuarioactivo');
+Route::get('/controles/{id_control}/destroy/{id_paciente}', 'ControlesController@destroy')->middleware('auth','permiso:control_delete','paginaactiva','usuarioactivo');
+Route::get('/controles/{control_id}/edit','ControlesController@edit')->middleware('auth','permiso:control_update','paginaactiva','usuarioactivo');
 
 /* MANEJO DE LA CONFIGURACION DEL SITIO */
-Route::get('/configuracion','ConfiguracionController@index')->middleware('auth','permiso:configuracion','usuarioactivo');
+Route::get('/configuracion','ConfiguracionController@index')->middleware('auth','permiso:configuracion','paginaactiva','usuarioactivo');
+Route::put('/configuracion','ConfiguracionController@update')->middleware('auth','permiso:configuracion','paginaactiva','usuarioactivo');
+Route::get('/configuracion/actualizar','ConfiguracionController@edit')->middleware('auth','permiso:configuracion','paginaactiva','usuarioactivo');

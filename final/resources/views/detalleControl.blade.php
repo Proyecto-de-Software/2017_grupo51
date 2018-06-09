@@ -13,6 +13,7 @@
                 <h1><strong>Detalle del control.</strong></h1>
     </div>
     <div class="container table-responsive">
+                    @include('flash::message')
                     <table class="table table-bordered">
                         <tbody>
                             <tr>

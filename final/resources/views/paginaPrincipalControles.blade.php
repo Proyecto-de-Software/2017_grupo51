@@ -41,7 +41,7 @@
                         <tr>
                             <td>{{ $control['fecha'] }}</td>
                             <td><a href="{{ url('controles/'.$control['id']).'/show' }}" class="btn btn-primary">Ver control completo</a></td>
-                            <td><a href="{{ url('controles/'.$control['id']).'/destroy' }}" onclick="return confirmacion('¿Esta seguro que desea eliminar el control?');" class="btn btn-primary">Eliminar control</a></td>
+                            <td><a href="{{ url('controles/'.$control['id']).'/destroy/'.$paciente }}" onclick="return confirmacion('¿Esta seguro que desea eliminar el control?');" class="btn btn-primary">Eliminar control</a></td>
                         </tr>
                     @endforeach
                 </tbody>
