@@ -30,7 +30,7 @@ class VerifyCsrfToken
      *
      * @var array
      */
-    protected $except = [];
+    protected $except = ['/turnos'];
 
     /**
      * Create a new middleware instance.
