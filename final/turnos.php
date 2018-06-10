@@ -46,7 +46,7 @@
 
         case '/reservar':
             $params = explode(' ', $cmd_params);
-            $url = 'https://grupo51.proyecto2017.linti.unlp.edu.ar/api/api-turnos.php/turnos';
+            $url = 'https://grupo51.proyecto2017.linti.unlp.edu.ar/final/public/turnos';
             $data = array('dni' => $params[0], 'fecha' => $params[1], 'hora' => $params[2]);
     
             // use key 'http' even if you send the request to https://...
