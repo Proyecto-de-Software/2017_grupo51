@@ -97,11 +97,12 @@ class VerifyCsrfToken
      */
     protected function inExceptArray($request)
     {
+        dd($request);
         foreach ($this->except as $except) {
             if ($except !== '/') {
                 $except = trim($except, '/');
             }
-            dd($except);
+            
             if ($request->is($except)) {
                 return true;
             }
