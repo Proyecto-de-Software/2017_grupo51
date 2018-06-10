@@ -73,4 +73,4 @@ Route::get('/configuracion/actualizar','ConfiguracionController@edit')->middlewa
 
 /* API TURNOS */
 Route::get('/turnos/{fecha}','TurnosController@turnos');
-Route::post('/turnos','TurnosController@reservarTurno');
+Route::post('turnos','TurnosController@reservarTurno');

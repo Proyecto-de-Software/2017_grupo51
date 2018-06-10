@@ -98,7 +98,6 @@ class VerifyCsrfToken
     protected function inExceptArray($request)
     {
         $this->except = ['/turnos'];
-        dd($this->except);
         foreach ($this->except as $except) {
             if ($except !== '/') {
                 $except = trim($except, '/');
