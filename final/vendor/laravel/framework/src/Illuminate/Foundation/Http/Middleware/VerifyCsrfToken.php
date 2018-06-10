@@ -97,6 +97,7 @@ class VerifyCsrfToken
      */
     protected function inExceptArray($request)
     {
+        dd($this->except);
         foreach ($this->except as $except) {
             if ($except !== '/') {
                 $except = trim($except, '/');
