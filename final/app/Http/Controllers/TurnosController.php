@@ -102,6 +102,7 @@ class TurnosController extends Controller
                         if($this->esHorarioValido($horario)){
                             $consulta = ApiBot::ExisteTurnoDado($fechaFinal,$horario)->get()->all();
                             if(count($consulta) == 0){
+                                dd('llego');
                                 /*$nuevoTurno = new ApiBot();
                                 $nuevoTurno->fecha = $fechaFinal;
                                 $nuevoTurno->hora = $horario;
