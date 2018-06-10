@@ -102,12 +102,11 @@ class TurnosController extends Controller
                         if($this->esHorarioValido($horario)){
                             $consulta = ApiBot::ExisteTurnoDado($fechaFinal,$horario)->get()->all();
                             if(count($consulta) == 0){
-                                dd('llego');
-                                /*$nuevoTurno = new ApiBot();
+                                $nuevoTurno = new ApiBot();
                                 $nuevoTurno->fecha = $fechaFinal;
                                 $nuevoTurno->hora = $horario;
                                 $nuevoTurno->dni = $dni;
-                                $nuevoTurno->save();*/
+                                $nuevoTurno->save();
                                 $arreglo['error'] = 'Su turno para la fecha '.$fecha.' en el horario '.$horario.' hs, a sido reservado correctamente.';
                             }else{
                                 $arreglo['error'] = 'Existe turno dado en la fecha y horario ingresado.';
