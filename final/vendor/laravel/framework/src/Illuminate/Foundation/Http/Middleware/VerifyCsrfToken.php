@@ -30,7 +30,7 @@ class VerifyCsrfToken
      *
      * @var array
      */
-    protected $except = ['/turnos'];
+    protected $except = ['turnos'];
 
     /**
      * Create a new middleware instance.
@@ -97,7 +97,6 @@ class VerifyCsrfToken
      */
     protected function inExceptArray($request)
     {
-        dd($request);
         foreach ($this->except as $except) {
             if ($except !== '/') {
                 $except = trim($except, '/');
