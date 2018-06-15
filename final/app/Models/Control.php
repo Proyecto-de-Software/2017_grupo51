@@ -15,7 +15,7 @@ class Control extends Model
     }
     
     public function usuario(){
-        return $this->belongsTo('App\User','id_usuario_registro');
+        return $this->belongsTo('App\Models\User','id_usuario_registro');
     }
     
     private function consultaGenericaGraficos($query,$campo_devolver,$parametros){

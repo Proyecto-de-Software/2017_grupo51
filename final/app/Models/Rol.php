@@ -12,7 +12,7 @@ class Rol extends Model
     public $timestamps = false;
     
     public function usuarios(){
-        return $this->belongsToMany('App\User','usuario_tiene_rol','rol_id','usuario_id');
+        return $this->belongsToMany('App\Models\User','usuario_tiene_rol','rol_id','usuario_id');
     }
     
     public function permisos(){

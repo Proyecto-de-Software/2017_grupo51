@@ -28,8 +28,8 @@ class UpdateUserRequest extends FormRequest
             'email' => 'email|mailValidatorEditUser:'.$this->request->all()['id'].'|exists:usuario,email|required',
             'username' => 'max:255|string|required',
             'password' => 'max:255|string|required',
-            'first_name' => 'max:255|regex:/^[A-Za-z\s-_]+$/|required',
-            'last_name' => 'max:255|regex:/^[A-Za-z\s-_]+$/|required',
+            'first_name' => 'max:255|regex:/^[A-Za-zñÑ\s-_]+$/|required',
+            'last_name' => 'max:255|regex:/^[A-Za-zñÑ\s-_]+$/|required',
         ];
     }
 }

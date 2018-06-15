@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
-use App\User;
+use App\Models\User;
 use App\Models\Paciente;
 
 class AppServiceProvider extends ServiceProvider

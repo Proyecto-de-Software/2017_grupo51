@@ -13,7 +13,7 @@
 @section('navlist')
     <div>
         <ul class="nav navbar-nav navbar-right navbar-header">
-            <li><a href="{{ url('pacientes') }}" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver al listado de pacientes</a></li>
+            <li><a href="{{ url('pacientes/index') }}" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver al listado de pacientes</a></li>
         </ul>
     </div>
 @endsection

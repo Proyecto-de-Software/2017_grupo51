@@ -80,7 +80,7 @@ class PacientesController extends Controller
         $paciente = Paciente::find($id);
         $paciente->delete();
         flash('Se ha eliminado el paciente.')->important();
-        return redirect('pacientes');
+        return redirect('pacientes/index');
     }
     
     public function update(UpdatePacienteRequest $request) {

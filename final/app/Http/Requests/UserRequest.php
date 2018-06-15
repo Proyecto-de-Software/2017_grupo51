@@ -27,8 +27,8 @@ class UserRequest extends FormRequest
             'email' => 'email|unique:usuario|required',
             'username' => 'max:255|string|required',
             'password' => 'max:255|string|required',
-            'first_name' => 'max:255|regex:/^[A-Za-z\s-_]+$/|required',
-            'last_name' => 'max:255|regex:/^[A-Za-z\s-_]+$/|required',
+            'first_name' => 'max:255|regex:/^[A-Za-zñÑ\s-_]+$/|required',
+            'last_name' => 'max:255|regex:/^[A-Za-zñÑ\s-_]+$/|required',
         ];
     }
 }
