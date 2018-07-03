@@ -10,7 +10,7 @@
             @if($accion == 'Editar')
                 <li><a href="{{ url('pacientes/'.$paciente['id']) }}" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver al detalle del paciente</a></li>
             @else
-                <li><a href="{{ url('pacientes') }}" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver a pacientes</a></li>
+                <li><a href="{{ url('pacientes/index') }}" class="btn"><span class="glyphicon glyphicon-arrow-left"></span> Volver a pacientes</a></li>
             @endif
         </ul>
     </div>
